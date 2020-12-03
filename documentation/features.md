@@ -1,7 +1,3 @@
-# Picarus
-
-Picarus is a social media app with a photo-sharing focus. Upload photos, follow your friends,
-
 ## Features
 
 * User authorization and authentication
@@ -14,9 +10,3 @@ Picarus is a social media app with a photo-sharing focus. Upload photos, follow 
 
 * User Messaging
 * User Feed
-
-## Technologies Used
-
-* React-Redux front-end
-* Express.js
-  * Sequelize ORM
