@@ -1,6 +1,6 @@
 # Picarus
 
-Picarus is a social media app with a photo-sharing focus. Upload photos, follow your friends,
+Picarus is a social media app with a photo-sharing focus. Upload photos, follow your friends, and join the conversation.
 
 ## Features
 
