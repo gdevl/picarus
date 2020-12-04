@@ -30,13 +30,13 @@ module.exports = {
           imageUrl: "/public/images/11184607_1614150498796716_1237357758_n.jpg",
         }),
         r({
-          uid: 3,
+          uid: 2,
           content:
             "Deflector power at maximum. Energy discharge in six seconds. Warp reactor core primary coolant failure. Fluctuate phaser resonance frequencies. Resistance is futile.",
           imageUrl: "/public/images/11189472_1031389983541212_2104092458_n.jpg",
         }),
         r({
-          uid: 3,
+          uid: 2,
           content:
             "Computer, run a level-two diagnostic on warp-drive systems. Antimatter containment positive. Warp drive within normal parameters. I read an ion trail characteristic of a freighter escape pod.",
           imageUrl: "/public/images/11190370_1623346834555301_1398907433_n.jpg",
