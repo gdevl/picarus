@@ -43,8 +43,7 @@ const Landing = () => {
       direction="column"
       alignItems="center"
       justify="center"
-      spacing={2}
-      style={{ minHeight: "100vh", backgroundColor: "#222" }}
+      style={{ backgroundColor: "#222" }}
     >
       <Grid item>
         <Typography className={classes.landing__header} variant="h2">
@@ -65,9 +64,9 @@ const Landing = () => {
           <RandomPhoto />
         </Box>
       </Grid>
-      <Grid item xs={12}>
-        <Grid container justify="center" spacing={1}>
-          <Grid item xs={12}>
+      <Grid item>
+        <Grid container justify="center">
+          <Grid item>
             <Link to="/signup" style={{ textDecoration: "none" }}>
               <Button
                 variant="contained"
@@ -78,7 +77,7 @@ const Landing = () => {
               </Button>
             </Link>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item>
             <Link to="/login" style={{ textDecoration: "none" }}>
               <Button
                 variant="contained"

@@ -71,7 +71,7 @@ const Login = () => {
       alignItems="center"
       justify="center"
       spacing={3}
-      style={{ minHeight: "100vh", backgroundColor: "#222" }}
+      style={{ minHeight: "100%", backgroundColor: "#222" }}
     >
       <Grid item>
         <Typography className={classes.login__icon_header} variant="h2">
@@ -93,7 +93,8 @@ const Login = () => {
         <Grid item>
           <TextField
             type="email"
-            id="filled-secondary"
+            id="email"
+            name="email"
             placeholder="Email"
             // variant="outlined"
             color="primary"
@@ -106,7 +107,8 @@ const Login = () => {
         <Grid item>
           <TextField
             type="password"
-            id="filled-secondary"
+            id="password"
+            name="password"
             placeholder="Password"
             // variant="outlined"
             color="primary"
