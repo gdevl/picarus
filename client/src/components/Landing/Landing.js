@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Container,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { Box, Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import RandomPhoto from "./RandomPhoto";
@@ -16,17 +10,17 @@ const landingSubHeader = "NO FRILLS PHOTO SHARING";
 
 const useStyles = makeStyles({
   landing__header: {
-    color: "white",
+    color: "rgba(255, 255, 255, 1)",
     fontFamily: "Prompt",
-    textShadow: "6px 6px 0px rgba(0,0,0,0.5)",
-    // textShadow: "2px 4px 3px rgba(255,255,255,0.2)",
+    textShadow:
+      "2px 2px 0px rgba(198, 120, 221, 0.5), 3px 3px 0px rgba(97, 175, 239, 0.5)",
   },
   landing__subheader: {
     color: "white",
   },
   landing__photo_box: {
     height: "300px",
-    outline: "1px solid gray",
+    // outline: "1px solid gray",
     width: "300px",
   },
   landing__actions: {
@@ -67,29 +61,33 @@ const Landing = () => {
         </Typography>
       </Grid>
       <Grid item>
-        <Box className={classes.landing__photo_box}>
+        <Box boxShadow={3} className={classes.landing__photo_box}>
           <RandomPhoto />
         </Box>
       </Grid>
       <Grid item xs={12}>
         <Grid container justify="center" spacing={1}>
           <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.landing__button_wide}
-            >
-              Sign Up
-            </Button>
+            <Link to="/signup" style={{ textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.landing__button_wide}
+              >
+                Sign Up
+              </Button>
+            </Link>
           </Grid>
           <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.landing__button_wide}
-            >
-              Log In
-            </Button>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.landing__button_wide}
+              >
+                Log In
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       </Grid>

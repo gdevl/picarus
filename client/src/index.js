@@ -13,10 +13,10 @@ import purple from "@material-ui/core/colors/purple";
 const picarus = createMuiTheme({
   palette: {
     primary: {
-      main: "#EA6E58",
+      main: "#C678DD",
     },
     secondary: {
-      main: "#0F7379",
+      main: "#61AFEF",
     },
   },
 });
