@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
 function createPassword() {
-  return bcrypt.hashSync('password');
+  return bcrypt.hashSync("password");
 }
 
 function r(o) {
@@ -14,14 +14,46 @@ function r(o) {
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users', [
-      r({ username: 'Demo-lition', email: 'demo@example.com', hashedPassword: createPassword() }),
-      r({ username: 'Yusuke', email: 'yusuke@example.com', hashedPassword: createPassword() }),
-      r({ username: 'Peta', email: 'petra@example.com', hashedPassword: createPassword() }),
+    return queryInterface.bulkInsert("Users", [
+      r({
+        displayName: "demo",
+        email: "demo@example.com",
+        hashedPassword: createPassword(),
+      }),
+      r({
+        displayName: "gabe",
+        email: "gabe@example.com",
+        hashedPassword: createPassword(),
+      }),
+      r({
+        displayName: "sean",
+        email: "sean@example.com",
+        hashedPassword: createPassword(),
+      }),
+      r({
+        displayName: "chuck",
+        email: "chuck@example.com",
+        hashedPassword: createPassword(),
+      }),
+      r({
+        displayName: "tim",
+        email: "tim@example.com",
+        hashedPassword: createPassword(),
+      }),
+      r({
+        displayName: "tory",
+        email: "tory@example.com",
+        hashedPassword: createPassword(),
+      }),
+      r({
+        displayName: "val",
+        email: "val@example.com",
+        hashedPassword: createPassword(),
+      }),
     ]);
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Users');
-  }
+    return queryInterface.bulkDelete("Users");
+  },
 };

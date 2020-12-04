@@ -44,7 +44,14 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
 
-  User.associate = function (models) {};
+  User.associate = function (models) {
+    User.hasMany(models.Post, { foreignKey: "uid" });
+    User.hasMany(models.Comment, { foreignKey: "uid" });
+    User.hasMany(models.Message, { as: "sender", foreignKey: "sid" });
+    User.hasMany(models.Message, { as: "receiver", foreignKey: "rid" });
+    User.hasMany(models.PostLike, { foreignKey: "uid" });
+    User.hasMany(models.CommentLike, { foreignKey: "uid" });
+  };
 
   return User;
 };
