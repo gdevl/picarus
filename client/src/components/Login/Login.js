@@ -1,4 +1,6 @@
 import React from "react";
+import { FcCompactCamera } from "react-icons/fc";
+import { IconContext } from "react-icons";
 import {
   Box,
   Button,
@@ -13,10 +15,15 @@ const loginHeader = "PICARUS";
 
 const useStyles = makeStyles({
   login__header: {
-    color: "rgba(255, 255, 255, 1)",
+    color: "rgba(198, 120, 221, 1)",
+    // color: "rgba(255, 0, 255, 1)",
     fontFamily: "Prompt",
-    textShadow:
-      "2px 2px 0px rgba(198, 120, 221, 0.5), 3px 3px 0px rgba(97, 175, 239, 0.5)",
+    // textShadow: `2px 2px 0px rgba(198, 120, 221, 0.5)`,
+    // 2px 3px 4px rgba(255, 255, 255, 1),
+    //     3px 3px 0px rgba(97, 175, 239, 1),
+    //     4px 4px 0px rgba(198, 120, 221, 1),
+    //     5px 5px 0px rgba(97, 175, 239, 1)
+    //     `,
   },
   login__subheader: {
     color: "white",
@@ -29,16 +36,22 @@ const useStyles = makeStyles({
     color: "white",
   },
   login__button_wide: {
+    fontFamily: "Prompt",
     width: "100%",
   },
   login__form: {
     color: "white",
   },
+  login__icon_header: {
+    paddingBottom: "0px !important",
+  },
   login__input: {
     "&::placeholder": {
       color: "white",
+      fontFamily: "Prompt",
     },
     color: "white",
+    fontFamily: "Prompt",
   },
   login__input_spacing: {
     margin: "2em 0 0 0",
@@ -57,9 +70,20 @@ const Login = () => {
       direction="column"
       alignItems="center"
       justify="center"
-      spacing={4}
+      spacing={3}
       style={{ minHeight: "100vh", backgroundColor: "#222" }}
     >
+      <Grid item>
+        <Typography className={classes.login__icon_header} variant="h2">
+          <IconContext.Provider
+            value={{
+              className: "title__camera",
+            }}
+          >
+            <FcCompactCamera />
+          </IconContext.Provider>
+        </Typography>
+      </Grid>
       <Grid item>
         <Typography className={classes.login__header} variant="h2">
           {loginHeader}
