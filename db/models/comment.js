@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   Comment.associate = function (models) {
     Comment.belongsTo(models.User, { foreignKey: "uid" });
     Comment.belongsTo(models.Post, { foreignKey: "pid" });
-    Comment.hasMany(models.Comment, { foreignKey: "cid" });
+    Comment.hasMany(models.CommentLike, { foreignKey: "cid" });
   };
   return Comment;
 };

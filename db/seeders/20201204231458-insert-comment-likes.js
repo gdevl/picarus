@@ -9,13 +9,23 @@ function r(o) {
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(
-      "Comments",
+      "CommentLikes",
       [
         r({
-          content:
-            "Detecting some unusual fluctuations in subspace frequencies.",
+          uid: 1,
+          cid: 1,
+        }),
+        r({
+          uid: 3,
+          cid: 1,
+        }),
+        r({
+          uid: 4,
+          cid: 1,
+        }),
+        r({
           uid: 5,
-          pid: 1,
+          cid: 1,
         }),
       ],
       {}
@@ -23,6 +33,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Comments", null, {});
+    return queryInterface.bulkDelete("CommentLikes", null, {});
   },
 };
