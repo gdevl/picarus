@@ -50,8 +50,11 @@ const useStyles = makeStyles({
       color: "white",
       fontFamily: "Prompt",
     },
+    backgroundColor: "#222",
     color: "white",
     fontFamily: "Prompt",
+    margin: "0.5em 0 0 0",
+    padding: "0.25em 1em",
   },
   login__input_spacing: {
     margin: "2em 0 0 0",

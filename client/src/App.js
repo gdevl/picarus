@@ -5,6 +5,7 @@ import UserList from "./components/UsersList";
 import Landing from "./components/Landing/Landing";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
+import SignIn from "./components/SignIn/SignIn";
 
 const App = () => {
   return (
@@ -30,8 +31,8 @@ const App = () => {
         <Route path="/signup">
           <Signup />
         </Route>
-        <Route path="/login">
-          <Login />
+        <Route path="/signin">
+          <SignIn />
         </Route>
 
         <Route path="/">

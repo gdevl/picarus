@@ -5,10 +5,8 @@ import App from "./App";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import {
   createMuiTheme,
-  makeStyles,
   ThemeProvider,
 } from "@material-ui/core/styles";
-import purple from "@material-ui/core/colors/purple";
 
 const picarus = createMuiTheme({
   palette: {

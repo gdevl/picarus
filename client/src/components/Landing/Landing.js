@@ -78,7 +78,7 @@ const Landing = () => {
             </Link>
           </Grid>
           <Grid item>
-            <Link to="/login" style={{ textDecoration: "none" }}>
+            <Link to="/signin" style={{ textDecoration: "none" }}>
               <Button
                 variant="contained"
                 color="secondary"
