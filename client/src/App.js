@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 
 import UserList from "./components/UsersList";
 import Landing from "./components/Landing/Landing";
-import Login from "./components/Login/Login";
+import Logo from "./components/Logo/Logo";
 import Signup from "./components/Signup/Signup";
 import SignIn from "./components/SignIn/SignIn";
 
@@ -37,6 +37,9 @@ const App = () => {
 
         <Route path="/">
           <Landing />
+        </Route>
+        <Route path="/logo">
+          <Logo />
         </Route>
       </Switch>
     </BrowserRouter>
