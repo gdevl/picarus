@@ -1,5 +1,5 @@
 const express = require("express");
-const asyncHandler = require("express-async-handler");
+const { asyncErrorHandler, handleValidationErrors } = require("../../utils");
 
 const { Message } = require("../../db/models");
 
@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get(
   "/",
-  asyncHandler(async function (req, res, next) {
+  asyncErrorHandler(async function (req, res, next) {
     const messages = await Message.findAll();
     res.json({ messages });
   })
