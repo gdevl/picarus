@@ -91,8 +91,6 @@ export default function SignIn() {
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
-            // variant="outlined"
-            // className={classes.signin__input}
             margin="normal"
             required
             fullWidth
@@ -106,7 +104,6 @@ export default function SignIn() {
             }}
           />
           <TextField
-            // variant="outlined"
             margin="normal"
             required
             fullWidth
@@ -120,7 +117,6 @@ export default function SignIn() {
             }}
           />
           <FormControlLabel
-            // className={classes.signin__input}
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
             InputProps={{
@@ -136,7 +132,7 @@ export default function SignIn() {
           >
             Sign In
           </Button>
-          <Grid container justify="center" spacing={2}>
+          <Grid container justify="center">
             <Grid item>
               <Link
                 href="/signup"
@@ -149,7 +145,7 @@ export default function SignIn() {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
+      <Box mt={5}>
         {/* <Copyright /> */}
         <Typography
           variant="body2"
