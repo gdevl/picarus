@@ -22,7 +22,8 @@ export const loadToken = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-  const response = await fetch(`${backendUrl}/api/users/login`, {
+  // debugger;
+  const response = await fetch(`${backendUrl}/api/users/signin`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
@@ -33,6 +34,7 @@ export const login = (email, password) => async (dispatch) => {
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem("userId", user.id);
     dispatch(setToken(token));
+    window.location.href = "/";
   }
 };
 

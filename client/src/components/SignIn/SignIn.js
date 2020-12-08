@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -11,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Logo from "../Logo/Logo";
+import { login } from "../../store/actions/authentication";
 
 const useStyles = makeStyles((theme) => ({
   signin__container: {
@@ -57,6 +59,26 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = () => {
   const classes = useStyles();
+  const [email, setEmail] = useState("demo@example.com");
+  const [password, setPassword] = useState("password");
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(login(email, password));
+  };
+
+  const updateEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const updatePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  // const updateProperty = (property) => (e) => {
+  //   [property] = e.target.value;
+  // };
 
   return (
     <Container
@@ -74,8 +96,9 @@ const SignIn = () => {
         >
           Sign In
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
+            onChange={updateEmail}
             margin="normal"
             required
             fullWidth
@@ -89,6 +112,7 @@ const SignIn = () => {
             }}
           />
           <TextField
+            onChange={updatePassword}
             margin="normal"
             required
             fullWidth

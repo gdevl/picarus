@@ -114,6 +114,7 @@ router.post(
 router.post(
   "/signin",
   asyncErrorHandler(async function (req, res, next) {
+    // debugger;
     const { email, password } = req.body;
     const user = await User.findOne({
       where: {
