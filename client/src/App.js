@@ -38,9 +38,6 @@ const App = () => {
         <Route path="/">
           <Landing />
         </Route>
-        <Route path="/logo">
-          <Logo />
-        </Route>
       </Switch>
     </BrowserRouter>
   );

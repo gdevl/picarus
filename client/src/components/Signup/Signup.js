@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -9,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Logo from "../Logo/Logo";
+import { register } from "../../store/actions/authentication";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -50,7 +53,39 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
   const classes = useStyles();
+  const token = useSelector((state) => state.authentication.token);
+  const [displayName, setDisplayName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const dispatch = useDispatch();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    (async () => {
+      dispatch(register(displayName, email, password, confirmPassword));
+    })();
+  };
+
+  const updateDisplayName = (e) => {
+    setDisplayName(e.target.value);
+  };
+
+  const updateEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const updatePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const updateConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  if (token) {
+    return <Redirect to="/" />;
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -63,10 +98,11 @@ const SignUp = () => {
         >
           Sign Up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
+                onChange={updateDisplayName}
                 autoComplete="displayName"
                 name="displayName"
                 required
@@ -78,6 +114,7 @@ const SignUp = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                onChange={updateEmail}
                 required
                 fullWidth
                 id="email"
@@ -88,6 +125,7 @@ const SignUp = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                onChange={updatePassword}
                 required
                 fullWidth
                 name="password"
@@ -95,6 +133,17 @@ const SignUp = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                onChange={updateConfirmPassword}
+                required
+                fullWidth
+                name="confirm_password"
+                label="Confirm Password"
+                type="password"
+                id="confirm_password"
               />
             </Grid>
           </Grid>

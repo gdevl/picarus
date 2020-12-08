@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -59,13 +60,16 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = () => {
   const classes = useStyles();
+  const token = useSelector((state) => state.authentication.token);
   const [email, setEmail] = useState("demo@example.com");
   const [password, setPassword] = useState("password");
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    (async () => {
+      dispatch(login(email, password));
+    })();
   };
 
   const updateEmail = (e) => {
@@ -79,6 +83,10 @@ const SignIn = () => {
   // const updateProperty = (property) => (e) => {
   //   [property] = e.target.value;
   // };
+
+  if (token) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Container

@@ -6,7 +6,13 @@ export const ADD_USER = "picarus/authentication/ADD_USER";
 
 export const addUser = (user) => ({ type: ADD_USER, user });
 export const removeToken = () => ({ type: REMOVE_TOKEN });
-export const setToken = (token) => ({ type: SET_TOKEN, token });
+export const setToken = (token, id, displayName, email) => ({
+  type: SET_TOKEN,
+  token,
+  id,
+  displayName,
+  email,
+});
 
 export const loadToken = () => async (dispatch) => {
   const token = window.localStorage.getItem(TOKEN_KEY);
@@ -22,7 +28,7 @@ export const loadToken = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-  // debugger;
+  debugger;
   const response = await fetch(`${backendUrl}/api/users/signin`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -33,8 +39,7 @@ export const login = (email, password) => async (dispatch) => {
     const { token, user } = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem("userId", user.id);
-    dispatch(setToken(token));
-    window.location.href = "/";
+    dispatch(setToken(token, user.id, user.displayName, user.email));
   }
 };
 
@@ -42,7 +47,6 @@ export const logout = () => async (dispatch) => {
   window.localStorage.removeItem(TOKEN_KEY);
   window.localStorage.removeItem("userId");
   dispatch(removeToken);
-  window.location.href = "/";
 };
 
 export const register = (
@@ -60,6 +64,6 @@ export const register = (
     const { token, user } = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem("userId", user.id);
-    dispatch(setToken(token));
+    dispatch(setToken(token, user.id, user.displayName, user.email));
   }
 };

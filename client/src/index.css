@@ -9,11 +9,12 @@ body,
   /* width: 100%; */
 }
 
-.MuiFormLabel-root, .MuiTypography-body1 {
+.MuiInputBase-root,
+.MuiFormLabel-root,
+.MuiTypography-body1 {
   color: white !important;
   font-family: "Prompt", sans-serif !important;
 }
-
 
 .title__camera {
   vertical-align: middle;
@@ -25,9 +26,8 @@ body,
   /* fill: rgba(97, 175, 239, 0.5); */
 }
 
-
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
