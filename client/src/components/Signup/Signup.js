@@ -10,7 +10,7 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Logo from "../Logo/Logo";
+import IconLogo from "../Logo/IconLogo";
 import { register } from "../../store/actions/authentication";
 
 const useStyles = makeStyles((theme) => ({
@@ -90,7 +90,7 @@ const SignUp = () => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Logo />
+        <IconLogo />
         <Typography
           component="h1"
           variant="h5"

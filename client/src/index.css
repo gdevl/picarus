@@ -6,7 +6,11 @@ body,
   color: white;
   font-family: "Prompt", sans-serif;
   height: 100%;
-  /* width: 100%; */
+}
+
+.main__container {
+  background-color: black;
+  height: 100%;
 }
 
 .MuiInputBase-root,

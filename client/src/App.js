@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
-
+import Main from "./components/Main/Main";
 import UserList from "./components/UsersList";
 import Landing from "./components/Landing/Landing";
 import Logo from "./components/Logo/Logo";
@@ -36,7 +36,8 @@ const App = () => {
         </Route>
 
         <Route path="/">
-          <Landing />
+          {/* <Landing /> */}
+          <Main />
         </Route>
       </Switch>
     </BrowserRouter>

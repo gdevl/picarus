@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 import { Box, Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Logo from "../Logo/Logo";
 
 import RandomPhoto from "./RandomPhoto";
 
@@ -37,6 +39,11 @@ const useStyles = makeStyles({
 
 const Landing = () => {
   const classes = useStyles();
+  const token = useSelector((state) => state.authentication.token);
+
+  if (!token) {
+    return <Redirect to="/signin" />;
+  }
   return (
     <Grid
       container
@@ -46,11 +53,14 @@ const Landing = () => {
       style={{ backgroundColor: "#222" }}
     >
       <Grid item>
+        <Logo />
+      </Grid>
+      {/* <Grid item>
         <Typography className={classes.landing__header} variant="h2">
           {landingHeader}
         </Typography>
-      </Grid>
-      <Grid item>
+      </Grid> */}
+      {/* <Grid item>
         <Typography
           className={classes.landing__subheader}
           variant="subtitle2"
@@ -58,13 +68,13 @@ const Landing = () => {
         >
           {landingSubHeader}
         </Typography>
-      </Grid>
+      </Grid> */}
       <Grid item>
         <Box boxShadow={3} className={classes.landing__photo_box}>
           <RandomPhoto />
         </Box>
       </Grid>
-      <Grid item>
+      {/* <Grid item>
         <Grid container justify="center">
           <Grid item>
             <Link to="/signup" style={{ textDecoration: "none" }}>
@@ -89,7 +99,7 @@ const Landing = () => {
             </Link>
           </Grid>
         </Grid>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

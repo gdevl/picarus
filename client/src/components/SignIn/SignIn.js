@@ -12,7 +12,7 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Logo from "../Logo/Logo";
+import IconLogo from "../Logo/IconLogo";
 import { login } from "../../store/actions/authentication";
 
 const useStyles = makeStyles((theme) => ({
@@ -96,7 +96,7 @@ const SignIn = () => {
     >
       <CssBaseline />
       <div className={classes.paper}>
-        <Logo />
+        <IconLogo />
         <Typography
           className={classes.signin__input}
           component="h4"
