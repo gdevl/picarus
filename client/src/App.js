@@ -2,28 +2,12 @@ import React from "react";
 import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 import Main from "./components/Main/Main";
 import UserList from "./components/UsersList";
-import Landing from "./components/Landing/Landing";
-import Logo from "./components/Logo/Logo";
 import Signup from "./components/Signup/Signup";
 import SignIn from "./components/SignIn/SignIn";
 
 const App = () => {
   return (
     <BrowserRouter>
-      {/* <nav>
-        <ul>
-          <li>
-            <NavLink to="/" activeClass="active">
-              Signup <FaBeer />
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/users" activeClass="active">
-              Users
-            </NavLink>
-          </li>
-        </ul>
-      </nav> */}
       <Switch>
         <Route path="/users">
           <UserList />
@@ -36,7 +20,6 @@ const App = () => {
         </Route>
 
         <Route path="/">
-          {/* <Landing /> */}
           <Main />
         </Route>
       </Switch>

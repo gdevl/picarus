@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -12,9 +15,13 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
+import CameraIcon from "@material-ui/icons/PhotoCamera";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { FcCompactCamera } from "react-icons/fc";
 import { IconContext } from "react-icons";
 import Logo from "../Logo/Logo";
+import Post from "../Post/Post";
+import LogoutButton from "./LogoutButton";
 
 function Copyright() {
   return (
@@ -66,55 +73,63 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   main__appbar: {
-    alignItems: "center",
+    justifyContent: "space-between",
+    flexFlow: "row nowrap",
     backgroundColor: "#222",
   },
+  main__appbar_icons: {},
 }));
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const cards = [1];
 
-export default function Album() {
+const Main = () => {
   const classes = useStyles();
+  const token = useSelector((state) => state.authentication.token);
+
+  if (!token) {
+    return <Redirect to="/signin" />;
+  }
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="relative" className={classes.main__appbar}>
+      <AppBar position="static" className={classes.main__appbar}>
         <Toolbar>
-          <Logo />
+          <IconButton
+            color="primary"
+            aria-label="upload picture"
+            component="span"
+          >
+            <CameraIcon
+              color="primary"
+              className={classes.main__appbar_icons}
+            />
+          </IconButton>
+        </Toolbar>
+        <Logo />
+        <Toolbar>
+          <LogoutButton />
         </Toolbar>
       </AppBar>
       <main className="main__container">
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4} justify="center" align="center">
+            <Typography color="primary" variant="overline">
+              My Pics
+            </Typography>
             {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
+              // <Grid item key={card} xs={12} sm={6} md={4}>
+              <Grid item key={card} xs={12}>
+                {/* <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
                     image="https://source.unsplash.com/random"
                     title="Image title"
                   />
-                  {/* <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe
-                      the content.
-                    </Typography>
-                  </CardContent> */}
-                  {/* <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
-                    </Button>
-                  </CardActions> */}
-                </Card>
+                </Card> */}
+                <Post />
               </Grid>
             ))}
           </Grid>
@@ -138,4 +153,6 @@ export default function Album() {
       {/* End footer */}
     </React.Fragment>
   );
-}
+};
+
+export default Main;

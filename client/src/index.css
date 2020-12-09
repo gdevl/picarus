@@ -10,13 +10,17 @@ body,
 
 .main__container {
   background-color: black;
-  height: 100%;
+  height: auto;
 }
 
 .MuiInputBase-root,
 .MuiFormLabel-root,
 .MuiTypography-body1 {
   color: white !important;
+  font-family: "Prompt", sans-serif !important;
+}
+
+.MuiTypography-h4 {
   font-family: "Prompt", sans-serif !important;
 }
 

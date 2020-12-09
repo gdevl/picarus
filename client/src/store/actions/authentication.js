@@ -28,7 +28,7 @@ export const loadToken = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-  debugger;
+  // debugger;
   const response = await fetch(`${backendUrl}/api/users/signin`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -46,7 +46,7 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   window.localStorage.removeItem(TOKEN_KEY);
   window.localStorage.removeItem("userId");
-  dispatch(removeToken);
+  dispatch(removeToken());
 };
 
 export const register = (
