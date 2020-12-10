@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -21,11 +22,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#222",
     color: "#fff",
     maxWidth: 345,
+    paddingLeft: "1rem",
+    paddingRight: "1rem",
   },
   media: {
     height: 0,
     // height: "100%",
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "100%", // 16:9
   },
   expand: {
     transform: "rotate(0deg)",
@@ -42,46 +45,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Post = () => {
+const Post = ({ post }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  // const users = useSelector(() => state.)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  // const content = posts.postIds[1].content;
+  // const caption = posts.postIds[1].content;
+
   return (
     <Card className={classes.post__container}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
-      />
+      {console.log("post")}
+      {console.log(post.id)}
+      <CardHeader />
       <CardMedia
         className={classes.media}
-        image="https://source.unsplash.com/random"
+        image={post.imageUrl}
         title="Image Title"
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          Post content will go here
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          component="p"
+          align="left"
+        >
+          {post.content}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {

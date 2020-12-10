@@ -99,7 +99,7 @@ const Main = () => {
     return <Redirect to="/signin" />;
   }
 
-  // const thePost = posts.0;
+  const thePost = posts.postIds[1];
 
   return (
     <React.Fragment>
@@ -124,26 +124,24 @@ const Main = () => {
       </AppBar>
       <main className="main__container">
         <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          {console.log(typeof posts.postIds[1])}
-          {/* {console.log(posts.postIds[1].imageUrl)} */}
+          {console.log(thePost)}
+          {/* {console.log(imageUrl)} */}
           <Grid container spacing={4} justify="center" align="center">
             <Typography color="primary" variant="overline">
               My Pics
             </Typography>
-            {cards.map((card) => (
-              // <Grid item key={card} xs={12} sm={6} md={4}>
-              <Grid item key={card} xs={12}>
-                <Card className={classes.card}>
+            {/* {Object.values(posts.postIds).map((post) => ( */}
+            {/* // <Grid item key={card} xs={12} sm={6} md={4}> */}
+            <Grid item xs={12}>
+              {/* <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
                     image={posts.postIds[1].imageUrl}
                     title="Image title"
                   />
-                </Card>
-                {/* <Post post={post}/> */}
-              </Grid>
-            ))}
+                </Card> */}
+              <Post post={thePost} />
+            </Grid>
           </Grid>
         </Container>
       </main>

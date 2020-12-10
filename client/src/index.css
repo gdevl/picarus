@@ -20,6 +20,14 @@ body,
   font-family: "Prompt", sans-serif !important;
 }
 
+.MuiTypography-body2 {
+  color: white !important;
+}
+
+.MuiCardContent-root {
+  padding: 1rem 0 !important;
+}
+
 .MuiTypography-h4 {
   font-family: "Prompt", sans-serif !important;
 }
