@@ -6,18 +6,17 @@ import {
 } from "../actions/posts";
 
 const initialState = {
-  posts: {},
+  postIds: {},
   ids: [],
-  currentPostId: -1,
+  currentPostId: null,
 };
 
 export default function reducer(state = initialState, action) {
   let nextState = { ...state };
   switch (action.type) {
     case SET_POSTS:
-      // debugger
-      nextState.posts = { ...action.posts };
-      nextState.ids = Object.keys(newState.posts);
+      nextState.postIds = { ...action.posts };
+      nextState.ids = Object.keys(nextState.postIds);
       return nextState;
     case ADD_POST:
       nextState.posts[action.post.id] = action.post;

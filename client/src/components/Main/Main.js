@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
@@ -22,6 +22,7 @@ import { IconContext } from "react-icons";
 import Logo from "../Logo/Logo";
 import Post from "../Post/Post";
 import LogoutButton from "./LogoutButton";
+import { fetchPosts } from "../../store/actions/posts";
 
 function Copyright() {
   return (
@@ -85,11 +86,20 @@ const cards = [1];
 
 const Main = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.authentication.token);
+  const posts = useSelector((state) => state.posts);
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!token) {
     return <Redirect to="/signin" />;
   }
+
+  // const thePost = posts.0;
 
   return (
     <React.Fragment>
@@ -115,6 +125,8 @@ const Main = () => {
       <main className="main__container">
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
+          {console.log(typeof posts.postIds[1])}
+          {/* {console.log(posts.postIds[1].imageUrl)} */}
           <Grid container spacing={4} justify="center" align="center">
             <Typography color="primary" variant="overline">
               My Pics
@@ -122,14 +134,14 @@ const Main = () => {
             {cards.map((card) => (
               // <Grid item key={card} xs={12} sm={6} md={4}>
               <Grid item key={card} xs={12}>
-                {/* <Card className={classes.card}>
+                <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
+                    image={posts.postIds[1].imageUrl}
                     title="Image title"
                   />
-                </Card> */}
-                <Post />
+                </Card>
+                {/* <Post post={post}/> */}
               </Grid>
             ))}
           </Grid>

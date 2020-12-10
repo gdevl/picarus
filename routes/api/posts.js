@@ -9,7 +9,12 @@ router.get(
   "/",
   asyncErrorHandler(async function (req, res, next) {
     const posts = await Post.findAll();
-    res.json({ posts });
+    const postIds = {};
+
+    posts.map((post) => {
+      postIds[post.id] = post;
+    });
+    res.json(postIds);
   })
 );
 
