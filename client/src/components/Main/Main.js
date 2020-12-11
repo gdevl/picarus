@@ -98,8 +98,8 @@ const Main = () => {
   if (!token) {
     return <Redirect to="/signin" />;
   }
-
-  const thePost = posts.postIds[1];
+  // const thePost = "";
+  const thePost = posts[1];
 
   return (
     <React.Fragment>
@@ -124,7 +124,7 @@ const Main = () => {
       </AppBar>
       <main className="main__container">
         <Container className={classes.cardGrid} maxWidth="md">
-          {console.log(thePost)}
+          {/* {console.log(thePost)} */}
           {/* {console.log(imageUrl)} */}
           <Grid container spacing={4} justify="center" align="center">
             <Typography color="primary" variant="overline">
@@ -140,7 +140,7 @@ const Main = () => {
                     title="Image title"
                   />
                 </Card> */}
-              <Post post={thePost} />
+              {thePost ? <Post post={thePost} /> : null}
             </Grid>
           </Grid>
         </Container>

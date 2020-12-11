@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: "1rem",
   },
   media: {
+    borderRadius: "4px",
     height: 0,
     // height: "100%",
     paddingTop: "100%", // 16:9
@@ -43,6 +44,16 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
+  post__author: {
+    color: "#61AFEF",
+    fontFamily: "Josefin Sans !important",
+  },
+  post__content: {
+    backgroundColor: "#444",
+    border: "1px solid #333",
+    borderRadius: "4px",
+    padding: "1rem",
+  },
 }));
 
 const Post = ({ post }) => {
@@ -59,9 +70,13 @@ const Post = ({ post }) => {
 
   return (
     <Card className={classes.post__container}>
-      {console.log("post")}
-      {console.log(post.id)}
-      <CardHeader />
+      {/* {console.log("post")} */}
+      {/* {console.log(post.id)} */}
+      <CardHeader
+        className={classes.post__author}
+        title={`posted by ${post.User.displayName} at`}
+        subheader={post.createdAt}
+      ></CardHeader>
       <CardMedia
         className={classes.media}
         image={post.imageUrl}
@@ -69,6 +84,7 @@ const Post = ({ post }) => {
       />
       <CardContent>
         <Typography
+          className={classes.post__content}
           variant="body2"
           color="textSecondary"
           component="p"

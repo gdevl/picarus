@@ -8,7 +8,8 @@ const useStyles = makeStyles({
   logo__header: {
     color: "rgba(198, 120, 221, 1)",
     // color: "rgba(255, 0, 255, 1)",
-    fontFamily: "Prompt",
+    fontFamily: "Josefin Sans",
+    // margin: "auto",
     // textShadow: `2px 2px 0px rgba(198, 120, 221, 0.5)`,
     // 2px 3px 4px rgba(255, 255, 255, 1),
     //     3px 3px 0px rgba(97, 175, 239, 1),

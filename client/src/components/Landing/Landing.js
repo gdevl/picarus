@@ -13,7 +13,7 @@ const landingSubHeader = "NO FRILLS PHOTO SHARING";
 const useStyles = makeStyles({
   landing__header: {
     color: "rgba(255, 255, 255, 1)",
-    fontFamily: "Prompt",
+    fontFamily: "Josefin Sans",
     textShadow:
       "2px 2px 0px rgba(198, 120, 221, 0.5), 3px 3px 0px rgba(97, 175, 239, 0.5)",
   },

@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   login__header: {
     color: "rgba(198, 120, 221, 1)",
     // color: "rgba(255, 0, 255, 1)",
-    fontFamily: "Prompt",
+    fontFamily: "Josefin Sans",
     // textShadow: `2px 2px 0px rgba(198, 120, 221, 0.5)`,
     // 2px 3px 4px rgba(255, 255, 255, 1),
     //     3px 3px 0px rgba(97, 175, 239, 1),
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     color: "white",
   },
   login__button_wide: {
-    fontFamily: "Prompt",
+    fontFamily: "Josefin Sans",
     width: "100%",
   },
   login__form: {
@@ -48,11 +48,11 @@ const useStyles = makeStyles({
   login__input: {
     "&::placeholder": {
       color: "white",
-      fontFamily: "Prompt",
+      fontFamily: "Josefin Sans",
     },
     backgroundColor: "#222",
     color: "white",
-    fontFamily: "Prompt",
+    fontFamily: "Josefin Sans",
     margin: "0.5em 0 0 0",
     padding: "0.25em 1em",
   },

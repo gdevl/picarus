@@ -22,21 +22,21 @@ const useStyles = makeStyles((theme) => ({
   signin__input: {
     "&::placeholder": {
       color: "white !important",
-      fontFamily: "Prompt !important",
+      fontFamily: "Josefin Sans !important",
     },
     "&::label": {
       color: "white !important",
-      fontFamily: "Prompt !important",
+      fontFamily: "Josefin Sans !important",
     },
     // backgroundColor: "#222",
     color: "white",
-    fontFamily: "Prompt",
+    fontFamily: "Josefin Sans",
     // margin: "0.5em 0 0 0",
     // padding: "0.25em 1em",
   },
   paper: {
     // backgroundColor: "#222",
-    fontFamily: "Prompt",
+    fontFamily: "Josefin Sans",
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",

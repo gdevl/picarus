@@ -4,7 +4,7 @@ body,
 #root {
   background-color: #222;
   color: white;
-  font-family: "Prompt", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   height: 100%;
 }
 
@@ -17,7 +17,7 @@ body,
 .MuiFormLabel-root,
 .MuiTypography-body1 {
   color: white !important;
-  font-family: "Prompt", sans-serif !important;
+  font-family: "Josefin Sans", sans-serif !important;
 }
 
 .MuiTypography-body2 {
@@ -28,8 +28,22 @@ body,
   padding: 1rem 0 !important;
 }
 
-.MuiTypography-h4 {
-  font-family: "Prompt", sans-serif !important;
+.MuiTypography-h2 {
+  padding-top: 0.875rem;
+}
+
+.MuiTypography-h4,
+.MuiTypography-h5 {
+  font-family: "Josefin Sans", sans-serif !important;
+}
+
+.MuiCardHeader-root {
+  padding: 1rem 0 !important;
+}
+
+.MuiTypography-p,
+.MuiTypography-body2 {
+  font-family: "Roboto", sans-serif !important;
 }
 
 .title__camera {
