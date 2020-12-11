@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,7 +14,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 import CameraIcon from "@material-ui/icons/PhotoCamera";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import GitHubIcon from "@material-ui/icons/GitHub";
@@ -26,18 +25,18 @@ import Post from "../Post/Post";
 import LogoutButton from "./LogoutButton";
 import { fetchPosts } from "../../store/actions/posts";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+// function Copyright() {
+//   return (
+//     <Typography variant="body2" color="textSecondary" align="center">
+//       {"Copyright © "}
+//       <Link color="inherit" href="https://material-ui.com/">
+//         Your Website
+//       </Link>{" "}
+//       {new Date().getFullYear()}
+//       {"."}
+//     </Typography>
+//   );
+// }
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -76,6 +75,17 @@ const useStyles = makeStyles((theme) => ({
     borderTop: "1px solid #C678DD",
     padding: theme.spacing(1),
   },
+  footer__appBar: {
+    alignItems: "center",
+    backgroundColor: "#222",
+    borderTop: "1px solid #C678DD",
+    padding: theme.spacing(1),
+    top: "auto",
+    bottom: 0,
+  },
+  footer__appBar_iconbuttons: {
+    margin: "0 1rem",
+  },
   main__appbar: {
     borderBottom: "1px solid #C678DD",
     justifyContent: "space-between",
@@ -83,6 +93,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#222",
   },
   main__footer_icons: {},
+  grow: {
+    flexGrow: 1,
+  },
 }));
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -98,6 +111,15 @@ const Main = () => {
     dispatch(fetchPosts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleLinkedInClick = () => {
+    return (window.location.href =
+      "https://www.linkedin.com/in/gabriel-lane-4120651bb/");
+  };
+
+  const handleGitHubClick = () => {
+    return (window.location.href = "https://github.com/gdevl");
+  };
 
   if (!token) {
     return <Redirect to="/signin" />;
@@ -154,34 +176,34 @@ const Main = () => {
         </Container>
       </main>
       {/* Footer */}
-      <footer className={classes.footer}>
-        <Grid container spacing={2} justify="center" align="center">
-          <Grid item>
+      <AppBar position="fixed" className={classes.footer__appBar}>
+        <Toolbar>
+          <div className={classes.grow} />
+          <Link to="https://www.google.com/">
             <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="span"
+              color="inherit"
+              className={classes.footer__appBar_iconbuttons}
+              onClick={handleGitHubClick}
             >
               <GitHubIcon
                 color="primary"
                 className={classes.main__footer_icons}
               />
             </IconButton>
-          </Grid>
-          <Grid item>
-            <IconButton
+          </Link>
+          <Button
+            edge="end"
+            color="inherit"
+            className={classes.footer__appBar_iconbuttons}
+          >
+            <LinkedInIcon
               color="primary"
-              aria-label="upload picture"
-              component="span"
-            >
-              <LinkedInIcon
-                color="primary"
-                className={classes.main__footer_icons}
-              />
-            </IconButton>
-          </Grid>
-        </Grid>
-      </footer>
+              className={classes.main__footer_icons}
+              onClick={handleLinkedInClick}
+            />
+          </Button>
+        </Toolbar>
+      </AppBar>
       {/* End footer */}
     </React.Fragment>
   );

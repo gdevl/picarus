@@ -11,6 +11,7 @@ body,
 .main__container {
   background-color: black;
   height: auto;
+  padding-bottom: 10rem;
 }
 
 .main__post_container_heading {
