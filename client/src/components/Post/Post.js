@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: "rgba(97, 175, 239, 1)",
     // border: "1px solid #333",
     borderRadius: "4px",
-    color: "rgba(97, 175, 239, 1) !important",
+    // color: "rgba(97, 175, 239, 1) !important",
     padding: "0.5rem 0",
   },
 }));
@@ -119,17 +119,22 @@ const Post = ({ post }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Comments:</Typography>
-          <Typography paragraph>Post Comment 1</Typography>
-          <Typography paragraph>Post Comment 2</Typography>
-          <Typography paragraph>Post Comment 3</Typography>
-          <Typography paragraph>Post Comment 4</Typography>
-          <Typography paragraph>Post Comment 4</Typography>
-          <Typography paragraph>Post Comment 4</Typography>
-          <Typography paragraph>Post Comment 4</Typography>
-          <Typography paragraph>Post Comment 4</Typography>
-          <Typography paragraph>Post Comment 4</Typography>
-          <Typography paragraph>Post Comment 4</Typography>
+          <Typography className="post__comments_header" paragraph>
+            COMMENTS
+          </Typography>
+          {post.Comments.map((comment) => (
+            <div className="post__comments">
+              <span className="post__comment_author">{`user `}</span>
+              <Typography
+                className="post__comment"
+                align="left"
+                key={comment.id}
+                component="span"
+              >
+                {comment.content}
+              </Typography>
+            </div>
+          ))}
         </CardContent>
       </Collapse>
     </Card>

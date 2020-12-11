@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
   },
   footer__appBar_iconbuttons: {
-    margin: "0 1rem",
+    margin: "0 0.25rem",
   },
   main__appbar: {
     borderBottom: "1px solid #C678DD",
@@ -106,6 +106,7 @@ const Main = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authentication.token);
   const posts = useSelector((state) => state.posts);
+  // const currentPostId = useSelector((state) => state.posts.)
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -125,7 +126,7 @@ const Main = () => {
     return <Redirect to="/signin" />;
   }
   // const thePost = "";
-  const thePost = posts[1];
+  const thePost = posts[2];
 
   return (
     <React.Fragment>
