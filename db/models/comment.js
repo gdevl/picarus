@@ -1,4 +1,5 @@
 "use strict";
+const moment = require("moment");
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define(
     "Comment",
@@ -13,6 +14,22 @@ module.exports = (sequelize, DataTypes) => {
       pid: {
         allowNull: false,
         type: DataTypes.INTEGER,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        get() {
+          return moment(this.getDataValue("createdAt")).format(
+            "DD/MM/YYYY h:mm:ss"
+          );
+        },
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        get() {
+          return moment(this.getDataValue("updatedAt")).format(
+            "DD/MM/YYYY h:mm:ss"
+          );
+        },
       },
     },
     {}

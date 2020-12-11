@@ -1,6 +1,6 @@
 "use strict";
 const bcrypt = require("bcryptjs");
-
+const moment = require("moment");
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     "User",
@@ -40,6 +40,22 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING.BINARY,
         validates: {
           len: [60, 60],
+        },
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        get() {
+          return moment(this.getDataValue("createdAt")).format(
+            "DD/MM/YYYY h:mm:ss"
+          );
+        },
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        get() {
+          return moment(this.getDataValue("updatedAt")).format(
+            "DD/MM/YYYY h:mm:ss"
+          );
         },
       },
     },
