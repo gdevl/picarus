@@ -21,7 +21,10 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const useStyles = makeStyles((theme) => ({
   post__container: {
-    backgroundColor: "#222",
+    // backgroundColor: "#222",
+    backgroundColor: "transparent",
+    // border: "1px solid #61AFEF",
+    border: "1px solid #C678DD",
     color: "#fff",
     maxWidth: 345,
     paddingLeft: "1rem",

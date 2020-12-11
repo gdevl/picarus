@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -23,20 +23,7 @@ import { IconContext } from "react-icons";
 import Logo from "../Logo/Logo";
 import Post from "../Post/Post";
 import LogoutButton from "./LogoutButton";
-import { fetchPosts } from "../../store/actions/posts";
-
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://material-ui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
+import { fetchPosts, setCurrentPost } from "../../store/actions/posts";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -50,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
   cardGrid: {
-    // backgroundColor: "#000",
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
@@ -63,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
   },
   cardMedia: {
     height: "90%",
-    // paddingTop: "56.25%", // 16:9
     margin: "auto",
     width: "90%",
   },
@@ -106,12 +91,23 @@ const Main = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authentication.token);
   const posts = useSelector((state) => state.posts);
+  const ids = useSelector((state) => state.posts.ids);
+  const currentPostId = useSelector((state) => state.posts.currentPostId);
+  const index = useRef(0);
+  // const [currentPostId, setCurrentPostId] = useState(1);
+
   // const currentPostId = useSelector((state) => state.posts.)
 
   useEffect(() => {
     dispatch(fetchPosts());
+    // setCurrentPostId(ids[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    dispatch(setCurrentPost(ids[index.current]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ids]);
 
   const handleLinkedInClick = () => {
     return (window.location.href =
@@ -126,7 +122,7 @@ const Main = () => {
     return <Redirect to="/signin" />;
   }
   // const thePost = "";
-  const thePost = posts[2];
+  const thePost = posts[currentPostId];
 
   return (
     <React.Fragment>
@@ -171,7 +167,9 @@ const Main = () => {
                     title="Image title"
                   />
                 </Card> */}
-              {thePost ? <Post post={thePost} /> : null}
+              {thePost ? (
+                <Post key={`post ${thePost.id}`} post={thePost} />
+              ) : null}
             </Grid>
           </Grid>
         </Container>
