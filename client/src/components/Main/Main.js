@@ -17,6 +17,8 @@ import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import CameraIcon from "@material-ui/icons/PhotoCamera";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import { FcCompactCamera } from "react-icons/fc";
 import { IconContext } from "react-icons";
 import Logo from "../Logo/Logo";
@@ -71,14 +73,16 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     backgroundColor: "#222",
-    padding: theme.spacing(2),
+    borderTop: "1px solid #C678DD",
+    padding: theme.spacing(1),
   },
   main__appbar: {
+    borderBottom: "1px solid #C678DD",
     justifyContent: "space-between",
     flexFlow: "row nowrap",
     backgroundColor: "#222",
   },
-  main__appbar_icons: {},
+  main__footer_icons: {},
 }));
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -127,7 +131,11 @@ const Main = () => {
           {/* {console.log(thePost)} */}
           {/* {console.log(imageUrl)} */}
           <Grid container spacing={4} justify="center" align="center">
-            <Typography color="primary" variant="overline">
+            <Typography
+              className="main__post_container_heading"
+              color="primary"
+              variant="overline"
+            >
               My Pics
             </Typography>
             {/* {Object.values(posts.postIds).map((post) => ( */}
@@ -147,18 +155,32 @@ const Main = () => {
       </main>
       {/* Footer */}
       <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
+        <Grid container spacing={2} justify="center" align="center">
+          <Grid item>
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+            >
+              <GitHubIcon
+                color="primary"
+                className={classes.main__footer_icons}
+              />
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+            >
+              <LinkedInIcon
+                color="primary"
+                className={classes.main__footer_icons}
+              />
+            </IconButton>
+          </Grid>
+        </Grid>
       </footer>
       {/* End footer */}
     </React.Fragment>

@@ -13,6 +13,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import AddCommentIcon from "@material-ui/icons/AddComment";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -46,13 +48,17 @@ const useStyles = makeStyles((theme) => ({
   },
   post__author: {
     color: "#61AFEF",
+    display: "inline !important",
     fontFamily: "Josefin Sans !important",
+    fontSize: "0.875rem !important",
+    fontWeight: "700 !important",
   },
   post__content: {
-    backgroundColor: "#444",
-    border: "1px solid #333",
+    // backgroundColor: "rgba(97, 175, 239, 1)",
+    // border: "1px solid #333",
     borderRadius: "4px",
-    padding: "1rem",
+    color: "rgba(97, 175, 239, 1) !important",
+    padding: "0.5rem 0",
   },
 }));
 
@@ -74,8 +80,9 @@ const Post = ({ post }) => {
       {/* {console.log(post.id)} */}
       <CardHeader
         className={classes.post__author}
-        title={`posted by ${post.User.displayName} at`}
+        title={`posted by ${post.User.displayName} at: `}
         subheader={post.createdAt}
+        style={{ textAlign: "left" }}
       ></CardHeader>
       <CardMedia
         className={classes.media}
@@ -95,7 +102,9 @@ const Post = ({ post }) => {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          {/* <FavoriteIcon color="primary" /> */}
+          <FavoriteBorderIcon color="primary" />
+          {/* <span className="post__likes">{` 1`}</span> */}
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
@@ -105,7 +114,7 @@ const Post = ({ post }) => {
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon />
+          <AddCommentIcon color="primary" />
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
