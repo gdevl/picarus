@@ -15,6 +15,7 @@ body,
 }
 
 .main__post_container_heading {
+  color: rgba(97, 175, 239, 1);
   font-family: "Josefin Sans", sans-serif !important;
 }
 
@@ -32,8 +33,9 @@ body,
 }
 
 .post__comments_header {
-  border-bottom: 1px solid rgba(198, 120, 221, 1);
-  color: rgba(198, 120, 221, 1) !important;
+  /* border-bottom: 1px solid rgba(198, 120, 221, 1); */
+  border-bottom: 1px solid rgba(97, 175, 239, 1);
+  color: rgba(97, 175, 239, 1);
   font-family: "Josefin Sans", sans-serif !important;
   /* margin-bottom: 0 !important; */
   text-align: left;
@@ -57,8 +59,9 @@ body,
   justify-content: space-between;
 }
 
-.post__likes {
-  color: rgba(198, 120, 221, 1) !important;
+.post__likes,
+.post__comment_total {
+  color: rgba(97, 175, 239, 1);
   font-family: "Josefin Sans", sans-serif !important;
   font-size: 0.875rem;
   font-weight: 700;

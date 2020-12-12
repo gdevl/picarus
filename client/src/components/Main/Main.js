@@ -151,7 +151,7 @@ const Main = () => {
           <Grid container spacing={4} justify="center" align="center">
             <Typography
               className="main__post_container_heading"
-              color="primary"
+              color="secondary"
               variant="overline"
             >
               My Pics

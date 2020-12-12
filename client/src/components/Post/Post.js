@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   post__container: {
     backgroundColor: "#222",
     // backgroundColor: "transparent",
-    // border: "1px solid #61AFEF",
+    border: "1px solid rgba(97, 175, 239, 0.2);",
     // border: "1px solid #C678DD",
     color: "#fff",
     maxWidth: 345,
@@ -102,7 +102,7 @@ const Post = ({ post }) => {
       <CardActions disableSpacing>
         <IconButton aria-label="like this post">
           {/* <FavoriteIcon color="primary" /> */}
-          <FavoriteBorderIcon color="primary" />
+          <FavoriteBorderIcon color="secondary" />
           <div className="post__likes">{post.PostLikes.length}</div>
         </IconButton>
         <IconButton
@@ -113,8 +113,8 @@ const Post = ({ post }) => {
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <AddCommentIcon color="primary" />
-          <div className="post__comment_total">{`1`}</div>
+          <AddCommentIcon color="secondary" />
+          <div className="post__comment_total">{post.Comments.length}</div>
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
