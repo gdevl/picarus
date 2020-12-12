@@ -15,6 +15,7 @@ import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import AddCommentIcon from "@material-ui/icons/AddComment";
+import CommentIcon from "@material-ui/icons/Comment";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -113,7 +114,7 @@ const Post = ({ post }) => {
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <AddCommentIcon color="secondary" />
+          <CommentIcon color="secondary" />
           <div className="post__comment_total">{post.Comments.length}</div>
         </IconButton>
       </CardActions>
@@ -126,7 +127,7 @@ const Post = ({ post }) => {
           </Typography>
           {post.Comments.map((comment) => (
             <div className="post__comments">
-              <span className="post__comment_author">{`user `}</span>
+              <span className="post__comment_author">{comment.uid}</span>
               <Typography
                 className="post__comment"
                 align="left"

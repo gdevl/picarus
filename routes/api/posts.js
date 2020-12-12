@@ -15,8 +15,6 @@ router.get(
 
     const postIds = {};
 
-    console.log("POSTS");
-    console.log(posts);
     posts.forEach((post) => {
       postIds[post.id] = post;
     });
