@@ -18,6 +18,13 @@ body,
   font-family: "Josefin Sans", sans-serif !important;
 }
 
+.post__author,
+.post__creation {
+  color: rgba(97, 175, 239, 1);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
 .post__comments {
   /* container */
   display: flex;
@@ -43,9 +50,19 @@ body,
   padding: 0 0.5rem;
 }
 
+.post__header {
+  display: flex;
+  flex: 1 1 auto;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
 .post__likes {
   color: rgba(198, 120, 221, 1) !important;
-  font-size: 1rem;
+  font-family: "Josefin Sans", sans-serif !important;
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0 0 1.25rem 0;
 }
 
 .MuiInputBase-root,

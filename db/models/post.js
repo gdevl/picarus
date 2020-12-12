@@ -26,10 +26,20 @@ module.exports = (sequelize, DataTypes) => {
       },
       createdAt: {
         type: DataTypes.DATE,
+        // get() {
+        //   return moment(this.getDataValue("createdAt")).format(
+        //     "DD/MM/YYYY h:mm:ss"
+        //   );
+        // },
         get() {
-          return moment(this.getDataValue("createdAt")).format(
-            "DD/MM/YYYY h:mm:ss"
-          );
+          let now = moment(new Date());
+          let then = moment(this.getDataValue("createdAt"));
+          let duration = moment.duration(now.diff(then));
+          if (duration.asHours() > 24) {
+            return `${Math.floor(duration.asDays())} days ago`;
+          } else {
+            return `${Math.floor(duration.asHours())} hours ago`;
+          }
         },
       },
       updatedAt: {

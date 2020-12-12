@@ -21,10 +21,10 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const useStyles = makeStyles((theme) => ({
   post__container: {
-    // backgroundColor: "#222",
-    backgroundColor: "transparent",
+    backgroundColor: "#222",
+    // backgroundColor: "transparent",
     // border: "1px solid #61AFEF",
-    border: "1px solid #C678DD",
+    // border: "1px solid #C678DD",
     color: "#fff",
     maxWidth: 345,
     paddingLeft: "1rem",
@@ -79,14 +79,10 @@ const Post = ({ post }) => {
 
   return (
     <Card className={classes.post__container}>
-      {/* {console.log("post")} */}
-      {/* {console.log(post.id)} */}
-      <CardHeader
-        className={classes.post__author}
-        title={`posted by ${post.User.displayName} at: `}
-        subheader={post.createdAt}
-        style={{ textAlign: "left" }}
-      ></CardHeader>
+      <div className="post__header">
+        <p className="post__author">{post.User.displayName}</p>
+        <p className="post__creation">{post.createdAt}</p>
+      </div>
       <CardMedia
         className={classes.media}
         image={post.imageUrl}
@@ -107,7 +103,7 @@ const Post = ({ post }) => {
         <IconButton aria-label="like this post">
           {/* <FavoriteIcon color="primary" /> */}
           <FavoriteBorderIcon color="primary" />
-          <div className="post__likes">{` 1`}</div>
+          <div className="post__likes">{post.PostLikes.length}</div>
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
