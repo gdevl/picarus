@@ -104,10 +104,10 @@ const Post = ({ post }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="like this post">
           {/* <FavoriteIcon color="primary" /> */}
           <FavoriteBorderIcon color="primary" />
-          {/* <span className="post__likes">{` 1`}</span> */}
+          <div className="post__likes">{` 1`}</div>
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
@@ -118,12 +118,15 @@ const Post = ({ post }) => {
           aria-label="show more"
         >
           <AddCommentIcon color="primary" />
+          <div className="post__comment_total">{`1`}</div>
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography className="post__comments_header" paragraph>
-            COMMENTS
+            {post.Comments.length !== 1
+              ? `${post.Comments.length} COMMENTS`
+              : `${post.Comments.length} COMMENT`}
           </Typography>
           {post.Comments.map((comment) => (
             <div className="post__comments">

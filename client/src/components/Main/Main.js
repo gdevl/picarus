@@ -125,8 +125,7 @@ const Main = () => {
   const thePost = posts[currentPostId];
 
   return (
-    <React.Fragment>
-      <CssBaseline />
+    <>
       <AppBar position="static" className={classes.main__appbar}>
         <Toolbar>
           <IconButton
@@ -204,7 +203,7 @@ const Main = () => {
         </Toolbar>
       </AppBar>
       {/* End footer */}
-    </React.Fragment>
+    </>
   );
 };
 
