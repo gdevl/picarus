@@ -26,7 +26,7 @@ import Popper from "@material-ui/core/Popper";
 import PopupState, { bindToggle, bindPopper } from "material-ui-popup-state";
 import Fade from "@material-ui/core/Fade";
 
-import { setCurrentPost, addComment } from "../../store/actions/posts";
+import { setCurrentPost, createComment } from "../../store/actions/posts";
 
 const useStyles = makeStyles((theme) => ({
   post__container: {
@@ -93,7 +93,7 @@ const Post = ({ post }) => {
     setExpanded(!expanded);
   };
 
-  const handleAddComment = (e) => {
+  const handleAddComment = async (e) => {
     e.preventDefault();
     // console.log("postId:");
     // console.log(postId);
@@ -104,12 +104,16 @@ const Post = ({ post }) => {
       uid: currentUserId,
       pid: currentPostId
     }
+    console.log("comment");
+    console.log(comment);
 
-    if (comment) {
-      (async () => {
-        dispatch(addComment(comment));
-      })();
-    }
+    await dispatch(createComment(comment));
+
+    // if (comment) {
+    //   (async () => {
+    //     dispatch(addComment(comment));
+    //   })();
+    // }
   };
 
   const updateCommentText = (e) => {

@@ -25,8 +25,9 @@ export const fetchPosts = () => async (dispatch) => {
   }
 };
 
-export const createComment = (content, uid, pid) => async (dispatch) => {
+export const createComment = (comment) => async (dispatch) => {
   // debugger;
+  const {content, uid, pid} = comment;
   const response = await fetch(`${backendUrl}/api/comments`, {
     method: "post",
     headers: { "Content-Type": "application/json" },

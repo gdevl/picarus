@@ -23,6 +23,10 @@ router.post(
       return res.json(comment);
     }
 
+    // res.status(201).json({
+    //   comment: { content: comment.content, uid: comment.uid, pid: comment.pid },
+    // });
+
     res.json("An error occurred during comment creation.");
   })
 );

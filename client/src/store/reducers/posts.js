@@ -42,7 +42,7 @@ export default function reducer(state = initialState, action) {
       // debugger
       // return nextState;
       return {
-        ...state[action.comment.pid].Comments.push(action.comment),
+        ...state,
       }
     default:
       return state;
