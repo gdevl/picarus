@@ -108,7 +108,7 @@ const Main = () => {
   useEffect(() => {
     dispatch(setCurrentPost(ids[index.current]));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ids]);
+  }, [currentPostId]);
 
   const handleLinkedInClick = () => {
     return (window.location.href =

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -25,6 +25,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import Popper from "@material-ui/core/Popper";
 import PopupState, { bindToggle, bindPopper } from "material-ui-popup-state";
 import Fade from "@material-ui/core/Fade";
+
+import { setCurrentPost, addComment } from "../../store/actions/posts";
 
 const useStyles = makeStyles((theme) => ({
   post__container: {
@@ -74,16 +76,40 @@ const useStyles = makeStyles((theme) => ({
 
 const Post = ({ post }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const currentUserId = useSelector((state) => state.authentication.user.id);
+  const currentPostId = useSelector((state) => state.posts.currentPostId);
+  // const [postId, setPostId] = useState(post.id);
   const [expanded, setExpanded] = useState(false);
   const [commentText, setCommentText] = useState("");
-  // const users = useSelector(() => state.)
+  
+  // useEffect(() => {
+  //   dispatch(setCurrentPost(post.id));
+  //   // setCurrentPostId(post.id);
+  // }, [])
+  
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const handleAddComment = () => {
-    alert(`Your comment`);
+  const handleAddComment = (e) => {
+    e.preventDefault();
+    // console.log("postId:");
+    // console.log(postId);
+    console.log("currentPostId:")
+    console.log(currentPostId);
+    const comment = {
+      content: commentText,
+      uid: currentUserId,
+      pid: currentPostId
+    }
+
+    if (comment) {
+      (async () => {
+        dispatch(addComment(comment));
+      })();
+    }
   };
 
   const updateCommentText = (e) => {
@@ -172,7 +198,10 @@ const Post = ({ post }) => {
                             onFocus={handleInputFocus}
                           />
                           <div className="post__comment_add_actions">
-                            <IconButton aria-label="like this post">
+                            <IconButton
+                              aria-label="like this post"
+                              onClick={handleAddComment}
+                            >
                               <SendIcon color="secondary" />
                             </IconButton>
                             <IconButton
@@ -193,7 +222,7 @@ const Post = ({ post }) => {
           {post.Comments.map((comment) => (
             <div className="post__comments">
               <div className="post__comment_author" key={`c-a-${comment.id}`}>
-                {comment.User.displayName}
+                {comment.User.displayName ? comment.User.displayName : 'user'}
               </div>
               <div className="post__comment_elapsed" key={`c-ca-${comment.id}`}>
                 {`(${comment.createdAt})`}

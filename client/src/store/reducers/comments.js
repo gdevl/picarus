@@ -1,17 +1,17 @@
-import { ADD_COMMENT } from "../actions/comments";
+// import { ADD_COMMENT } from "../actions/comments";
 
-const initialState = {};
+// const initialState = {};
 
-export default function reducer(state = initialState, action) {
-  let nextState = { ...state };
-  // console.log("ACTION.posts");
-  // console.log(action.posts);
-  switch (action.type) {
-    case ADD_COMMENT:
-      //   nextState.posts[action.post.id] = action.post;
-      //   nextState.ids.push(action.post.id);
-      return nextState;
-    default:
-      return state;
-  }
-}
+// export default function reducer(state = initialState, action) {
+// //   let nextState = { ...state };
+//   // console.log("ACTION.posts");
+//   // console.log(action.posts);
+//   switch (action.type) {
+//     case ADD_COMMENT:
+//       return {
+//           ...state.posts[action.comment.pid].Comments.push(action.comment);
+//       }
+//     default:
+//       return state;
+//   }
+// }
