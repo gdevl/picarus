@@ -82,6 +82,10 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
+  hidden: {
+    opacity: 0,
+    pointerEvents: "none",
+  }
 }));
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -181,7 +185,7 @@ const Main = () => {
                   component="span"
                   onClick={handlePreviousPost}
                 >
-                  {posts[postIndex.current + 1] ? <NavigateBeforeIcon /> : null}
+                  {posts[postIndex.current + 1] ? <NavigateBeforeIcon /> : <NavigateBeforeIcon className={classes.hidden}/>}
                 </IconButton>
               </div>
               <div className="main__container_detail_row_text">My Pics</div>
@@ -192,7 +196,7 @@ const Main = () => {
                   component="span"
                   onClick={handleNextPost}
                 >
-                  {posts[postIndex.current - 1] ? <NavigateNextIcon /> : null}
+                  {posts[postIndex.current - 1] ? <NavigateNextIcon /> : <NavigateNextIcon className={classes.hidden}/>}
                 </IconButton>
               </div>
             </div>
