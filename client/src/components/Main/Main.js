@@ -19,8 +19,8 @@ import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import { FcCompactCamera } from "react-icons/fc";
-import { IconContext } from "react-icons";
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import Logo from "../Logo/Logo";
 import Post from "../Post/Post";
 import LogoutButton from "./LogoutButton";
@@ -94,7 +94,8 @@ const Main = () => {
   const posts = useSelector((state) => state.posts);
   const ids = useSelector((state) => state.posts.ids);
   const currentPostId = useSelector((state) => state.posts.currentPostId);
-  const index = useRef(0);
+  // const index = useRef(0);
+  const postIndex = useRef(ids[ids.length - 1]);
   // const [currentPostId, setCurrentPostId] = useState(1);
 
   // const currentPostId = useSelector((state) => state.posts.)
@@ -106,7 +107,8 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(setCurrentPost(ids[index.current]));
+    // dispatch(setCurrentPost(ids[index.current]));
+    dispatch(setCurrentPost(postIndex.current));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPostId]);
 
@@ -118,6 +120,27 @@ const Main = () => {
   const handleGitHubClick = () => {
     return (window.location.href = "https://github.com/gdevl");
   };
+
+  const handleNextPost = () => {
+    // alert(`${postIndex.current}`)
+    // const nextPost = document.getElementById("main__container_detail_row_next_post");
+    // if (postIndex.current == 1) {
+    //   nextPost.classList.add("hide_post_nav_arrows");
+    // } else {
+    //   nextPost.setAttribute("display", "block");
+    postIndex.current--;
+    dispatch(setCurrentPost(postIndex.current))
+  }
+
+  const handlePreviousPost = () => {
+    // if (postIndex.current == ids.length) {
+    //   const prevPost = document.getElementById("main__container_detail_row_prev_post");
+    //   prevPost.classList.add("hide_post_nav_arrows");
+    // } else {
+    postIndex.current++;
+    dispatch(setCurrentPost(postIndex.current))
+    
+  }
 
   if (!token) {
     return <Redirect to="/signin" />;
@@ -150,13 +173,37 @@ const Main = () => {
           {/* {console.log(thePost)} */}
           {/* {console.log(imageUrl)} */}
           <Grid container spacing={4} justify="center" align="center">
-            <Typography
+            <div className="main__container_detail_row">
+              <div id="main__container_detail_row_prev_post">
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                  onClick={handlePreviousPost}
+                >
+                  <NavigateBeforeIcon />
+                  
+                </IconButton>
+              </div>
+              <div className="main__container_detail_row_text">My Pics</div>
+              <div id="main__container_detail_row_next_post">
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                  onClick={handleNextPost}
+                >
+                  <NavigateNextIcon />
+                </IconButton>
+              </div>
+            </div>
+            {/* <Typography
               className="main__post_container_heading"
               color="secondary"
               variant="overline"
             >
               My Pics
-            </Typography>
+            </Typography> */}
             {/* {Object.values(posts.postIds).map((post) => ( */}
             {/* // <Grid item key={card} xs={12} sm={6} md={4}> */}
             <Grid item xs={12}>
