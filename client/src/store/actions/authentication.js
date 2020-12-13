@@ -28,7 +28,6 @@ export const loadToken = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-  // debugger;
   const response = await fetch(`${backendUrl}/api/users/signin`, {
     method: "post",
     headers: { "Content-Type": "application/json" },

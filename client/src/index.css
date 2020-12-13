@@ -67,8 +67,9 @@ body,
 }
 
 .post__comment {
+  flex: 1 1 100%;
   font-size: 0.75rem;
-  padding: 0;
+  padding: 0 0.875rem;
   text-align: left;
 }
 

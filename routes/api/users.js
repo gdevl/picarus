@@ -114,7 +114,6 @@ router.post(
 router.post(
   "/signin",
   asyncErrorHandler(async function (req, res, next) {
-    // debugger;
     const { email, password } = req.body;
     const user = await User.findOne({
       where: {
@@ -134,10 +133,6 @@ router.post(
       token,
       user: { id: user.id, displayName: user.displayName, email: user.email },
     });
-
-    // console.log("USER");
-    // console.log(user);
-    // res.json(user);
   })
 );
 

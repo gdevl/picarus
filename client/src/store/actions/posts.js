@@ -12,7 +12,6 @@ export const removePost = (postId) => ({ type: REMOVE_POST, postId });
 export const setCurrentPost = (postId) => ({ type: SET_CURRENT_POST, postId });
 
 export const fetchPosts = () => async (dispatch) => {
-  // debugger;
   const response = await fetch(`${backendUrl}/api/posts`, {
     method: "get",
     headers: { "Content-Type": "application/json" },
@@ -20,13 +19,11 @@ export const fetchPosts = () => async (dispatch) => {
 
   if (response.ok) {
     const res = await response.json();
-    // console.log(res)
     dispatch(setPosts(res));
   }
 };
 
 export const createComment = (comment) => async (dispatch) => {
-  // debugger;
   const {content, uid, pid} = comment;
   const response = await fetch(`${backendUrl}/api/comments`, {
     method: "post",
@@ -36,7 +33,6 @@ export const createComment = (comment) => async (dispatch) => {
 
   if (response.ok) {
     const comment = await response.json();
-    // console.log(res)
     dispatch(addComment(comment));
   }
 };

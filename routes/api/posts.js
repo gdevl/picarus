@@ -8,7 +8,6 @@ const router = express.Router();
 router.get(
   "/",
   asyncErrorHandler(async function (req, res, next) {
-    console.log("IN POSTS ROUTE");
     const posts = await Post.findAll({
       include: [
         {
@@ -33,7 +32,7 @@ router.get(
     });
 
     const postIds = {};
-    // console.log(data);
+
     posts.forEach((post) => {
       postIds[post.id] = post;
     });

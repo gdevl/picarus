@@ -79,6 +79,7 @@ const Post = ({ post }) => {
   const dispatch = useDispatch();
   const currentUserId = useSelector((state) => state.authentication.user.id);
   const currentPostId = useSelector((state) => state.posts.currentPostId);
+  const comments = useSelector((state) => state.posts.Comments);
   // const [postId, setPostId] = useState(post.id);
   const [expanded, setExpanded] = useState(false);
   const [commentText, setCommentText] = useState("");
@@ -104,11 +105,9 @@ const Post = ({ post }) => {
       uid: currentUserId,
       pid: currentPostId
     }
-    console.log("comment");
-    console.log(comment);
 
     await dispatch(createComment(comment));
-
+    
     // if (comment) {
     //   (async () => {
     //     dispatch(addComment(comment));
@@ -206,7 +205,7 @@ const Post = ({ post }) => {
                               aria-label="like this post"
                               onClick={handleAddComment}
                             >
-                              <SendIcon color="secondary" />
+                              <SendIcon color="secondary" {...bindToggle(popupState)}/>
                             </IconButton>
                             <IconButton
                               aria-label="add a comment"
@@ -226,7 +225,7 @@ const Post = ({ post }) => {
           {post.Comments.map((comment) => (
             <div className="post__comments">
               <div className="post__comment_author" key={`c-a-${comment.id}`}>
-                {comment.User.displayName ? comment.User.displayName : 'user'}
+                {comment.User ? comment.User.displayName : 'user'}
               </div>
               <div className="post__comment_elapsed" key={`c-ca-${comment.id}`}>
                 {`(${comment.createdAt})`}

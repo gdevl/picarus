@@ -17,27 +17,28 @@ module.exports = (sequelize, DataTypes) => {
       },
       createdAt: {
         type: DataTypes.DATE,
-        // get() {
-        //   let now = moment(new Date());
-        //   let then = moment(this.getDataValue("createdAt"));
-        //   let duration = moment.duration(now.diff(then));
+        get() {
+          let now = moment(new Date());
+          let then = moment(this.getDataValue("createdAt"));
+          let duration = moment.duration(now.diff(then));
 
-        //   if (duration.asSeconds() < 60) {
-        //     return `${Math.floor(duration.asSeconds())} seconds ago`;
-        //   }
+          if (duration.asSeconds() < 60) {
+            // return `${Math.floor(duration.asSeconds())} seconds ago`;
+            return `less than a minute ago`;
+          }
 
-        //   if (duration.asMinutes() < 60) {
-        //     return `${Math.floor(duration.asMinutes())} minutes ago`;
-        //   }
+          if (duration.asMinutes() < 60) {
+            return `${Math.floor(duration.asMinutes())} minutes ago`;
+          }
 
-        //   if (duration.asHours() < 24) {
-        //     return `${Math.floor(duration.asHours())} hours ago`;
-        //   }
+          if (duration.asHours() < 24) {
+            return `${Math.floor(duration.asHours())} hours ago`;
+          }
 
-        //   if (duration.asHours() > 24) {
-        //     return `${Math.floor(duration.asDays())} days ago`;
-        //   }
-        // },
+          if (duration.asHours() > 24) {
+            return `${Math.floor(duration.asDays())} days ago`;
+          }
+        },
       },
       updatedAt: {
         type: DataTypes.DATE,
