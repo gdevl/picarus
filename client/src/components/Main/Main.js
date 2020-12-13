@@ -181,8 +181,7 @@ const Main = () => {
                   component="span"
                   onClick={handlePreviousPost}
                 >
-                  <NavigateBeforeIcon />
-                  
+                  {posts[postIndex.current + 1] ? <NavigateBeforeIcon /> : null}
                 </IconButton>
               </div>
               <div className="main__container_detail_row_text">My Pics</div>
@@ -193,7 +192,7 @@ const Main = () => {
                   component="span"
                   onClick={handleNextPost}
                 >
-                  <NavigateNextIcon />
+                  {posts[postIndex.current - 1] ? <NavigateNextIcon /> : null}
                 </IconButton>
               </div>
             </div>
