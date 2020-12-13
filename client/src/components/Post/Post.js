@@ -75,6 +75,10 @@ const Post = ({ post }) => {
     setExpanded(!expanded);
   };
 
+  const handleAddComment = () => {
+    alert(`Your comment`);
+  };
+
   // const content = posts.postIds[1].content;
   // const caption = posts.postIds[1].content;
 
@@ -120,24 +124,40 @@ const Post = ({ post }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography className="post__comments_header" paragraph>
+          {/* <Typography className="post__comments_header" paragraph>
             {post.Comments.length !== 1
               ? `${post.Comments.length} COMMENTS`
               : `${post.Comments.length} COMMENT`}
-          </Typography>
+            <IconButton onClick={handleAddComment} aria-label="add a comment">
+              <AddCommentIcon color="secondary" />
+            </IconButton>
+          </Typography> */}
+          <div className="post__comments_meta_row">
+            <p className="post_comments_meta_num">
+              {post.Comments.length !== 1
+                ? `${post.Comments.length} COMMENTS`
+                : `${post.Comments.length} COMMENT`}
+            </p>
+            <IconButton onClick={handleAddComment} aria-label="add a comment">
+              <AddCommentIcon color="secondary" />
+            </IconButton>
+          </div>
           {post.Comments.map((comment) => (
             <div className="post__comments">
-              <span className="post__comment_author">
+              <div className="post__comment_author" key={`c-a-${comment.id}`}>
                 {comment.User.displayName}
-              </span>
-              <Typography
+              </div>
+              <div className="post__comment" key={`c-${comment.id}`}>
+                {comment.content}
+              </div>
+              {/* <Typography
                 className="post__comment"
                 align="left"
                 key={comment.id}
                 component="span"
               >
                 {comment.content}
-              </Typography>
+              </Typography> */}
             </div>
           ))}
         </CardContent>

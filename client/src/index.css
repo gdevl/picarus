@@ -29,16 +29,18 @@ body,
 .post__comments {
   /* container */
   display: flex;
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
 }
 
-.post__comments_header {
+.post__comments_meta_row {
   /* border-bottom: 1px solid rgba(198, 120, 221, 1); */
   border-bottom: 1px solid rgba(97, 175, 239, 1);
   color: rgba(97, 175, 239, 1);
+  display: flex;
+  flex-flow: row nowrap;
   font-family: "Josefin Sans", sans-serif !important;
+  justify-content: space-between;
   /* margin-bottom: 0 !important; */
-  text-align: left;
 }
 
 .post__comment_author {
@@ -50,6 +52,7 @@ body,
 .post__comment {
   font-size: 0.875rem !important;
   padding: 0 0.5rem;
+  text-align: left;
 }
 
 .post__header {
