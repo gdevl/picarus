@@ -127,7 +127,9 @@ const Post = ({ post }) => {
           </Typography>
           {post.Comments.map((comment) => (
             <div className="post__comments">
-              <span className="post__comment_author">{comment.uid}</span>
+              <span className="post__comment_author">
+                {comment.User.displayName}
+              </span>
               <Typography
                 className="post__comment"
                 align="left"

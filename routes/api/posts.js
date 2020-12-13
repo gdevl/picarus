@@ -10,11 +10,30 @@ router.get(
   asyncErrorHandler(async function (req, res, next) {
     console.log("IN POSTS ROUTE");
     const posts = await Post.findAll({
-      include: [User, Comment, PostLike],
+      include: [
+        {
+          model: User,
+          attributes: ["displayName"],
+        },
+        {
+          model: Comment,
+          include: {
+            model: User,
+            attributes: ["displayName"],
+          },
+        },
+        {
+          model: PostLike,
+          include: {
+            model: User,
+            attributes: ["displayName"],
+          },
+        },
+      ],
     });
 
     const postIds = {};
-
+    // console.log(data);
     posts.forEach((post) => {
       postIds[post.id] = post;
     });
