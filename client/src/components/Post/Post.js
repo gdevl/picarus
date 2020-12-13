@@ -195,6 +195,9 @@ const Post = ({ post }) => {
               <div className="post__comment_author" key={`c-a-${comment.id}`}>
                 {comment.User.displayName}
               </div>
+              <div className="post__comment_elapsed" key={`c-ca-${comment.id}`}>
+                {`(${comment.createdAt})`}
+              </div>
               <div className="post__comment" key={`c-${comment.id}`}>
                 {comment.content}
               </div>

@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CameraIcon from "@material-ui/icons/PhotoCamera";
+import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
@@ -133,7 +134,7 @@ const Main = () => {
             aria-label="upload picture"
             component="span"
           >
-            <CameraIcon
+            <AddAPhotoIcon
               color="primary"
               className={classes.main__appbar_icons}
             />
