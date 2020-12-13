@@ -13,4 +13,18 @@ router.get(
   })
 );
 
+router.post(
+  "/",
+  asyncErrorHandler(async (req, res) => {
+    const { content, uid, pid } = req.body;
+    const comment = await Comment.create({ content, uid, pid });
+
+    if (comment) {
+      return res.json(comment);
+    }
+
+    res.json("An error occurred during comment creation.");
+  })
+);
+
 module.exports = router;

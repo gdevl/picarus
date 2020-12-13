@@ -162,7 +162,6 @@ const Post = ({ post }) => {
                           noValidate
                           autoComplete="off"
                         >
-                          {/* <TextField id="addComment" label="Standard" /> */}
                           <input
                             className="post__comment_add_text"
                             name="add_comment"
@@ -199,14 +198,6 @@ const Post = ({ post }) => {
               <div className="post__comment" key={`c-${comment.id}`}>
                 {comment.content}
               </div>
-              {/* <Typography
-                className="post__comment"
-                align="left"
-                key={comment.id}
-                component="span"
-              >
-                {comment.content}
-              </Typography> */}
             </div>
           ))}
         </CardContent>

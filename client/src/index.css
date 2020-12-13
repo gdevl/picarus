@@ -29,7 +29,9 @@ body,
 .post__comments {
   /* container */
   display: flex;
-  padding: 1rem 0.5rem;
+  flex-flow: column nowrap;
+  margin: 0.5rem 0;
+  /* padding: 0.25rem; */
 }
 
 .post__comments_meta_row {
@@ -45,13 +47,13 @@ body,
 
 .post__comment_author {
   color: rgba(97, 175, 239, 1);
-  font-size: 1.25rem;
-  /* text-align: left; */
+  font-size: 1rem;
+  text-align: left;
 }
 
 .post__comment {
-  font-size: 0.875rem !important;
-  padding: 0 0.5rem;
+  font-size: 0.875rem;
+  padding: 0;
   text-align: left;
 }
 
