@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
+import TextField from "@material-ui/core/TextField";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
@@ -19,6 +20,11 @@ import CommentIcon from "@material-ui/icons/Comment";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import SendIcon from "@material-ui/icons/Send";
+import CloseIcon from "@material-ui/icons/Close";
+import Popper from "@material-ui/core/Popper";
+import PopupState, { bindToggle, bindPopper } from "material-ui-popup-state";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) => ({
   post__container: {
@@ -68,7 +74,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Post = ({ post }) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [commentText, setCommentText] = useState("");
   // const users = useSelector(() => state.)
 
   const handleExpandClick = () => {
@@ -77,6 +84,14 @@ const Post = ({ post }) => {
 
   const handleAddComment = () => {
     alert(`Your comment`);
+  };
+
+  const updateCommentText = (e) => {
+    setCommentText(e.target.value);
+  };
+
+  const handleInputFocus = (e) => {
+    e.target.classList.add("post__comment_text_focus");
   };
 
   // const content = posts.postIds[1].content;
@@ -124,23 +139,57 @@ const Post = ({ post }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          {/* <Typography className="post__comments_header" paragraph>
-            {post.Comments.length !== 1
-              ? `${post.Comments.length} COMMENTS`
-              : `${post.Comments.length} COMMENT`}
-            <IconButton onClick={handleAddComment} aria-label="add a comment">
-              <AddCommentIcon color="secondary" />
-            </IconButton>
-          </Typography> */}
           <div className="post__comments_meta_row">
             <p className="post_comments_meta_num">
               {post.Comments.length !== 1
                 ? `${post.Comments.length} COMMENTS`
                 : `${post.Comments.length} COMMENT`}
             </p>
-            <IconButton onClick={handleAddComment} aria-label="add a comment">
-              <AddCommentIcon color="secondary" />
-            </IconButton>
+            <PopupState variant="popper" popupId="post__add_comment">
+              {(popupState) => (
+                <div className="post__comment_add">
+                  <IconButton
+                    aria-label="add a comment"
+                    {...bindToggle(popupState)}
+                  >
+                    <AddCommentIcon color="secondary" />
+                  </IconButton>
+                  <Popper {...bindPopper(popupState)} transition>
+                    {({ TransitionProps }) => (
+                      <Fade {...TransitionProps} timeout={350}>
+                        <form
+                          className="post__comment_add_form"
+                          noValidate
+                          autoComplete="off"
+                        >
+                          {/* <TextField id="addComment" label="Standard" /> */}
+                          <input
+                            className="post__comment_add_text"
+                            name="add_comment"
+                            id="add_comment"
+                            placeholder="Say something ..."
+                            value={commentText}
+                            onChange={updateCommentText}
+                            onFocus={handleInputFocus}
+                          />
+                          <div className="post__comment_add_actions">
+                            <IconButton aria-label="like this post">
+                              <SendIcon color="secondary" />
+                            </IconButton>
+                            <IconButton
+                              aria-label="add a comment"
+                              {...bindToggle(popupState)}
+                            >
+                              <CloseIcon color="secondary" />
+                            </IconButton>
+                          </div>
+                        </form>
+                      </Fade>
+                    )}
+                  </Popper>
+                </div>
+              )}
+            </PopupState>
           </div>
           {post.Comments.map((comment) => (
             <div className="post__comments">

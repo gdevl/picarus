@@ -71,6 +71,47 @@ body,
   padding: 0 0 1.25rem 0;
 }
 
+.post__comment_add_form {
+  background-color: #000;
+  border: 1px solid rgba(97, 175, 239, 0.4);
+  border-radius: 4px;
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 1 1 auto;
+  justify-content: space-between;
+  padding: 1rem 0.5rem;
+  position: absolute;
+  left: -308px;
+  top: -63px;
+  width: 330px;
+}
+
+.post__comment_add_actions {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 1 1 auto;
+}
+
+.post__comment_add_text {
+  background-color: transparent;
+  border: medium none;
+  color: white;
+  margin: 0 0.5rem;
+  width: 90%;
+}
+
+.post__comment_text_focus {
+  /* background-color: yellow; */
+  border-bottom: 1px solid rgba(97, 175, 239, 1);
+  border-collapse: collapse;
+  outline: none;
+}
+
+/* #post__add_comment {
+  height: 200px;
+  width: 200px;
+} */
+
 .MuiInputBase-root,
 .MuiFormLabel-root {
   color: white !important;
