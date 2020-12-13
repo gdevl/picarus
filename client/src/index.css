@@ -36,11 +36,13 @@ body,
 .post__comments {
   /* container */
   align-items: center;
+  border: 1px dotted rgba(97, 175, 239, 0.1);
+  border-radius: 4px;
   display: flex;
   flex-flow: row wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin: 0.5rem 0;
-  /* padding: 0.25rem; */
+  padding: 0.25rem;
 }
 
 .post__comments_meta_row {
@@ -55,14 +57,16 @@ body,
 }
 
 .post__comment_author {
-  color: rgba(97, 175, 239, 1);
+  /* color: rgba(97, 175, 239, 1); */
+  color: rgba(198, 120, 221, 1);
   font-size: 0.875rem;
   margin-right: 0.25em;
   text-align: left;
 }
 
 .post__comment_elapsed {
-  color: rgba(198, 120, 221, 1);
+  color: rgba(97, 175, 239, 1);
+  /* color: rgba(198, 120, 221, 1); */
   font-size: 0.625rem;
 }
 

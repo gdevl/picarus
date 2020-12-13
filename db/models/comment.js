@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
             return `less than a minute ago`;
           }
 
+          if (duration.asMinutes() < 2) {
+            return `${Math.floor(duration.asMinutes())} minute ago`;
+          }
+
           if (duration.asMinutes() < 60) {
             return `${Math.floor(duration.asMinutes())} minutes ago`;
           }
