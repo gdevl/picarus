@@ -88,8 +88,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const cards = [1];
 
 const Main = () => {
   const classes = useStyles();
@@ -100,18 +98,13 @@ const Main = () => {
   const currentPostId = useSelector((state) => state.posts.currentPostId);
   // const index = useRef(0);
   const postIndex = useRef(ids[ids.length - 1]);
-  // const [currentPostId, setCurrentPostId] = useState(1);
-
-  // const currentPostId = useSelector((state) => state.posts.)
 
   useEffect(() => {
     dispatch(fetchPosts());
-    // setCurrentPostId(ids[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    // dispatch(setCurrentPost(ids[index.current]));
     dispatch(setCurrentPost(postIndex.current));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPostId]);
@@ -126,21 +119,11 @@ const Main = () => {
   };
 
   const handleNextPost = () => {
-    // alert(`${postIndex.current}`)
-    // const nextPost = document.getElementById("main__container_detail_row_next_post");
-    // if (postIndex.current == 1) {
-    //   nextPost.classList.add("hide_post_nav_arrows");
-    // } else {
-    //   nextPost.setAttribute("display", "block");
     postIndex.current--;
     dispatch(setCurrentPost(postIndex.current))
   }
 
   const handlePreviousPost = () => {
-    // if (postIndex.current == ids.length) {
-    //   const prevPost = document.getElementById("main__container_detail_row_prev_post");
-    //   prevPost.classList.add("hide_post_nav_arrows");
-    // } else {
     postIndex.current++;
     dispatch(setCurrentPost(postIndex.current))
     
@@ -149,8 +132,10 @@ const Main = () => {
   if (!token) {
     return <Redirect to="/signin" />;
   }
-  // const thePost = "";
+
+  
   const thePost = posts[currentPostId];
+  if (!thePost) return null;
 
   return (
     <>
@@ -174,30 +159,52 @@ const Main = () => {
       </AppBar>
       <main className="main__container">
         <Container className={classes.cardGrid} maxWidth="md">
-          {/* {console.log(thePost)} */}
-          {/* {console.log(imageUrl)} */}
           <Grid container spacing={4} justify="center" align="center">
             <div className="main__container_detail_row">
               <div id="main__container_detail_row_prev_post">
+                { posts[(postIndex.current + 1)]
+                ?
                 <IconButton
                   color="primary"
-                  aria-label="upload picture"
+                  aria-label="previous post"
                   component="span"
                   onClick={handlePreviousPost}
                 >
-                  {posts[postIndex.current + 1] ? <NavigateBeforeIcon /> : <NavigateBeforeIcon className={classes.hidden}/>}
+                  <NavigateBeforeIcon />
                 </IconButton>
+                : 
+                <IconButton
+                  className={classes.hidden}
+                  color="primary"
+                  aria-label="previous post"
+                  component="span"
+                  onClick={handlePreviousPost}
+                >
+                  <NavigateBeforeIcon />
+                </IconButton> }
               </div>
               <div className="main__container_detail_row_text">My Pics</div>
               <div id="main__container_detail_row_next_post">
+                {posts[postIndex.current - 1]
+                ?
                 <IconButton
                   color="primary"
                   aria-label="upload picture"
                   component="span"
                   onClick={handleNextPost}
                 >
-                  {posts[postIndex.current - 1] ? <NavigateNextIcon /> : <NavigateNextIcon className={classes.hidden}/>}
+                  <NavigateNextIcon />
                 </IconButton>
+                :
+                <IconButton
+                  className={classes.hidden}
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                  onClick={handleNextPost}
+                >
+                  <NavigateNextIcon />
+                </IconButton>}
               </div>
             </div>
             {/* <Typography

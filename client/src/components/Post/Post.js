@@ -107,12 +107,6 @@ const Post = ({ post }) => {
     }
 
     await dispatch(createComment(comment));
-    
-    // if (comment) {
-    //   (async () => {
-    //     dispatch(addComment(comment));
-    //   })();
-    // }
   };
 
   const updateCommentText = (e) => {
@@ -123,14 +117,12 @@ const Post = ({ post }) => {
     e.target.classList.add("post__comment_text_focus");
   };
 
-  // const content = posts.postIds[1].content;
-  // const caption = posts.postIds[1].content;
 
   return (
     <Card className={classes.post__container}>
       <div className="post__header">
         <p className="post__author">{post.User.displayName}</p>
-        <p className="post__creation">{post.createdAt}</p>
+        <p className="post__creation">{`(${post.createdAt})`}</p>
       </div>
       <CardMedia
         className={classes.media}
