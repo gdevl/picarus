@@ -66,12 +66,12 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "700 !important",
   },
   post__content: {
-    // backgroundColor: "rgba(97, 175, 239, 1)",
-    // border: "1px solid #333",
     borderRadius: "4px",
-    // color: "rgba(97, 175, 239, 1) !important",
     padding: "0.5rem 0",
   },
+  userLikesPost: {
+    pointerEvents: "none !important"
+  }
 }));
 
 const Post = ({ post }) => {
@@ -79,27 +79,24 @@ const Post = ({ post }) => {
   const dispatch = useDispatch();
   const currentUserId = useSelector((state) => state.authentication.user.id);
   const currentPostId = useSelector((state) => state.posts.currentPostId);
-  const comments = useSelector((state) => state.posts.Comments);
-  // const [postId, setPostId] = useState(post.id);
   const [expanded, setExpanded] = useState(false);
   const [commentText, setCommentText] = useState("");
   
-  // useEffect(() => {
-  //   dispatch(setCurrentPost(post.id));
-  //   // setCurrentPostId(post.id);
-  // }, [])
   
-
+  const postLikes = post.PostLikes;
+  const userLikes = [];
+  postLikes.forEach(postLike => {
+    if (postLike.uid === currentUserId) {
+      userLikes.push(postLike.pid)
+    }
+  })
+  
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const handleAddComment = async (e) => {
     e.preventDefault();
-    // console.log("postId:");
-    // console.log(postId);
-    console.log("currentPostId:")
-    console.log(currentPostId);
     const comment = {
       content: commentText,
       uid: currentUserId,
@@ -130,6 +127,9 @@ const Post = ({ post }) => {
 
   return (
     <Card className={classes.post__container}>
+      {console.log("userLikes.includes(post.id)")}
+      {console.log(userLikes.includes(post.id))}
+ 
       <div className="post__header">
         <p className="post__author">{post.User.displayName}</p>
         <p className="post__creation">{`(${post.createdAt})`}</p>
@@ -151,11 +151,17 @@ const Post = ({ post }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="like this post" onClick={handlePostLike}>
-          {/* <FavoriteIcon color="primary" /> */}
-          <FavoriteBorderIcon color="secondary" />
+        {userLikes.includes(post.id)
+        ?
+        <IconButton aria-label="you like this post" className={classes.userLikesPost}>
+          <FavoriteIcon color="primary" />
           <div className="post__likes">{post.PostLikes.length}</div>
         </IconButton>
+        :
+        <IconButton aria-label="like this post" onClick={handlePostLike}>
+          <FavoriteBorderIcon color="primary" />
+          <div className="post__likes">{post.PostLikes.length}</div>
+        </IconButton> }
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

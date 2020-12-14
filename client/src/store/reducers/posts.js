@@ -10,16 +10,19 @@ import {
 const initialState = {
   currentPostId: null,
   ids: [],
+  // currentUserLikesCurrentPost: null,
 };
 
 export default function reducer(state = initialState, action) {
   let nextState = { ...state };
-  debugger
+  // debugger
   switch (action.type) {
     case SET_POSTS:
+      // debugger
       return {
         ...action.posts,
         ids: Object.keys(action.posts),
+        // postLikes: Object.keys(action.)
       };
     case ADD_POST:
       nextState.posts[action.post.id] = action.post;

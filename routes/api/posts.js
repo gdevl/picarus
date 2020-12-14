@@ -31,10 +31,14 @@ router.get(
       ],
     });
 
-    const postIds = {};
-
+    const postIds = {
+    };
+    
     posts.forEach((post) => {
       postIds[post.id] = post;
+      console.log("post");
+      console.log(post);
+      // postIds.postLikes.push(post.id.PostLikes)
     });
 
     res.json(postIds);
