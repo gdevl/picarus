@@ -26,7 +26,7 @@ import Popper from "@material-ui/core/Popper";
 import PopupState, { bindToggle, bindPopper } from "material-ui-popup-state";
 import Fade from "@material-ui/core/Fade";
 
-import { setCurrentPost, createComment } from "../../store/actions/posts";
+import { setCurrentPost, createComment, createPostLike } from "../../store/actions/posts";
 
 const useStyles = makeStyles((theme) => ({
   post__container: {
@@ -109,6 +109,16 @@ const Post = ({ post }) => {
     await dispatch(createComment(comment));
   };
 
+  const handlePostLike = async (e) => {
+    e.preventDefault();
+    const postLike = {
+      uid: currentUserId,
+      pid: currentPostId
+    }
+
+    await dispatch(createPostLike(postLike));
+  }
+
   const updateCommentText = (e) => {
     setCommentText(e.target.value);
   };
@@ -141,7 +151,7 @@ const Post = ({ post }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="like this post">
+        <IconButton aria-label="like this post" onClick={handlePostLike}>
           {/* <FavoriteIcon color="primary" /> */}
           <FavoriteBorderIcon color="secondary" />
           <div className="post__likes">{post.PostLikes.length}</div>

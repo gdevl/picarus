@@ -4,8 +4,10 @@ export const ADD_POST = "picarus/posts/ADD_POST";
 export const REMOVE_POST = "picarus/posts/REMOVE_POST";
 export const SET_CURRENT_POST = "picarus/posts/SET_CURRENT_POST";
 export const ADD_COMMENT = "picarus/post/ADD_COMMENT";
+export const ADD_POST_LIKE = "picarus/post/ADD_POST_LIKE";
 
 export const addComment = (comment) => ({ type: ADD_COMMENT, comment });
+export const addPostLike = (postLike) => ({type: ADD_POST_LIKE, postLike});
 export const setPosts = (posts) => ({ type: SET_POSTS, posts });
 export const addPost = (post) => ({ type: ADD_POST, post });
 export const removePost = (postId) => ({ type: REMOVE_POST, postId });
@@ -36,3 +38,17 @@ export const createComment = (comment) => async (dispatch) => {
     dispatch(addComment(comment));
   }
 };
+
+export const createPostLike = (postLike) => async (dispatch) => {
+  const {uid, pid} = postLike;
+  const response = await fetch(`${backendUrl}/api/postlikes`, {
+    method: "post",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({uid, pid}),
+  });
+
+  if (response.ok) {
+    const postLike = await response.json();
+    dispatch(addPostLike(postLike));
+  }
+}

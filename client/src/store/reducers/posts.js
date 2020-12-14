@@ -4,6 +4,7 @@ import {
   REMOVE_POST,
   SET_CURRENT_POST,
   ADD_COMMENT,
+  ADD_POST_LIKE,
 } from "../actions/posts";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   let nextState = { ...state };
+  debugger
   switch (action.type) {
     case SET_POSTS:
       return {
@@ -34,6 +36,9 @@ export default function reducer(state = initialState, action) {
       return nextState;
     case ADD_COMMENT:
       nextState[action.comment.pid].Comments.push(action.comment);
+      return nextState;
+    case ADD_POST_LIKE:
+      nextState[action.postLike.pid].PostLikes.push(action.postLike);
       return nextState;
     default:
       return state;
