@@ -95,8 +95,8 @@ const Main = () => {
   const token = useSelector((state) => state.authentication.token);
   const posts = useSelector((state) => state.posts);
   const ids = useSelector((state) => state.posts.ids);
+  const currentUserDisplayName = useSelector((state) => state.authentication.user.displayName);
   const currentPostId = useSelector((state) => state.posts.currentPostId);
-  // const index = useRef(0);
   const postIndex = useRef(ids[ids.length - 1]);
 
   useEffect(() => {
@@ -183,7 +183,8 @@ const Main = () => {
                   <NavigateBeforeIcon />
                 </IconButton> }
               </div>
-              <div className="main__container_detail_row_text">My Pics</div>
+              {/* <div className="main__container_detail_row_text">My Feed</div> */}
+              <div className="main__container_detail_row_text">{`${currentUserDisplayName}'s Feed`}</div>
               <div id="main__container_detail_row_next_post">
                 {posts[postIndex.current - 1]
                 ?
@@ -207,23 +208,7 @@ const Main = () => {
                 </IconButton>}
               </div>
             </div>
-            {/* <Typography
-              className="main__post_container_heading"
-              color="secondary"
-              variant="overline"
-            >
-              My Pics
-            </Typography> */}
-            {/* {Object.values(posts.postIds).map((post) => ( */}
-            {/* // <Grid item key={card} xs={12} sm={6} md={4}> */}
             <Grid item xs={12}>
-              {/* <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={posts.postIds[1].imageUrl}
-                    title="Image title"
-                  />
-                </Card> */}
               {thePost ? (
                 <Post key={`post ${thePost.id}`} post={thePost} />
               ) : null}

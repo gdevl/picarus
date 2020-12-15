@@ -56,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  demo__signin_spacing: {
+    margin: "0px 0px 16px"
+  }
 }));
 
 const SignIn = () => {
@@ -63,6 +66,8 @@ const SignIn = () => {
   const token = useSelector((state) => state.authentication.token);
   const [email, setEmail] = useState("demo@example.com");
   const [password, setPassword] = useState("password");
+  const demoEmail = "demo@example.com";
+  const demoPassword = "password";
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
@@ -71,6 +76,13 @@ const SignIn = () => {
       dispatch(login(email, password));
     })();
   };
+
+  const handleDemoLogin = async (e) => {
+    e.preventDefault();
+    (async () => {
+      dispatch(login(demoEmail, demoPassword));
+    })();
+  }
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -148,6 +160,15 @@ const SignIn = () => {
             className={[classes.signin__spacing, classes.signin__input]}
           >
             Sign In
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            color="secondary"
+            className={[classes.demo__signin_spacing, classes.signin__input]}
+            onClick={handleDemoLogin}
+          >
+            Demo Login
           </Button>
           <Grid container justify="center">
             <Grid item>
