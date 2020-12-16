@@ -23,14 +23,7 @@ const useStyles = makeStyles({
 });
 
 const Logo = () => {
-  const classes = useStyles();
-  return (
-    <>
-      <Typography className={classes.logo__header} variant="h2">
-        {logoHeader}
-      </Typography>
-    </>
-  );
+  return <h2 className="landing__logo">{logoHeader}</h2>;
 };
 
 export default Logo;

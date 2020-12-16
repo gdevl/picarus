@@ -4,8 +4,9 @@ import { Link, Redirect } from "react-router-dom";
 import { Box, Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../Logo/Logo";
-
+import SubTitle from "./SubTitle";
 import RandomPhoto from "./RandomPhoto";
+import GetStarted from "./GetStarted";
 
 const landingHeader = "PICARUS";
 const landingSubHeader = "NO FRILLS PHOTO SHARING";
@@ -45,22 +46,30 @@ const Landing = () => {
   //   return <Redirect to="/signin" />;
   // }
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      justify="center"
-      style={{ backgroundColor: "#222" }}
-    >
-      <Grid item>
+    // <Grid
+    //   container
+    //   direction="column"
+    //   alignItems="center"
+    //   justify="center"
+    //   style={{ backgroundColor: "#222" }}
+    // >
+    //   <Grid item>
+    //     <Logo />
+    //   </Grid>
+    //   <Grid item>
+    //     <Box boxShadow={3} className={classes.landing__photo_box}>
+    //       <RandomPhoto />
+    //     </Box>
+    //   </Grid>
+    // </Grid>
+    <div className="landing__container">
+      <div className="landing__content">
         <Logo />
-      </Grid>
-      <Grid item>
-        <Box boxShadow={3} className={classes.landing__photo_box}>
-          <RandomPhoto />
-        </Box>
-      </Grid>
-    </Grid>
+        <SubTitle />
+        <RandomPhoto />
+        <GetStarted />
+      </div>
+    </div>
   );
 };
 

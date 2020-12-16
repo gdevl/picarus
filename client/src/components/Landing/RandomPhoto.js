@@ -5,19 +5,19 @@ const getRandomInt = (max) => {
   return Math.floor(Math.random() * Math.floor(max));
 };
 
-const pathPrefix = "static/";
+const pathPrefix = `static/${getRandomInt(5) + 1}.jpg`;
 
 const RandomPhoto = () => {
   return (
-    <Card>
-      <CardMedia
-        component="img"
-        height="300px"
-        width="100%"
-        alt=" "
-        src={pathPrefix + (getRandomInt(5) + 1) + ".jpg"}
-      ></CardMedia>
-    </Card>
+    <div
+      className="landing__photo"
+      style={{
+        backgroundImage: `url(${pathPrefix})`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    ></div>
   );
 };
 

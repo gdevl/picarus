@@ -28,10 +28,10 @@ const App = ({ needLogin, loadToken }) => {
           <Landing />
         </Route>
         <ProtectedRoute
-          path="/signin"
+          path="/landing"
           exact={true}
           needLogin={needLogin}
-          component={SignIn}
+          component={Landing}
         />
         <PrivateRoute path="/" needLogin={needLogin} component={Main} />
       </Switch>

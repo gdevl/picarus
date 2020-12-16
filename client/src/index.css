@@ -8,6 +8,80 @@ body,
   height: 100%;
 }
 
+.landing__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  /* grid-auto-rows: 200px; */
+  grid-auto-rows: auto;
+  grid-template-areas:
+    ". . ."
+    ". con ."
+    ". con ."
+    ". . .";
+  height: 100%;
+}
+
+.landing__logo {
+  align-self: center;
+  color: rgba(198, 120, 221, 1);
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 4rem;
+  font-weight: 500;
+  line-height: 4rem;
+  margin: 0;
+  padding: 0;
+  justify-self: center;
+}
+
+.landing__content {
+  display: flex;
+  flex-flow: column nowrap;
+  grid-area: con;
+  justify-self: center;
+  padding: 1.618rem;
+}
+
+.landing__photo {
+  /* justify-self: center; */
+  background-clip: content-box;
+  border: 1px solid rgba(198, 120, 221, 0.4);
+  border-radius: 4px;
+  box-shadow: 3px 3px 0px rgba(198, 120, 221, 0.5),
+    6px 6px 0px rgba(97, 175, 239, 0.5), 9px 9px 0px rgba(198, 120, 221, 0.5),
+    12px 12px 0px rgba(97, 175, 239, 0.5),
+    15px 15px 0px rgba(198, 120, 221, 0.5),
+    18px 18px 0px rgba(97, 175, 239, 0.5);
+  height: 300px;
+  margin-right: 0.875rem;
+  padding: 1.618rem;
+  width: 300px;
+}
+
+.landing__get_started {
+  margin: 2rem;
+  text-decoration: none;
+}
+
+.landing__get_started:hover {
+  /* border-bottom: 1px solid rgba(97, 175, 239, 0.5); */
+  border-bottom: 1px solid rgba(198, 120, 221, 0.5);
+  color: rgba(198, 120, 221, 1);
+}
+
+.landing__subtitle,
+.landing__get_started {
+  align-self: center;
+  color: rgba(97, 175, 239, 1);
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 0.75rem;
+  justify-self: center;
+  line-height: 2.66;
+  letter-spacing: 0.08333em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .main__container {
   background-color: black;
   height: auto;
