@@ -43,10 +43,14 @@ module.exports = (sequelize, DataTypes) => {
             return `${Math.floor(duration.asHours())} hours ago`;
           }
 
-          if (duration.asHours() > 24) {
+          if (duration.asDays() < 2) {
+            return `yesterday`;
+          }
+
+          if (duration.asDays() > 1) {
             return `${Math.floor(duration.asDays())} days ago`;
           }
-          
+
           if (duration.asDays() >= 14) {
             return `${Math.floor(duration.asWeeks())} weeks ago`;
           }
