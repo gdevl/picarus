@@ -19,8 +19,8 @@ import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import Logo from "../Logo/Logo";
 import Post from "../Post/Post";
 import LogoutButton from "./LogoutButton";
@@ -85,19 +85,22 @@ const useStyles = makeStyles((theme) => ({
   hidden: {
     opacity: 0,
     pointerEvents: "none",
-  }
+  },
 }));
 
-
 const Main = () => {
+  console.log("IN MAIN");
   const classes = useStyles();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authentication.token);
   const posts = useSelector((state) => state.posts);
   const ids = useSelector((state) => state.posts.ids);
-  const currentUserDisplayName = useSelector((state) => state.authentication.user.displayName);
+  const currentUserDisplayName = useSelector(
+    (state) => state.authentication.user.displayName
+  );
   const currentPostId = useSelector((state) => state.posts.currentPostId);
-  const postIndex = useRef(ids[ids.length - 1]);
+  // const postIndex = useRef(ids[ids.length - 1]);
+  const postIndex = useRef(null);
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -105,9 +108,14 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
+    postIndex.current = ids[ids.length - 1];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ids]);
+
+  useEffect(() => {
     dispatch(setCurrentPost(postIndex.current));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPostId]);
+  }, [ids]);
 
   const handleLinkedInClick = () => {
     return (window.location.href =
@@ -120,26 +128,25 @@ const Main = () => {
 
   const handleNextPost = () => {
     postIndex.current--;
-    dispatch(setCurrentPost(postIndex.current))
-  }
+    dispatch(setCurrentPost(postIndex.current));
+  };
 
   const handlePreviousPost = () => {
     postIndex.current++;
-    dispatch(setCurrentPost(postIndex.current))
-    
-  }
+    dispatch(setCurrentPost(postIndex.current));
+  };
 
   if (!token) {
     return <Redirect to="/signin" />;
   }
 
-  
   const thePost = posts[currentPostId];
   if (!thePost) return null;
 
   return (
     <>
       <AppBar position="static" className={classes.main__appbar}>
+        {console.log("IN THE RENDER")}
         <Toolbar>
           <IconButton
             color="primary"
@@ -162,50 +169,51 @@ const Main = () => {
           <Grid container spacing={4} justify="center" align="center">
             <div className="main__container_detail_row">
               <div id="main__container_detail_row_prev_post">
-                { posts[(postIndex.current + 1)]
-                ?
-                <IconButton
-                  color="primary"
-                  aria-label="previous post"
-                  component="span"
-                  onClick={handlePreviousPost}
-                >
-                  <NavigateBeforeIcon />
-                </IconButton>
-                : 
-                <IconButton
-                  className={classes.hidden}
-                  color="primary"
-                  aria-label="previous post"
-                  component="span"
-                  onClick={handlePreviousPost}
-                >
-                  <NavigateBeforeIcon />
-                </IconButton> }
+                {/* is there a previous post? Show the button! If not, hide it! */}
+                {posts[postIndex.current + 1] ? (
+                  <IconButton
+                    color="primary"
+                    aria-label="previous post"
+                    component="span"
+                    onClick={handlePreviousPost}
+                  >
+                    <NavigateBeforeIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    className={classes.hidden}
+                    color="primary"
+                    aria-label="previous post"
+                    component="span"
+                    onClick={handlePreviousPost}
+                  >
+                    <NavigateBeforeIcon />
+                  </IconButton>
+                )}
               </div>
-              {/* <div className="main__container_detail_row_text">My Feed</div> */}
               <div className="main__container_detail_row_text">{`${currentUserDisplayName}'s Feed`}</div>
               <div id="main__container_detail_row_next_post">
-                {posts[postIndex.current - 1]
-                ?
-                <IconButton
-                  color="primary"
-                  aria-label="upload picture"
-                  component="span"
-                  onClick={handleNextPost}
-                >
-                  <NavigateNextIcon />
-                </IconButton>
-                :
-                <IconButton
-                  className={classes.hidden}
-                  color="primary"
-                  aria-label="upload picture"
-                  component="span"
-                  onClick={handleNextPost}
-                >
-                  <NavigateNextIcon />
-                </IconButton>}
+                {/* is there a next post? Show the button! If not, hide it! */}
+                {posts[postIndex.current - 1] ? (
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    component="span"
+                    onClick={handleNextPost}
+                  >
+                    <NavigateNextIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    className={classes.hidden}
+                    color="primary"
+                    aria-label="upload picture"
+                    component="span"
+                    onClick={handleNextPost}
+                  >
+                    <NavigateNextIcon />
+                  </IconButton>
+                )}
               </div>
             </div>
             <Grid item xs={12}>

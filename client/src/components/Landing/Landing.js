@@ -41,9 +41,9 @@ const Landing = () => {
   const classes = useStyles();
   const token = useSelector((state) => state.authentication.token);
 
-  if (!token) {
-    return <Redirect to="/signin" />;
-  }
+  // if (!token) {
+  //   return <Redirect to="/signin" />;
+  // }
   return (
     <Grid
       container
@@ -55,51 +55,11 @@ const Landing = () => {
       <Grid item>
         <Logo />
       </Grid>
-      {/* <Grid item>
-        <Typography className={classes.landing__header} variant="h2">
-          {landingHeader}
-        </Typography>
-      </Grid> */}
-      {/* <Grid item>
-        <Typography
-          className={classes.landing__subheader}
-          variant="subtitle2"
-          gutterBottom
-        >
-          {landingSubHeader}
-        </Typography>
-      </Grid> */}
       <Grid item>
         <Box boxShadow={3} className={classes.landing__photo_box}>
           <RandomPhoto />
         </Box>
       </Grid>
-      {/* <Grid item>
-        <Grid container justify="center">
-          <Grid item>
-            <Link to="/signup" style={{ textDecoration: "none" }}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.landing__button_wide}
-              >
-                Sign Up
-              </Button>
-            </Link>
-          </Grid>
-          <Grid item>
-            <Link to="/signin" style={{ textDecoration: "none" }}>
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.landing__button_wide}
-              >
-                Log In
-              </Button>
-            </Link>
-          </Grid>
-        </Grid>
-      </Grid> */}
     </Grid>
   );
 };

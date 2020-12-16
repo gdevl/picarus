@@ -32,7 +32,6 @@ module.exports = (sequelize, DataTypes) => {
           let duration = moment.duration(now.diff(then));
 
           if (duration.asSeconds() < 60) {
-            // return `${Math.floor(duration.asSeconds())} seconds ago`;
             return `less than a minute ago`;
           }
 

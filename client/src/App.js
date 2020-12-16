@@ -1,30 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import { loadToken } from "./store/actions/authentication";
+import { ProtectedRoute, PrivateRoute } from "./auth-routes";
 import Main from "./components/Main/Main";
-import UserList from "./components/UsersList";
+
+import Landing from "./components/Landing/Landing";
 import Signup from "./components/Signup/Signup";
 import SignIn from "./components/SignIn/SignIn";
 
-const App = () => {
+const App = ({ needLogin, loadToken }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+    loadToken();
+  }, [loadToken]);
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/users">
-          <UserList />
+        <Route path="/landing" component={Landing}>
+          <Landing />
         </Route>
-        <Route path="/signup">
-          <Signup />
-        </Route>
-        <Route path="/signin">
-          <SignIn />
-        </Route>
-
-        <Route path="/">
-          <Main />
-        </Route>
+        <ProtectedRoute
+          path="/signin"
+          exact={true}
+          needLogin={needLogin}
+          component={SignIn}
+        />
+        <PrivateRoute path="/" needLogin={needLogin} component={Main} />
       </Switch>
     </BrowserRouter>
   );
 };
 
-export default App;
+const AppContainer = () => {
+  const needLogin = useSelector((state) => !state.authentication.token);
+  const dispatch = useDispatch();
+  return <App needLogin={needLogin} loadToken={() => dispatch(loadToken())} />;
+};
+
+export default AppContainer;

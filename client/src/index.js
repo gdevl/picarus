@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import AppContainer from "./App";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Provider } from "react-redux";
@@ -25,7 +25,7 @@ ReactDOM.render(
     <ThemeProvider theme={picarus}>
       <CssBaseline />
       <Provider store={store}>
-        <App />
+        <AppContainer />
       </Provider>
     </ThemeProvider>
   </React.StrictMode>,
