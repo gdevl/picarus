@@ -7,7 +7,7 @@ export const ADD_COMMENT = "picarus/post/ADD_COMMENT";
 export const ADD_POST_LIKE = "picarus/post/ADD_POST_LIKE";
 
 export const addComment = (comment) => ({ type: ADD_COMMENT, comment });
-export const addPostLike = (postLike) => ({type: ADD_POST_LIKE, postLike});
+export const addPostLike = (postLike) => ({ type: ADD_POST_LIKE, postLike });
 export const setPosts = (posts) => ({ type: SET_POSTS, posts });
 export const addPost = (post) => ({ type: ADD_POST, post });
 export const removePost = (postId) => ({ type: REMOVE_POST, postId });
@@ -26,7 +26,7 @@ export const fetchPosts = () => async (dispatch) => {
 };
 
 export const createComment = (comment) => async (dispatch) => {
-  const {content, uid, pid} = comment;
+  const { content, uid, pid } = comment;
   const response = await fetch(`${backendUrl}/api/comments`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -39,16 +39,30 @@ export const createComment = (comment) => async (dispatch) => {
   }
 };
 
+export const createPost = (post) => async (dispatch) => {
+  const { uid, content, imageUrl } = post;
+  const response = await fetch(`${backendUrl}/api/posts`, {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ uid, content, imageUrl }),
+  });
+
+  if (response.ok) {
+    const post = await response.json();
+    dispatch(addPost(post));
+  }
+};
+
 export const createPostLike = (postLike) => async (dispatch) => {
-  const {uid, pid} = postLike;
+  const { uid, pid } = postLike;
   const response = await fetch(`${backendUrl}/api/postlikes`, {
     method: "post",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({uid, pid}),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ uid, pid }),
   });
 
   if (response.ok) {
     const postLike = await response.json();
     dispatch(addPostLike(postLike));
   }
-}
+};

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { loadToken } from "./store/actions/authentication";
 import { ProtectedRoute, PrivateRoute } from "./auth-routes";
 import Main from "./components/Main/Main";
@@ -24,9 +24,8 @@ const App = ({ needLogin, loadToken }) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/landing" component={Landing}>
-          <Landing />
-        </Route>
+        <Route path="/landing" component={Landing} />
+        <Route path="/signup" component={Signup} />
         <ProtectedRoute
           path="/signin"
           exact={true}

@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Card, CardMedia } from "@material-ui/core";
+import React, { useRef } from "react";
 
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);

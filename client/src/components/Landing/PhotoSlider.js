@@ -3,8 +3,6 @@ import Carousel from "react-material-ui-carousel";
 
 const PhotoSlider = (props) => {
   const index = useRef(1);
-  //   const photoPath = `static/${index}.jpg`;
-  //   const photoPath2 = `static/2.jpg`;
   const photos = [
     {
       url: `static/${index.current}.jpg`,
