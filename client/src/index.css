@@ -89,6 +89,86 @@ body,
   text-transform: uppercase;
 }
 
+.add_post_form {
+  background-color: #000;
+  border: 1px solid rgba(97, 175, 239, 0.4);
+  border-radius: 4px;
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 auto;
+  justify-content: space-between;
+  padding: 1rem 0.5rem;
+  /* position: absolute; */
+  /* left: -308px; */
+  /* top: -63px; */
+  width: 330px;
+}
+
+.add_post_content {
+  background-color: transparent;
+  border: medium none;
+  color: white;
+  font-family: "Josefin Sans", sans-serif;
+  margin: 0 0.5rem;
+  /* width: 90%; */
+}
+
+.add_post_image_url {
+  background-color: transparent;
+  border: medium none;
+  color: white;
+  margin: 1rem 0.5rem;
+  width: 90%;
+}
+
+.add_post_photo_upload {
+  /* background-color: rgba(198, 120, 221, 1); */
+  border: 1px solid rgba(198, 120, 221, 0.5);
+  border-radius: 4px;
+  color: rgba(198, 120, 221, 1);
+  /* color: black; */
+  /* display: inline-block; */
+  /* font-family: "Josefin Sans", sans-serif; */
+  /* padding: 6px 12px; */
+  cursor: pointer;
+  flex: 1 1 100%;
+  text-align: center;
+}
+
+input[type="file"] {
+  /* display: none; */
+}
+
+.add_post_field_focus {
+  border-bottom: 1px solid rgba(97, 175, 239, 1);
+  border-collapse: collapse;
+  outline: none;
+}
+
+.add_post_action_button {
+  background-color: transparent;
+  border: medium none;
+  color: rgba(97, 175, 239, 1);
+  cursor: pointer;
+  font-family: "Josefin Sans", sans-serif;
+  padding: 1rem;
+}
+
+.add_post_photo_upload:hover,
+.add_post_action_button:hover {
+  border-bottom: 1px solid rgba(198, 120, 221, 0.5);
+  color: rgba(198, 120, 221, 1);
+}
+
+.add_post_actions {
+  align-items: center;
+  /* border: 1px solid rgba(97, 175, 239, 1); */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  padding: 1rem;
+}
+
 .main__container {
   background-color: black;
   height: auto;

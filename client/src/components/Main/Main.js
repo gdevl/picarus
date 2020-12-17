@@ -13,11 +13,19 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import SendIcon from "@material-ui/icons/Send";
+import CloseIcon from "@material-ui/icons/Close";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import Popper from "@material-ui/core/Popper";
 import LogoutButton from "./LogoutButton";
 import Logo from "../Logo/Logo";
 import Post from "../Post/Post";
 
-import { fetchPosts, setCurrentPost } from "../../store/actions/posts";
+import {
+  createPost,
+  fetchPosts,
+  setCurrentPost,
+} from "../../store/actions/posts";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -82,9 +90,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Main = () => {
-  console.log("IN MAIN");
   const classes = useStyles();
   const dispatch = useDispatch();
+  const currentUserId = useSelector((state) => state.authentication.user.id);
   const token = useSelector((state) => state.authentication.token);
   const posts = useSelector((state) => state.posts);
   const ids = useSelector((state) => state.posts.ids);
@@ -92,8 +100,14 @@ const Main = () => {
     (state) => state.authentication.user.displayName
   );
   const currentPostId = useSelector((state) => state.posts.currentPostId);
-  // const postIndex = useRef(ids[ids.length - 1]);
   const postIndex = useRef(null);
+
+  // Add post form toggle defs
+  const [postContent, setPostContent] = useState("");
+  const [postImageUrl, setPostImageUrl] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popper" : undefined;
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -109,6 +123,22 @@ const Main = () => {
     dispatch(setCurrentPost(postIndex.current));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids]);
+
+  const handleCreatePost = async (e) => {
+    e.preventDefault();
+    const post = {
+      uid: currentUserId,
+      content: postContent,
+      imageUrl: postImageUrl,
+    };
+
+    await dispatch(createPost(post));
+    setAnchorEl(anchorEl ? null : e.currentTarget);
+  };
+
+  const handleAddPostClick = (e) => {
+    setAnchorEl(anchorEl ? null : e.currentTarget);
+  };
 
   const handleLinkedInClick = () => {
     return (window.location.href =
@@ -129,6 +159,18 @@ const Main = () => {
     dispatch(setCurrentPost(postIndex.current));
   };
 
+  const updatePostContent = (e) => {
+    setPostContent(e.target.value);
+  };
+
+  const updatePostImageUrl = (e) => {
+    setPostImageUrl(e.target.value);
+  };
+
+  const handleInputFocus = (e) => {
+    e.target.classList.add("add_post_field_focus");
+  };
+
   if (!token) {
     return <Redirect to="/signin" />;
   }
@@ -139,18 +181,72 @@ const Main = () => {
   return (
     <>
       <AppBar position="static" className={classes.main__appbar}>
-        {console.log("IN THE RENDER")}
         <Toolbar>
           <IconButton
+            aria-describedby={id}
+            type="button"
             color="primary"
             aria-label="upload picture"
             component="span"
+            onClick={handleAddPostClick}
           >
             <AddAPhotoIcon
               color="primary"
               className={classes.main__appbar_icons}
             />
           </IconButton>
+          <Popper id={id} open={open} anchorEl={anchorEl}>
+            <form className="add_post_form" noValidate autoComplete="off">
+              <textarea
+                className="add_post_content"
+                name="add_post_content"
+                id="add_post_content"
+                placeholder="Describe your image ..."
+                value={postContent}
+                onChange={updatePostContent}
+                onFocus={handleInputFocus}
+                rows="5"
+                cols="33"
+              />
+              <div className="add_post_actions">
+                <label
+                  htmlFor="add_post_photo_upload"
+                  className="add_post_photo_upload"
+                >
+                  <input
+                    accept="image/*"
+                    id="add_post_photo_upload"
+                    type="file"
+                  />
+                  Upload
+                </label>
+                {/* <IconButton aria-label="create post" onClick={handleCreatePost}>
+                  <SendIcon color="secondary" />
+                </IconButton> */}
+                <button
+                  aria-label="create post"
+                  className="add_post_action_button"
+                  onClick={handleCreatePost}
+                >
+                  Post
+                </button>
+                <button
+                  aria-label="close dialog"
+                  className="add_post_action_button"
+                  onClick={handleAddPostClick}
+                >
+                  Close
+                </button>
+
+                {/* <IconButton
+                  aria-label="close dialog"
+                  onClick={handleAddPostClick}
+                >
+                  <CloseIcon color="secondary" />
+                </IconButton> */}
+              </div>
+            </form>
+          </Popper>
         </Toolbar>
         <Logo />
         <Toolbar>

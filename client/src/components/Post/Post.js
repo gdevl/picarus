@@ -127,8 +127,6 @@ const Post = ({ post }) => {
 
   return (
     <Card className={classes.post__container}>
-      {console.log("userLikes.includes(post.id)")}
-      {console.log(userLikes.includes(post.id))}
  
       <div className="post__header">
         <p className="post__author">{post.User.displayName}</p>

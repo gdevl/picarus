@@ -15,7 +15,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   let nextState = { ...state };
-  // debugger
+  debugger
   switch (action.type) {
     case SET_POSTS:
       // debugger
@@ -25,7 +25,7 @@ export default function reducer(state = initialState, action) {
         // postLikes: Object.keys(action.)
       };
     case ADD_POST:
-      nextState.posts[action.post.id] = action.post;
+      nextState[action.post.id] = action.post;
       nextState.ids.push(action.post.id);
       return nextState;
     case REMOVE_POST:
