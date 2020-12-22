@@ -20,6 +20,7 @@ import Popper from "@material-ui/core/Popper";
 import LogoutButton from "./LogoutButton";
 import Logo from "../Logo/Logo";
 import Post from "../Post/Post";
+import UploadImage from "../Post/UploadImage";
 
 import {
   createPost,
@@ -103,6 +104,7 @@ const Main = () => {
   const postIndex = useRef(null);
 
   // Add post form toggle defs
+  const [image, setImage] = useState(null);
   const [postContent, setPostContent] = useState("");
   const [postImageUrl, setPostImageUrl] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
@@ -129,8 +131,11 @@ const Main = () => {
     const post = {
       uid: currentUserId,
       content: postContent,
-      imageUrl: postImageUrl,
+      image: image,
     };
+
+    console.log("POST");
+    console.log(post);
 
     await dispatch(createPost(post));
     setAnchorEl(anchorEl ? null : e.currentTarget);
@@ -209,7 +214,7 @@ const Main = () => {
                 cols="33"
               />
               <div className="add_post_actions">
-                <label
+                {/* <label
                   htmlFor="add_post_photo_upload"
                   className="add_post_photo_upload"
                 >
@@ -219,10 +224,8 @@ const Main = () => {
                     type="file"
                   />
                   Upload
-                </label>
-                {/* <IconButton aria-label="create post" onClick={handleCreatePost}>
-                  <SendIcon color="secondary" />
-                </IconButton> */}
+                </label> */}
+                <UploadImage image={image} setImage={setImage} />
                 <button
                   aria-label="create post"
                   className="add_post_action_button"
@@ -237,13 +240,6 @@ const Main = () => {
                 >
                   Close
                 </button>
-
-                {/* <IconButton
-                  aria-label="close dialog"
-                  onClick={handleAddPostClick}
-                >
-                  <CloseIcon color="secondary" />
-                </IconButton> */}
               </div>
             </form>
           </Popper>
