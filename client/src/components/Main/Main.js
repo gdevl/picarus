@@ -117,27 +117,36 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    postIndex.current = ids[ids.length - 1];
+    // postIndex.current = ids[ids.length - 1];
+    postIndex.current = ids.length - 1;
+    console.log("ids[ids.length]");
+    console.log(ids[ids.length]);
+    console.log("postIndex.current:");
+    console.log(postIndex.current);
+    console.log(typeof postIndex.current);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids]);
 
   useEffect(() => {
-    dispatch(setCurrentPost(postIndex.current));
+    dispatch(setCurrentPost(ids[postIndex.current]));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids]);
 
   const handleCreatePost = async (e) => {
     e.preventDefault();
-    const post = {
-      uid: currentUserId,
-      content: postContent,
-      image: image,
-    };
+    const postData = new FormData();
+    postData.append("file", image);
+    postData.append("uid", currentUserId);
+    postData.append("content", postContent);
 
-    console.log("POST");
-    console.log(post);
+    // const post = {
+    //   uid: currentUserId,
+    //   content: postContent,
+    //   image: image,
+    // };
 
-    await dispatch(createPost(post));
+    await dispatch(createPost(postData));
     setAnchorEl(anchorEl ? null : e.currentTarget);
   };
 
@@ -155,13 +164,21 @@ const Main = () => {
   };
 
   const handleNextPost = () => {
-    postIndex.current--;
-    dispatch(setCurrentPost(postIndex.current));
+    if (postIndex.current === 0) {
+      postIndex.current = ids.length - 1;
+    } else {
+      postIndex.current--;
+    }
+    dispatch(setCurrentPost(ids[postIndex.current]));
   };
 
   const handlePreviousPost = () => {
-    postIndex.current++;
-    dispatch(setCurrentPost(postIndex.current));
+    if (postIndex.current === ids.length - 1) {
+      postIndex.current = 0;
+    } else {
+      postIndex.current++;
+    }
+    dispatch(setCurrentPost(ids[postIndex.current]));
   };
 
   const updatePostContent = (e) => {
@@ -254,8 +271,16 @@ const Main = () => {
           <Grid container spacing={4} justify="center" align="center">
             <div className="main__container_detail_row">
               <div id="main__container_detail_row_prev_post">
+                <IconButton
+                  color="primary"
+                  aria-label="previous post"
+                  component="span"
+                  onClick={handlePreviousPost}
+                >
+                  <NavigateBeforeIcon />
+                </IconButton>
                 {/* is there a previous post? Show the button! If not, hide it! */}
-                {posts[postIndex.current + 1] ? (
+                {/* {posts[postIndex.current + 1] ? (
                   <IconButton
                     color="primary"
                     aria-label="previous post"
@@ -274,12 +299,20 @@ const Main = () => {
                   >
                     <NavigateBeforeIcon />
                   </IconButton>
-                )}
+                )} */}
               </div>
               <div className="main__container_detail_row_text">{`${currentUserDisplayName}'s Feed`}</div>
               <div id="main__container_detail_row_next_post">
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                  onClick={handleNextPost}
+                >
+                  <NavigateNextIcon />
+                </IconButton>
                 {/* is there a next post? Show the button! If not, hide it! */}
-                {posts[postIndex.current - 1] ? (
+                {/* {posts[postIndex.current - 1] ? (
                   <IconButton
                     color="primary"
                     aria-label="upload picture"
@@ -298,7 +331,7 @@ const Main = () => {
                   >
                     <NavigateNextIcon />
                   </IconButton>
-                )}
+                )} */}
               </div>
             </div>
             <Grid item xs={12}>
