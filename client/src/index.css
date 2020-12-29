@@ -122,21 +122,16 @@ body,
 }
 
 .add_post_photo_upload {
-  /* background-color: rgba(198, 120, 221, 1); */
   border: 1px solid rgba(198, 120, 221, 0.5);
   border-radius: 4px;
   color: rgba(198, 120, 221, 1);
-  /* color: black; */
-  /* display: inline-block; */
-  /* font-family: "Josefin Sans", sans-serif; */
-  /* padding: 6px 12px; */
   cursor: pointer;
   flex: 1 1 100%;
   text-align: center;
 }
 
 input[type="file"] {
-  /* display: none; */
+  display: none;
 }
 
 .add_post_field_focus {

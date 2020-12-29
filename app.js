@@ -18,6 +18,22 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 // Security Middleware
+
+// const whitelist = [
+//     "http://localhost:3000",
+// ]
+
+// const corsOptions = {
+//     credentials: true, // important
+//     origin: (origin, callback) => {
+//         if (whitelist.includes(origin)) {
+//             return callback(null, true);
+//         }
+//         callback(new Error("Not allowed by CORS"));
+//     },
+// };
+
+// app.use(cors(corsOptions));
 app.use(cors({ origin: true }));
 app.use(helmet({ hsts: false }));
 // app.use(csurf({

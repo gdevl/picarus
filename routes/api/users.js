@@ -8,17 +8,6 @@ const { User } = require("../../db/models");
 
 const router = express.Router();
 
-const validateEmailAndPassword = [
-  check("email")
-    .exists({ checkFalsy: true })
-    .isEmail()
-    .withMessage("Please provide a valid email address."),
-  check("password")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a password."),
-  handleValidationErrors,
-];
-
 const validateSignUp = [
   check("displayName")
     .exists({ checkFalsy: true })
@@ -55,15 +44,15 @@ const validateSignUp = [
     .withMessage("Password must be at least 8 characters long.")
     .isLength({ max: 50 })
     .withMessage("Password must not be more than 50 characters long"),
-  // check("confirmPassword")
-  //   .isLength({ max: 50 })
-  //   .withMessage("Confirm Password must not be more than 50 characters long")
-  //   .custom((value, { req }) => {
-  //     if (value !== req.body.password) {
-  //       throw new Error("Confirm Password does not match Password");
-  //     }
-  //     return true;
-  //   }),
+  check("confirmPassword")
+    .isLength({ max: 50 })
+    .withMessage("Confirm Password must not be more than 50 characters long")
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Confirm Password does not match Password");
+      }
+      return true;
+    }),
   handleValidationErrors,
 ];
 

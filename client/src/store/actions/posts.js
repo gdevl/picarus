@@ -39,12 +39,16 @@ export const createComment = (comment) => async (dispatch) => {
   }
 };
 
-export const createPost = (post) => async (dispatch) => {
-  const { uid, content, imageUrl } = post;
+export const createPost = (postData) => async (dispatch) => {
+  //   debugger;
+  //   const { uid, content } = data;
+  console.log("postData:");
+  console.log(postData);
   const response = await fetch(`${backendUrl}/api/posts`, {
     method: "post",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ uid, content, imageUrl }),
+    // headers: { "Content-Type": "application/json" },
+    // body: JSON.stringify({ message: "hi" }), 
+    body: postData,
   });
 
   if (response.ok) {

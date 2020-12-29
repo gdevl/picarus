@@ -20,6 +20,7 @@ import Popper from "@material-ui/core/Popper";
 import LogoutButton from "./LogoutButton";
 import Logo from "../Logo/Logo";
 import Post from "../Post/Post";
+import UploadImage from "../Post/UploadImage";
 
 import {
   createPost,
@@ -103,6 +104,7 @@ const Main = () => {
   const postIndex = useRef(null);
 
   // Add post form toggle defs
+  const [image, setImage] = useState(null);
   const [postContent, setPostContent] = useState("");
   const [postImageUrl, setPostImageUrl] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
@@ -115,24 +117,36 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    postIndex.current = ids[ids.length - 1];
+    // postIndex.current = ids[ids.length - 1];
+    postIndex.current = ids.length - 1;
+    console.log("ids[ids.length]");
+    console.log(ids[ids.length]);
+    console.log("postIndex.current:");
+    console.log(postIndex.current);
+    console.log(typeof postIndex.current);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids]);
 
   useEffect(() => {
-    dispatch(setCurrentPost(postIndex.current));
+    dispatch(setCurrentPost(ids[postIndex.current]));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids]);
 
   const handleCreatePost = async (e) => {
     e.preventDefault();
-    const post = {
-      uid: currentUserId,
-      content: postContent,
-      imageUrl: postImageUrl,
-    };
+    const postData = new FormData();
+    postData.append("file", image);
+    postData.append("uid", currentUserId);
+    postData.append("content", postContent);
 
-    await dispatch(createPost(post));
+    // const post = {
+    //   uid: currentUserId,
+    //   content: postContent,
+    //   image: image,
+    // };
+
+    await dispatch(createPost(postData));
     setAnchorEl(anchorEl ? null : e.currentTarget);
   };
 
@@ -150,13 +164,21 @@ const Main = () => {
   };
 
   const handleNextPost = () => {
-    postIndex.current--;
-    dispatch(setCurrentPost(postIndex.current));
+    if (postIndex.current === 0) {
+      postIndex.current = ids.length - 1;
+    } else {
+      postIndex.current--;
+    }
+    dispatch(setCurrentPost(ids[postIndex.current]));
   };
 
   const handlePreviousPost = () => {
-    postIndex.current++;
-    dispatch(setCurrentPost(postIndex.current));
+    if (postIndex.current === ids.length - 1) {
+      postIndex.current = 0;
+    } else {
+      postIndex.current++;
+    }
+    dispatch(setCurrentPost(ids[postIndex.current]));
   };
 
   const updatePostContent = (e) => {
@@ -209,7 +231,7 @@ const Main = () => {
                 cols="33"
               />
               <div className="add_post_actions">
-                <label
+                {/* <label
                   htmlFor="add_post_photo_upload"
                   className="add_post_photo_upload"
                 >
@@ -219,10 +241,8 @@ const Main = () => {
                     type="file"
                   />
                   Upload
-                </label>
-                {/* <IconButton aria-label="create post" onClick={handleCreatePost}>
-                  <SendIcon color="secondary" />
-                </IconButton> */}
+                </label> */}
+                <UploadImage image={image} setImage={setImage} />
                 <button
                   aria-label="create post"
                   className="add_post_action_button"
@@ -237,13 +257,6 @@ const Main = () => {
                 >
                   Close
                 </button>
-
-                {/* <IconButton
-                  aria-label="close dialog"
-                  onClick={handleAddPostClick}
-                >
-                  <CloseIcon color="secondary" />
-                </IconButton> */}
               </div>
             </form>
           </Popper>
@@ -258,8 +271,16 @@ const Main = () => {
           <Grid container spacing={4} justify="center" align="center">
             <div className="main__container_detail_row">
               <div id="main__container_detail_row_prev_post">
+                <IconButton
+                  color="primary"
+                  aria-label="previous post"
+                  component="span"
+                  onClick={handlePreviousPost}
+                >
+                  <NavigateBeforeIcon />
+                </IconButton>
                 {/* is there a previous post? Show the button! If not, hide it! */}
-                {posts[postIndex.current + 1] ? (
+                {/* {posts[postIndex.current + 1] ? (
                   <IconButton
                     color="primary"
                     aria-label="previous post"
@@ -278,12 +299,20 @@ const Main = () => {
                   >
                     <NavigateBeforeIcon />
                   </IconButton>
-                )}
+                )} */}
               </div>
               <div className="main__container_detail_row_text">{`${currentUserDisplayName}'s Feed`}</div>
               <div id="main__container_detail_row_next_post">
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                  onClick={handleNextPost}
+                >
+                  <NavigateNextIcon />
+                </IconButton>
                 {/* is there a next post? Show the button! If not, hide it! */}
-                {posts[postIndex.current - 1] ? (
+                {/* {posts[postIndex.current - 1] ? (
                   <IconButton
                     color="primary"
                     aria-label="upload picture"
@@ -302,7 +331,7 @@ const Main = () => {
                   >
                     <NavigateNextIcon />
                   </IconButton>
-                )}
+                )} */}
               </div>
             </div>
             <Grid item xs={12}>
