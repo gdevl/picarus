@@ -181,10 +181,17 @@ input[type="file"] {
   justify-content: center;
 }
 
-#main__container_detail_row_prev_post {
+.main__appbar_icons:hover {
+  color: rgba(97, 175, 239, 1);
 }
 
-#main__container_detail_row_next_post {
+.main__appbar_icons_alt:hover {
+  color: rgba(198, 120, 221, 1);
+}
+
+.MuiIconButton-root:hover {
+  background-color: none;
+  /* overflow: hidden; */
 }
 
 .hide_post_nav_arrows {

@@ -200,10 +200,7 @@ const Main = () => {
             component="span"
             onClick={handleAddPostClick}
           >
-            <AddAPhotoIcon
-              color="primary"
-              className={classes.main__appbar_icons}
-            />
+            <AddAPhotoIcon color="primary" className="main__appbar_icons" />
           </IconButton>
           <Popper id={id} open={open} anchorEl={anchorEl}>
             <form className="add_post_form" noValidate autoComplete="off">

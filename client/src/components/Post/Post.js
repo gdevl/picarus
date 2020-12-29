@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   post__container: {
     backgroundColor: "#222",
     // backgroundColor: "transparent",
-    border: "1px solid rgba(97, 175, 239, 0.2);",
+    border: "1px solid rgba(97, 175, 239, 0.2)",
     // border: "1px solid #C678DD",
     color: "#fff",
     maxWidth: 345,
@@ -75,6 +75,11 @@ const useStyles = makeStyles((theme) => ({
   },
   userLikesPost: {
     pointerEvents: "none !important",
+  },
+  buttonHoverColor: {
+    "&hover": {
+      color: "rgba(198, 120, 221, 1) !important",
+    },
   },
 }));
 
@@ -173,14 +178,14 @@ const Post = ({ post }) => {
           </IconButton>
         )}
         <IconButton
-          className={clsx(classes.expand, {
+          className={clsx(classes.expand, classes.buttonHoverColor, {
             [classes.expandOpen]: expanded,
           })}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <CommentIcon color="secondary" />
+          <CommentIcon color="secondary" className="main__appbar_icons_alt" />
           <div className="post__comment_total">{postComments.length}</div>
         </IconButton>
       </CardActions>
@@ -199,7 +204,10 @@ const Post = ({ post }) => {
                     aria-label="add a comment"
                     {...bindToggle(popupState)}
                   >
-                    <AddCommentIcon color="secondary" />
+                    <AddCommentIcon
+                      color="secondary"
+                      className="main__appbar_icons_alt"
+                    />
                   </IconButton>
                   <Popper {...bindPopper(popupState)} transition>
                     {({ TransitionProps }) => (
@@ -225,6 +233,7 @@ const Post = ({ post }) => {
                             >
                               <SendIcon
                                 color="secondary"
+                                className="main__appbar_icons_alt"
                                 {...bindToggle(popupState)}
                               />
                             </IconButton>
@@ -232,7 +241,10 @@ const Post = ({ post }) => {
                               aria-label="add a comment"
                               {...bindToggle(popupState)}
                             >
-                              <CloseIcon color="secondary" />
+                              <CloseIcon
+                                color="secondary"
+                                className="main__appbar_icons_alt"
+                              />
                             </IconButton>
                           </div>
                         </form>

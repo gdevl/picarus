@@ -20,7 +20,7 @@ const LogoutButton = () => {
       component="span"
       onClick={handleLogout}
     >
-      <ExitToAppIcon color="primary" />
+      <ExitToAppIcon color="primary" className="main__appbar_icons" />
     </IconButton>
   );
 };
