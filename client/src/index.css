@@ -149,6 +149,10 @@ input[type="file"] {
   padding: 1rem;
 }
 
+.add_post_action_button:active {
+  outline: none;
+}
+
 .add_post_photo_upload:hover,
 .add_post_action_button:hover {
   border-bottom: 1px solid rgba(198, 120, 221, 0.5);
@@ -384,6 +388,22 @@ input[type="file"] {
   fill: rgba(198, 120, 221, 0.9);
   /* fill: rgba(97, 175, 239, 1); */
   /* fill: rgba(97, 175, 239, 0.5); */
+}
+
+/* DROPZONE AREA STYLES */
+
+.dropZoneArea .MuiDropzoneArea-root {
+  background-color: transparent;
+  border: 1px solid rgba(198, 120, 221, 0.4);
+  color: rgba(198, 120, 221, 1);
+}
+
+.MuiDropzoneArea-icon {
+  color: rgba(198, 120, 221, 1) !important;
+}
+
+.MuiDropzoneSnackbar-successAlert {
+  background-color: #222 !important;
 }
 
 input:-webkit-autofill,
