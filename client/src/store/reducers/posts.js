@@ -15,7 +15,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   let nextState = { ...state };
-//   debugger;
+  //   debugger;
   switch (action.type) {
     case SET_POSTS:
       // debugger
@@ -26,7 +26,7 @@ export default function reducer(state = initialState, action) {
       };
     case ADD_POST:
       nextState[action.post.id] = action.post;
-      nextState.ids.push(action.post.id);
+      nextState.ids.push(action.post.id.toString());
       return nextState;
     case REMOVE_POST:
       delete nextState.posts[action.postId];

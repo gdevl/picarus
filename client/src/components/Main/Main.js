@@ -134,6 +134,7 @@ const Main = () => {
     postData.append("content", postContent);
 
     await dispatch(createPost(postData));
+    dispatch(setCurrentPost(Number(ids[ids.length - 1])));
     setAnchorEl(anchorEl ? null : e.currentTarget);
   };
 

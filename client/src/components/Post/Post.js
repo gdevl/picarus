@@ -26,7 +26,11 @@ import Popper from "@material-ui/core/Popper";
 import PopupState, { bindToggle, bindPopper } from "material-ui-popup-state";
 import Fade from "@material-ui/core/Fade";
 
-import { setCurrentPost, createComment, createPostLike } from "../../store/actions/posts";
+import {
+  setCurrentPost,
+  createComment,
+  createPostLike,
+} from "../../store/actions/posts";
 
 const useStyles = makeStyles((theme) => ({
   post__container: {
@@ -70,8 +74,8 @@ const useStyles = makeStyles((theme) => ({
     padding: "0.5rem 0",
   },
   userLikesPost: {
-    pointerEvents: "none !important"
-  }
+    pointerEvents: "none !important",
+  },
 }));
 
 const Post = ({ post }) => {
@@ -81,16 +85,18 @@ const Post = ({ post }) => {
   const currentPostId = useSelector((state) => state.posts.currentPostId);
   const [expanded, setExpanded] = useState(false);
   const [commentText, setCommentText] = useState("");
-  
-  
-  const postLikes = post.PostLikes;
+
+  let postLikes = [];
   const userLikes = [];
-  postLikes.forEach(postLike => {
-    if (postLike.uid === currentUserId) {
-      userLikes.push(postLike.pid)
-    }
-  })
-  
+  if (post.PostLikes) {
+    postLikes = post.PostLikes;
+    postLikes.forEach((postLike) => {
+      if (postLike.uid === currentUserId) {
+        userLikes.push(postLike.pid);
+      }
+    });
+  }
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -100,8 +106,8 @@ const Post = ({ post }) => {
     const comment = {
       content: commentText,
       uid: currentUserId,
-      pid: currentPostId
-    }
+      pid: currentPostId,
+    };
 
     await dispatch(createComment(comment));
   };
@@ -110,11 +116,11 @@ const Post = ({ post }) => {
     e.preventDefault();
     const postLike = {
       uid: currentUserId,
-      pid: currentPostId
-    }
+      pid: currentPostId,
+    };
 
     await dispatch(createPostLike(postLike));
-  }
+  };
 
   const updateCommentText = (e) => {
     setCommentText(e.target.value);
@@ -124,10 +130,8 @@ const Post = ({ post }) => {
     e.target.classList.add("post__comment_text_focus");
   };
 
-
   return (
     <Card className={classes.post__container}>
- 
       <div className="post__header">
         <p className="post__author">{post.User.displayName}</p>
         <p className="post__creation">{`(${post.createdAt})`}</p>
@@ -149,17 +153,20 @@ const Post = ({ post }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {userLikes.includes(post.id)
-        ?
-        <IconButton aria-label="you like this post" className={classes.userLikesPost}>
-          <FavoriteIcon color="primary" />
-          <div className="post__likes">{post.PostLikes.length}</div>
-        </IconButton>
-        :
-        <IconButton aria-label="like this post" onClick={handlePostLike}>
-          <FavoriteBorderIcon color="primary" />
-          <div className="post__likes">{post.PostLikes.length}</div>
-        </IconButton> }
+        {userLikes.includes(post.id) ? (
+          <IconButton
+            aria-label="you like this post"
+            className={classes.userLikesPost}
+          >
+            <FavoriteIcon color="primary" />
+            <div className="post__likes">{postLikes.length}</div>
+          </IconButton>
+        ) : (
+          <IconButton aria-label="like this post" onClick={handlePostLike}>
+            <FavoriteBorderIcon color="primary" />
+            <div className="post__likes">{postLikes.length}</div>
+          </IconButton>
+        )}
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
@@ -169,16 +176,16 @@ const Post = ({ post }) => {
           aria-label="show more"
         >
           <CommentIcon color="secondary" />
-          <div className="post__comment_total">{post.Comments.length}</div>
+          {/* <div className="post__comment_total">{post.Comments.length}</div> */}
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <div className="post__comments_meta_row">
             <p className="post_comments_meta_num">
-              {post.Comments.length !== 1
+              {/* {post.Comments.length !== 1
                 ? `${post.Comments.length} COMMENTS`
-                : `${post.Comments.length} COMMENT`}
+                : `${post.Comments.length} COMMENT`} */}
             </p>
             <PopupState variant="popper" popupId="post__add_comment">
               {(popupState) => (
@@ -211,7 +218,10 @@ const Post = ({ post }) => {
                               aria-label="like this post"
                               onClick={handleAddComment}
                             >
-                              <SendIcon color="secondary" {...bindToggle(popupState)}/>
+                              <SendIcon
+                                color="secondary"
+                                {...bindToggle(popupState)}
+                              />
                             </IconButton>
                             <IconButton
                               aria-label="add a comment"
@@ -228,10 +238,10 @@ const Post = ({ post }) => {
               )}
             </PopupState>
           </div>
-          {post.Comments.map((comment) => (
+          {/* {post.Comments.map((comment) => (
             <div className="post__comments">
               <div className="post__comment_author" key={`c-a-${comment.id}`}>
-                {comment.User ? comment.User.displayName : 'user'}
+                {comment.User ? comment.User.displayName : "user"}
               </div>
               <div className="post__comment_elapsed" key={`c-ca-${comment.id}`}>
                 {`(${comment.createdAt})`}
@@ -240,7 +250,7 @@ const Post = ({ post }) => {
                 {comment.content}
               </div>
             </div>
-          ))}
+          ))} */}
         </CardContent>
       </Collapse>
     </Card>
