@@ -26,6 +26,8 @@ export default function reducer(state = initialState, action) {
       };
     case ADD_POST:
       nextState[action.post.id] = action.post;
+      nextState[action.post.id].Comments = [];
+      nextState[action.post.id].PostLikes = [];
       nextState.ids.push(action.post.id.toString());
       return nextState;
     case REMOVE_POST:
