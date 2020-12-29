@@ -188,9 +188,9 @@ const Post = ({ post }) => {
         <CardContent>
           <div className="post__comments_meta_row">
             <p className="post_comments_meta_num">
-              {/* {post.Comments.length !== 1
-                ? `${post.Comments.length} COMMENTS`
-                : `${post.Comments.length} COMMENT`} */}
+              {postComments.length !== 1
+                ? `${postComments.length} COMMENTS`
+                : `${postComments.length} COMMENT`}
             </p>
             <PopupState variant="popper" popupId="post__add_comment">
               {(popupState) => (
