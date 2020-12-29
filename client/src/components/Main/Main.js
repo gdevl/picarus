@@ -117,14 +117,7 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    // postIndex.current = ids[ids.length - 1];
     postIndex.current = ids.length - 1;
-    console.log("ids[ids.length]");
-    console.log(ids[ids.length]);
-    console.log("postIndex.current:");
-    console.log(postIndex.current);
-    console.log(typeof postIndex.current);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ids]);
 
@@ -139,12 +132,6 @@ const Main = () => {
     postData.append("file", image);
     postData.append("uid", currentUserId);
     postData.append("content", postContent);
-
-    // const post = {
-    //   uid: currentUserId,
-    //   content: postContent,
-    //   image: image,
-    // };
 
     await dispatch(createPost(postData));
     setAnchorEl(anchorEl ? null : e.currentTarget);
@@ -231,17 +218,6 @@ const Main = () => {
                 cols="33"
               />
               <div className="add_post_actions">
-                {/* <label
-                  htmlFor="add_post_photo_upload"
-                  className="add_post_photo_upload"
-                >
-                  <input
-                    accept="image/*"
-                    id="add_post_photo_upload"
-                    type="file"
-                  />
-                  Upload
-                </label> */}
                 <UploadImage image={image} setImage={setImage} />
                 <button
                   aria-label="create post"
@@ -279,27 +255,6 @@ const Main = () => {
                 >
                   <NavigateBeforeIcon />
                 </IconButton>
-                {/* is there a previous post? Show the button! If not, hide it! */}
-                {/* {posts[postIndex.current + 1] ? (
-                  <IconButton
-                    color="primary"
-                    aria-label="previous post"
-                    component="span"
-                    onClick={handlePreviousPost}
-                  >
-                    <NavigateBeforeIcon />
-                  </IconButton>
-                ) : (
-                  <IconButton
-                    className={classes.hidden}
-                    color="primary"
-                    aria-label="previous post"
-                    component="span"
-                    onClick={handlePreviousPost}
-                  >
-                    <NavigateBeforeIcon />
-                  </IconButton>
-                )} */}
               </div>
               <div className="main__container_detail_row_text">{`${currentUserDisplayName}'s Feed`}</div>
               <div id="main__container_detail_row_next_post">
@@ -311,27 +266,6 @@ const Main = () => {
                 >
                   <NavigateNextIcon />
                 </IconButton>
-                {/* is there a next post? Show the button! If not, hide it! */}
-                {/* {posts[postIndex.current - 1] ? (
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="span"
-                    onClick={handleNextPost}
-                  >
-                    <NavigateNextIcon />
-                  </IconButton>
-                ) : (
-                  <IconButton
-                    className={classes.hidden}
-                    color="primary"
-                    aria-label="upload picture"
-                    component="span"
-                    onClick={handleNextPost}
-                  >
-                    <NavigateNextIcon />
-                  </IconButton>
-                )} */}
               </div>
             </div>
             <Grid item xs={12}>
