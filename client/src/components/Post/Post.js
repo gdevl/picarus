@@ -97,6 +97,11 @@ const Post = ({ post }) => {
     });
   }
 
+  let postComments = [];
+  if (post.Comments) {
+    postComments = post.Comments;
+  }
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -176,7 +181,7 @@ const Post = ({ post }) => {
           aria-label="show more"
         >
           <CommentIcon color="secondary" />
-          {/* <div className="post__comment_total">{post.Comments.length}</div> */}
+          <div className="post__comment_total">{postComments.length}</div>
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -238,7 +243,7 @@ const Post = ({ post }) => {
               )}
             </PopupState>
           </div>
-          {/* {post.Comments.map((comment) => (
+          {postComments.map((comment) => (
             <div className="post__comments">
               <div className="post__comment_author" key={`c-a-${comment.id}`}>
                 {comment.User ? comment.User.displayName : "user"}
@@ -250,7 +255,7 @@ const Post = ({ post }) => {
                 {comment.content}
               </div>
             </div>
-          ))} */}
+          ))}
         </CardContent>
       </Collapse>
     </Card>
