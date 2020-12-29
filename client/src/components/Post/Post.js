@@ -22,6 +22,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SendIcon from "@material-ui/icons/Send";
 import CloseIcon from "@material-ui/icons/Close";
+import Tooltip from "@material-ui/core/Tooltip";
 import Popper from "@material-ui/core/Popper";
 import PopupState, { bindToggle, bindPopper } from "material-ui-popup-state";
 import Fade from "@material-ui/core/Fade";
@@ -177,17 +178,19 @@ const Post = ({ post }) => {
             <div className="post__likes">{postLikes.length}</div>
           </IconButton>
         )}
-        <IconButton
-          className={clsx(classes.expand, classes.buttonHoverColor, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <CommentIcon color="secondary" className="main__appbar_icons_alt" />
-          <div className="post__comment_total">{postComments.length}</div>
-        </IconButton>
+        <Tooltip title="Show/Hide">
+          <IconButton
+            className={clsx(classes.expand, classes.buttonHoverColor, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <CommentIcon color="secondary" className="main__appbar_icons_alt" />
+            <div className="post__comment_total">{postComments.length}</div>
+          </IconButton>
+        </Tooltip>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
@@ -200,15 +203,17 @@ const Post = ({ post }) => {
             <PopupState variant="popper" popupId="post__add_comment">
               {(popupState) => (
                 <div className="post__comment_add">
-                  <IconButton
-                    aria-label="add a comment"
-                    {...bindToggle(popupState)}
-                  >
-                    <AddCommentIcon
-                      color="secondary"
-                      className="main__appbar_icons_alt"
-                    />
-                  </IconButton>
+                  <Tooltip title="Add Comment">
+                    <IconButton
+                      aria-label="add a comment"
+                      {...bindToggle(popupState)}
+                    >
+                      <AddCommentIcon
+                        color="secondary"
+                        className="main__appbar_icons_alt"
+                      />
+                    </IconButton>
+                  </Tooltip>
                   <Popper {...bindPopper(popupState)} transition>
                     {({ TransitionProps }) => (
                       <Fade {...TransitionProps} timeout={350}>
@@ -227,25 +232,29 @@ const Post = ({ post }) => {
                             onFocus={handleInputFocus}
                           />
                           <div className="post__comment_add_actions">
-                            <IconButton
-                              aria-label="like this post"
-                              onClick={handleAddComment}
-                            >
-                              <SendIcon
-                                color="secondary"
-                                className="main__appbar_icons_alt"
+                            <Tooltip title="Submit">
+                              <IconButton
+                                aria-label="add a comment"
+                                onClick={handleAddComment}
+                              >
+                                <SendIcon
+                                  color="secondary"
+                                  className="main__appbar_icons_alt"
+                                  {...bindToggle(popupState)}
+                                />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Cancel">
+                              <IconButton
+                                aria-label="Cancel"
                                 {...bindToggle(popupState)}
-                              />
-                            </IconButton>
-                            <IconButton
-                              aria-label="add a comment"
-                              {...bindToggle(popupState)}
-                            >
-                              <CloseIcon
-                                color="secondary"
-                                className="main__appbar_icons_alt"
-                              />
-                            </IconButton>
+                              >
+                                <CloseIcon
+                                  color="secondary"
+                                  className="main__appbar_icons_alt"
+                                />
+                              </IconButton>
+                            </Tooltip>
                           </div>
                         </form>
                       </Fade>

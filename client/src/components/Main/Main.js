@@ -13,6 +13,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import Tooltip from "@material-ui/core/Tooltip";
 import SendIcon from "@material-ui/icons/Send";
 import CloseIcon from "@material-ui/icons/Close";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
@@ -147,7 +148,7 @@ const Main = () => {
   };
 
   const handleGitHubClick = () => {
-    return (window.location.href = "https://github.com/gdevl");
+    return (window.location.href = "https://github.com/gdevl/picarus");
   };
 
   const handleNextPost = () => {
@@ -191,16 +192,18 @@ const Main = () => {
     <>
       <AppBar position="static" className={classes.main__appbar}>
         <Toolbar>
-          <IconButton
-            aria-describedby={id}
-            type="button"
-            color="primary"
-            aria-label="upload picture"
-            component="span"
-            onClick={handleAddPostClick}
-          >
-            <AddAPhotoIcon color="primary" className="main__appbar_icons" />
-          </IconButton>
+          <Tooltip title="Create Post">
+            <IconButton
+              aria-describedby={id}
+              type="button"
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+              onClick={handleAddPostClick}
+            >
+              <AddAPhotoIcon color="primary" className="main__appbar_icons" />
+            </IconButton>
+          </Tooltip>
           <Popper id={id} open={open} anchorEl={anchorEl}>
             <form className="add_post_form" noValidate autoComplete="off">
               <textarea
@@ -244,27 +247,32 @@ const Main = () => {
           <Grid container spacing={4} justify="center" align="center">
             <div className="main__container_detail_row">
               <div id="main__container_detail_row_prev_post">
-                <IconButton
-                  color="primary"
-                  className="main__appbar_icons"
-                  aria-label="previous post"
-                  component="span"
-                  onClick={handlePreviousPost}
-                >
-                  <NavigateBeforeIcon />
-                </IconButton>
+                <Tooltip title="Previous">
+                  <IconButton
+                    color="primary"
+                    className="main__appbar_icons"
+                    aria-label="previous post"
+                    data-tooltip="previous post"
+                    component="span"
+                    onClick={handlePreviousPost}
+                  >
+                    <NavigateBeforeIcon />
+                  </IconButton>
+                </Tooltip>
               </div>
               <div className="main__container_detail_row_text">{`${currentUserDisplayName}'s Feed`}</div>
               <div id="main__container_detail_row_next_post">
-                <IconButton
-                  color="primary"
-                  className="main__appbar_icons"
-                  aria-label="upload picture"
-                  component="span"
-                  onClick={handleNextPost}
-                >
-                  <NavigateNextIcon />
-                </IconButton>
+                <Tooltip title="Next">
+                  <IconButton
+                    color="primary"
+                    className="main__appbar_icons"
+                    aria-label="upload picture"
+                    component="span"
+                    onClick={handleNextPost}
+                  >
+                    <NavigateNextIcon />
+                  </IconButton>
+                </Tooltip>
               </div>
             </div>
             <Grid item xs={12}>
@@ -280,25 +288,29 @@ const Main = () => {
         <Toolbar>
           <div className={classes.grow} />
           <Link to="https://www.google.com/">
-            <IconButton
+            <Tooltip title="Project Repository">
+              <IconButton
+                color="inherit"
+                className={classes.footer__appBar_iconbuttons}
+                onClick={handleGitHubClick}
+              >
+                <GitHubIcon color="primary" className="main__appbar_icons" />
+              </IconButton>
+            </Tooltip>
+          </Link>
+          <Tooltip title="Connect with me">
+            <Button
+              edge="end"
               color="inherit"
               className={classes.footer__appBar_iconbuttons}
-              onClick={handleGitHubClick}
             >
-              <GitHubIcon color="primary" className="main__appbar_icons" />
-            </IconButton>
-          </Link>
-          <Button
-            edge="end"
-            color="inherit"
-            className={classes.footer__appBar_iconbuttons}
-          >
-            <LinkedInIcon
-              color="primary"
-              className="main__appbar_icons"
-              onClick={handleLinkedInClick}
-            />
-          </Button>
+              <LinkedInIcon
+                color="primary"
+                className="main__appbar_icons"
+                onClick={handleLinkedInClick}
+              />
+            </Button>
+          </Tooltip>
         </Toolbar>
       </AppBar>
       {/* End footer */}
