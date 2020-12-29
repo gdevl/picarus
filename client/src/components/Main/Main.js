@@ -80,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "row nowrap",
     backgroundColor: "#222",
   },
-  main__footer_icons: {},
   grow: {
     flexGrow: 1,
   },
@@ -247,6 +246,7 @@ const Main = () => {
               <div id="main__container_detail_row_prev_post">
                 <IconButton
                   color="primary"
+                  className="main__appbar_icons"
                   aria-label="previous post"
                   component="span"
                   onClick={handlePreviousPost}
@@ -258,6 +258,7 @@ const Main = () => {
               <div id="main__container_detail_row_next_post">
                 <IconButton
                   color="primary"
+                  className="main__appbar_icons"
                   aria-label="upload picture"
                   component="span"
                   onClick={handleNextPost}
@@ -284,10 +285,7 @@ const Main = () => {
               className={classes.footer__appBar_iconbuttons}
               onClick={handleGitHubClick}
             >
-              <GitHubIcon
-                color="primary"
-                className={classes.main__footer_icons}
-              />
+              <GitHubIcon color="primary" className="main__appbar_icons" />
             </IconButton>
           </Link>
           <Button
@@ -297,7 +295,7 @@ const Main = () => {
           >
             <LinkedInIcon
               color="primary"
-              className={classes.main__footer_icons}
+              className="main__appbar_icons"
               onClick={handleLinkedInClick}
             />
           </Button>
