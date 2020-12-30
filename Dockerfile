@@ -1,6 +1,7 @@
 FROM node:12 AS front-end-build
 WORKDIR /react-app
 COPY client/ .
+
 RUN npm install
 RUN npm run build
 FROM node:12
