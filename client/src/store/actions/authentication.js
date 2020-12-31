@@ -29,7 +29,7 @@ export const loadToken = () => async (dispatch) => {
 
 export const login = (email, password) => async (dispatch) => {
   const response = await fetch(`${backendUrl}/api/users/signin`, {
-    method: "post",
+    method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
   });
@@ -55,7 +55,7 @@ export const register = (
   confirmPassword
 ) => async (dispatch) => {
   const response = await fetch(`api/users`, {
-    method: "post",
+    method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ displayName, email, password, confirmPassword }),
   });

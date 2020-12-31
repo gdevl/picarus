@@ -7,37 +7,42 @@ const path = require("path");
 const logger = require("morgan");
 const csurf = require("csurf");
 const routes = require("./routes");
+const environment = require("./config");
+let isProduction = environment === "production";
 
 const app = express();
 
 app.use(logger("dev"));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(cookieParser());
-
 // Security Middleware
 
-const whitelist = ["http://localhost:3000", "https://picarus.herokuapp.com"];
+// const whitelist = ["http://localhost:3000", "https://picarus.herokuapp.com"];
 
-const corsOptions = {
-  credentials: true, // important
-  origin: (origin, callback) => {
-    if (whitelist.includes(origin)) {
-      return callback(null, true);
-    }
-    callback(new Error("Not allowed by CORS"));
-  },
-};
+// const corsOptions = {
+//   credentials: true, // important
+//   origin: (origin, callback) => {
+//     if (whitelist.includes(origin)) {
+//       return callback(null, true);
+//     }
+//     callback(new Error("Not allowed by CORS"));
+//   },
+// };
 
-app.use(cors(corsOptions));
-// app.use(cors({ origin: true }));
-app.use(helmet({ hsts: false }));
+if (!isProduction) {
+  app.use(cors());
+}
+
+app.use(helmet({ hsts: false, contentSecurityPolicy: false }));
 // app.use(csurf({
 //   cookie: {
-//     secure: process.env.NODE_ENV === 'production',
-//     sameSite: process.env.NODE_ENV === 'production',
+//     // secure: process.env.NODE_ENV === 'production',
+//     secure: isProduction,
+//     // sameSite: process.env.NODE_ENV === 'production',
+//     sameSite: isProduction && 'Lax',
 //     httpOnly: true
 //   }
 // }));
