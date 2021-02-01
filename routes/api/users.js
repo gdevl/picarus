@@ -127,6 +127,14 @@ router.get(
             ],
         });
 
+        if (!posts) {
+            const err = new Error('No Posts Found for that User');
+            err.status = 404;
+            err.title = 'Invalid Request';
+            err.errors = ['No post data exists'];
+            return next(err);
+        }
+
         res.json({ posts });
     })
 );

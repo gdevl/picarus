@@ -122,4 +122,18 @@ router.get(
     })
 );
 
+router.delete(
+    '/:id',
+    asyncErrorHandler(async (req, res) => {
+        const postId = parseInt(req.params.id);
+        const post = await Post.findByPk(postId);
+
+        if (post) {
+            await post.destroy();
+            return res.json({ deletedPostId: postId });
+        }
+        res.json('An error occurred during post destruction.');
+    })
+);
+
 module.exports = router;
