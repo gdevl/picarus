@@ -26,9 +26,9 @@ body,
   align-self: center;
   color: rgba(198, 120, 221, 1);
   font-family: "Josefin Sans", sans-serif;
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: 500;
-  line-height: 4rem;
+  line-height: 2rem;
   margin: 0;
   padding: 1rem 0 0;
   justify-self: center;
@@ -428,4 +428,11 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: white;
   -webkit-box-shadow: 0 0 0px 1000px #222 inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+@media screen and (min-width: 768px) {
+    .landing__logo {
+        font-size: 4rem;
+        line-height: 4rem;
+    }
 }
