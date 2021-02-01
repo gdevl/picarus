@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 const { asyncErrorHandler, handleValidationErrors } = require('../../utils');
 const { getUserToken, requireAuth } = require('../../auth');
 
-const { User } = require('../../db/models');
+const { User, Post, Comment, PostLike } = require('../../db/models');
 
 const router = express.Router();
 
@@ -84,6 +84,50 @@ router.get(
         }
 
         res.json({ user: { id, displayName, email } });
+    })
+);
+
+router.get(
+    '/:id/posts',
+    asyncErrorHandler(async (req, res, next) => {
+        const userId = parseInt(req.params.id);
+        const user = await User.findByPk(userId);
+
+        if (!user) {
+            const err = new Error('No User Found');
+            err.status = 404;
+            err.title = 'Invalid User';
+            err.errors = ['User does not exist'];
+            return next(err);
+        }
+
+        const posts = await Post.findAll({
+            where: {
+                uid: user.id,
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: ['displayName'],
+                },
+                {
+                    model: Comment,
+                    include: {
+                        model: User,
+                        attributes: ['displayName'],
+                    },
+                },
+                {
+                    model: PostLike,
+                    include: {
+                        model: User,
+                        attributes: ['displayName'],
+                    },
+                },
+            ],
+        });
+
+        res.json({ posts });
     })
 );
 
