@@ -3,8 +3,10 @@ const bcrypt = require('bcryptjs');
 const { check } = require('express-validator');
 const { asyncErrorHandler, handleValidationErrors } = require('../../utils');
 const { getUserToken, requireAuth } = require('../../auth');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
-const { User, Post, Comment, PostLike } = require('../../db/models');
+const { User, Post, Comment, PostLike, Follow } = require('../../db/models');
 
 const router = express.Router();
 
@@ -60,6 +62,7 @@ const validateSignUp = [
     handleValidationErrors,
 ];
 
+// get all users
 router.get(
     '/',
     asyncErrorHandler(async function (req, res, next) {
@@ -68,6 +71,7 @@ router.get(
     })
 );
 
+// get a user by id
 router.get(
     '/:id',
     asyncErrorHandler(async (req, res, next) => {
@@ -87,6 +91,81 @@ router.get(
     })
 );
 
+// get user followers
+router.get(
+    '/:id/myfollowers',
+    asyncErrorHandler(async (req, res, next) => {
+        const userId = parseInt(req.params.id);
+        const user = await User.findByPk(userId);
+        const { id, displayName, email } = user;
+
+        if (!user) {
+            const err = new Error('No User Found');
+            err.status = 404;
+            err.title = 'Invalid User';
+            err.errors = ['User does not exist'];
+            return next(err);
+        }
+
+        const followers = await Follow.findAll({
+            where: {
+                uid: user.id,
+            },
+        });
+
+        res.json(followers);
+    })
+);
+
+// get posts from users the current user is following
+router.get(
+    '/:id/following/posts',
+    asyncErrorHandler(async (req, res, next) => {
+        const userId = parseInt(req.params.id);
+        const user = await User.findByPk(userId);
+        const { id, displayName, email } = user;
+
+        if (!user) {
+            const err = new Error('No User Found');
+            err.status = 404;
+            err.title = 'Invalid User';
+            err.errors = ['User does not exist'];
+            return next(err);
+        }
+
+        const followers = await Follow.findAll({
+            where: {
+                fid: user.id,
+            },
+        });
+
+        if (!followers) {
+            const err = new Error('No Followers Found');
+            err.status = 404;
+            err.title = 'Invalid Request';
+            err.errors = [`It seems like you're not following anyone yet`];
+            return next(err);
+        }
+
+        const following = [];
+
+        followers.forEach((person) => {
+            following.push(person.uid);
+        });
+
+        const posts = await Post.findAll({
+            where: {
+                uid: {
+                    [Op.in]: following,
+                },
+            },
+        });
+
+        res.json(posts);
+    })
+);
+
+// get all posts by user
 router.get(
     '/:id/posts',
     asyncErrorHandler(async (req, res, next) => {
@@ -139,6 +218,7 @@ router.get(
     })
 );
 
+// create user
 router.post(
     '/',
     validateSignUp,
@@ -160,6 +240,7 @@ router.post(
     })
 );
 
+// sign in existing user
 router.post(
     '/signin',
     asyncErrorHandler(async function (req, res, next) {
