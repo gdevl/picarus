@@ -107,8 +107,29 @@ router.get(
     '/:id',
     asyncErrorHandler(async (req, res, next) => {
         const postId = parseInt(req.params.id);
-        const post = await Post.findByPk(postId);
-        const { id, uid, content } = post;
+        const post = await Post.findByPk(postId, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['displayName'],
+                },
+                {
+                    model: Comment,
+                    include: {
+                        model: User,
+                        attributes: ['displayName'],
+                    },
+                },
+                {
+                    model: PostLike,
+                    include: {
+                        model: User,
+                        attributes: ['displayName'],
+                    },
+                },
+            ],
+        });
+        // const { id, uid, content } = post;
 
         if (!post) {
             const err = new Error('Post Not Found');
@@ -118,7 +139,7 @@ router.get(
             return next(err);
         }
 
-        res.json({ post: { id, uid, content } });
+        res.json(post);
     })
 );
 
