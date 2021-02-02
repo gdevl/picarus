@@ -161,7 +161,7 @@ router.get(
             },
         });
 
-        res.json(posts);
+        res.json({ posts, following: following });
     })
 );
 

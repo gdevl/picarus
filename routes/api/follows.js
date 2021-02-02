@@ -1,16 +1,38 @@
-const express = require("express");
-const { asyncErrorHandler, handleValidationErrors } = require("../../utils");
+const express = require('express');
+const { asyncErrorHandler, handleValidationErrors } = require('../../utils');
 
-const { Follow } = require("../../db/models");
+const { Follow, User } = require('../../db/models');
 
 const router = express.Router();
 
 router.get(
-  "/",
-  asyncErrorHandler(async function (req, res, next) {
-    const follows = await Follow.findAll();
-    res.json({ follows });
-  })
+    '/',
+    asyncErrorHandler(async function (req, res, next) {
+        const follows = await Follow.findAll();
+        res.json({ follows });
+    })
+);
+
+// follow user
+router.post(
+    '/',
+    asyncErrorHandler(async (req, res) => {
+        const { uid, fid } = req.body;
+        const follow = await Follow.create({ uid, fid });
+
+        const newFollow = await Follow.findByPk(follow.id, {
+            include: {
+                model: User,
+                attributes: ['displayName'],
+            },
+        });
+
+        if (newFollow) {
+            return res.json(newFollow);
+        }
+
+        res.json('An error occurred during follow creation.');
+    })
 );
 
 module.exports = router;
