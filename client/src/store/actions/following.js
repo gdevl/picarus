@@ -1,5 +1,5 @@
 import { backendUrl } from '../../config';
-export const SET_POSTS = 'picarus/posts/SET_POSTS';
+export const SET_FOLLOWER_POSTS = 'picarus/posts/SET_FOLLOWER_POSTS';
 export const ADD_POST = 'picarus/posts/ADD_POST';
 export const REMOVE_POST = 'picarus/posts/REMOVE_POST';
 export const SET_CURRENT_POST = 'picarus/posts/SET_CURRENT_POST';
@@ -18,20 +18,22 @@ export const removePostLike = (postLike) => ({
     type: REMOVE_POST_LIKE,
     postLike,
 });
-export const setPosts = (posts) => ({ type: SET_POSTS, posts });
+export const setPosts = (posts) => ({ type: SET_FOLLOWER_POSTS, posts });
 export const addPost = (post) => ({ type: ADD_POST, post });
 export const removePost = (post) => ({ type: REMOVE_POST, post });
 export const setCurrentPost = (postId) => ({ type: SET_CURRENT_POST, postId });
 
-export const fetchPosts = () => async (dispatch) => {
-    const response = await fetch(`${backendUrl}/api/posts`, {
-        method: 'get',
-        headers: { 'Content-Type': 'application/json' },
-    });
+export const fetchFollowingPosts = (userId) => async (dispatch) => {
+    const response = await fetch(
+        `${backendUrl}/api/users/${userId}/following/posts`,
+        {
+            headers: { 'Content-Type': 'application/json' },
+        }
+    );
 
     if (response.ok) {
-        const res = await response.json();
-        dispatch(setPosts(res));
+        const query = await response.json();
+        dispatch(setPosts(query));
     }
 };
 

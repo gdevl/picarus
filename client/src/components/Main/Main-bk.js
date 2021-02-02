@@ -1,16 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
+import Toolbar from '@material-ui/core/Toolbar';
 import Container from '@material-ui/core/Container';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import Tooltip from '@material-ui/core/Tooltip';
+import SendIcon from '@material-ui/icons/Send';
+import CloseIcon from '@material-ui/icons/Close';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Popper from '@material-ui/core/Popper';
+import LogoutButton from './LogoutButton';
+import Logo from '../Logo/Logo';
 import Post from '../Post/Post';
-import Navigation from './Navigation';
-import Footer from './Footer';
+import UploadImage from '../Post/UploadImage';
 
 import {
     createPost,
@@ -63,6 +74,12 @@ const useStyles = makeStyles((theme) => ({
     },
     footer__appBar_iconbuttons: {
         margin: '0 0.25rem',
+    },
+    main__appbar: {
+        borderBottom: '1px solid #C678DD',
+        justifyContent: 'space-between',
+        flexFlow: 'row nowrap',
+        backgroundColor: '#222',
     },
     grow: {
         flexGrow: 1,
@@ -173,7 +190,68 @@ const Main = () => {
 
     return (
         <>
-            <Navigation currentUserId={currentUserId} ids={ids} />
+            <AppBar position="static" className={classes.main__appbar}>
+                <Toolbar>
+                    <Tooltip title="Create Post">
+                        <IconButton
+                            aria-describedby={id}
+                            type="button"
+                            color="primary"
+                            aria-label="upload picture"
+                            component="span"
+                            onClick={handleAddPostClick}
+                        >
+                            <AddAPhotoIcon
+                                color="primary"
+                                className="main__appbar_icons"
+                            />
+                        </IconButton>
+                    </Tooltip>
+                    <Popper id={id} open={open} anchorEl={anchorEl}>
+                        <form
+                            className="add_post_form"
+                            noValidate
+                            autoComplete="off"
+                        >
+                            <textarea
+                                className="add_post_content"
+                                name="add_post_content"
+                                id="add_post_content"
+                                placeholder="Describe your image ..."
+                                value={postContent}
+                                onChange={updatePostContent}
+                                onFocus={handleInputFocus}
+                                rows="5"
+                                cols="33"
+                            />
+                            <div className="add_post_actions">
+                                <UploadImage
+                                    image={image}
+                                    setImage={setImage}
+                                />
+                                <button
+                                    aria-label="create post"
+                                    className="add_post_action_button"
+                                    onClick={handleCreatePost}
+                                >
+                                    Post
+                                </button>
+                                <button
+                                    aria-label="close dialog"
+                                    className="add_post_action_button"
+                                    onClick={handleAddPostClick}
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </form>
+                    </Popper>
+                </Toolbar>
+                <Logo />
+                <Toolbar>
+                    <LogoutButton />
+                </Toolbar>
+            </AppBar>
             <main className="main__container">
                 <Container className={classes.cardGrid} maxWidth="md">
                     <Grid container spacing={4} justify="center" align="center">
@@ -218,7 +296,40 @@ const Main = () => {
                     </Grid>
                 </Container>
             </main>
-            <Footer />
+            {/* Footer */}
+            <AppBar position="fixed" className={classes.footer__appBar}>
+                <Toolbar>
+                    <div className={classes.grow} />
+                    <Link to="https://www.google.com/">
+                        <Tooltip title="Project Repository">
+                            <IconButton
+                                color="inherit"
+                                className={classes.footer__appBar_iconbuttons}
+                                onClick={handleGitHubClick}
+                            >
+                                <GitHubIcon
+                                    color="primary"
+                                    className="main__appbar_icons"
+                                />
+                            </IconButton>
+                        </Tooltip>
+                    </Link>
+                    <Tooltip title="Connect with me">
+                        <Button
+                            edge="end"
+                            color="inherit"
+                            className={classes.footer__appBar_iconbuttons}
+                        >
+                            <LinkedInIcon
+                                color="primary"
+                                className="main__appbar_icons"
+                                onClick={handleLinkedInClick}
+                            />
+                        </Button>
+                    </Tooltip>
+                </Toolbar>
+            </AppBar>
+            {/* End footer */}
         </>
     );
 };
