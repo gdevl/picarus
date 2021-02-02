@@ -35,4 +35,19 @@ router.post(
     })
 );
 
+// unfollow user
+router.delete(
+    '/:id',
+    asyncErrorHandler(async (req, res) => {
+        const followId = parseInt(req.params.id);
+        const follow = await Follow.findByPk(followId);
+
+        if (follow) {
+            await follow.destroy();
+            return res.json({ deletedFollowId: followId });
+        }
+        res.json('An error occurred during follow destruction.');
+    })
+);
+
 module.exports = router;
