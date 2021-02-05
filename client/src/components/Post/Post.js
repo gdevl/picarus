@@ -177,7 +177,9 @@ const Post = ({ post }) => {
     return (
         <Card className={classes.post__container}>
             <div className="post__header">
-                <p className="post__author">{post.User.displayName}</p>
+                <p className="post__author">
+                    {post.uid === currentUserId ? `you` : post.User.displayName}
+                </p>
                 <p className="post__creation">{`(${post.createdAt})`}</p>
             </div>
             <CardMedia
