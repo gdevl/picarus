@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Posts = ({ posts, ids, view }) => {
+const Posts = ({ posts, ids, view, follows }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const currentPostId = useSelector((state) => state.posts.currentPostId);
@@ -31,6 +31,7 @@ const Posts = ({ posts, ids, view }) => {
         (state) => state.authentication.user.displayName
     );
     const postIndex = useRef(null);
+
     const handleNextPost = () => {
         if (postIndex.current === 0) {
             postIndex.current = ids.length - 1;

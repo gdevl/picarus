@@ -167,7 +167,7 @@ router.get(
     })
 );
 
-// get all posts by user
+// get all post ids by user
 router.get(
     '/:id/posts',
     asyncErrorHandler(async (req, res, next) => {
@@ -186,26 +186,6 @@ router.get(
             where: {
                 uid: user.id,
             },
-            include: [
-                {
-                    model: User,
-                    attributes: ['displayName'],
-                },
-                {
-                    model: Comment,
-                    include: {
-                        model: User,
-                        attributes: ['displayName'],
-                    },
-                },
-                {
-                    model: PostLike,
-                    include: {
-                        model: User,
-                        attributes: ['displayName'],
-                    },
-                },
-            ],
         });
 
         if (!posts) {
@@ -216,7 +196,13 @@ router.get(
             return next(err);
         }
 
-        res.json({ posts });
+        let myPosts = [];
+
+        posts.forEach((post) => {
+            myPosts.push(post.id);
+        });
+
+        res.json(myPosts);
     })
 );
 
