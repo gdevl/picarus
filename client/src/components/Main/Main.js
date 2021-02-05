@@ -6,11 +6,7 @@ import Footer from './Footer';
 import Posts from '../Posts/Posts';
 import ViewMenu from '../Posts/ViewMenu';
 
-import {
-    createPost,
-    fetchPosts,
-    setCurrentPost,
-} from '../../store/actions/posts';
+import { fetchPosts } from '../../store/actions/posts';
 
 const Main = () => {
     const dispatch = useDispatch();
@@ -33,8 +29,8 @@ const Main = () => {
         <>
             <Navigation currentUserId={currentUserId} ids={ids} />
             <main className="main__container">
-                <ViewMenu />
-                <Posts posts={posts} ids={ids} />
+                <ViewMenu view={view} setView={setView} />
+                <Posts posts={posts} ids={ids} view={view} />
             </main>
             <Footer />
         </>

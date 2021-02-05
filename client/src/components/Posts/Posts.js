@@ -81,7 +81,10 @@ const Posts = ({ posts, ids, view }) => {
                             </IconButton>
                         </Tooltip>
                     </div>
-                    <div className="main__container_detail_row_text">{`${currentUserDisplayName}'s Feed`}</div>
+                    <div className="main__container_detail_row_text">
+                        {view}
+                    </div>
+                    {/* <div className="main__container_detail_row_text">{`${currentUserDisplayName}'s Feed`}</div> */}
                     <div id="main__container_detail_row_next_post">
                         <Tooltip title="Next">
                             <IconButton
