@@ -2,8 +2,6 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
 import authentication from './reducers/authentication';
 import posts from './reducers/posts';
-import followingposts from './reducers/following';
-import myposts from './reducers/myposts';
 // import comments from "./reducers/comments";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -11,8 +9,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducer = combineReducers({
     authentication,
     posts,
-    followingposts,
-    myposts,
 });
 
 const configureStore = (initialState) => {
