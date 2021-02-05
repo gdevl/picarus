@@ -1,7 +1,7 @@
 const express = require('express');
 const { asyncErrorHandler, handleValidationErrors } = require('../../utils');
 
-const { PostLike, User } = require('../../db/models');
+const { Post, PostLike, User } = require('../../db/models');
 
 const router = express.Router();
 
@@ -54,17 +54,37 @@ router.post(
 );
 
 router.delete(
-    '/:id',
+    '/',
     asyncErrorHandler(async (req, res) => {
-        const postLikeId = parseInt(req.params.id);
-        const postLike = await PostLike.findByPk(postLikeId);
+        const { userId, postId } = req.body;
+        const postLike = await PostLike.findOne({
+            where: {
+                uid: userId,
+                pid: postId,
+            },
+        });
+        const { id, uid, pid } = postLike;
 
         if (postLike) {
             await postLike.destroy();
-            return res.json({ deletedPostLikeId: postLikeId });
+            return res.json({ id, uid, pid });
+            // return res.json({ deletedPostLikeId: postLikeId });
         }
         res.json('An error occurred during like destruction.');
     })
 );
+// router.delete(
+//     '/:id',
+//     asyncErrorHandler(async (req, res) => {
+//         const postLikeId = parseInt(req.params.id);
+//         const postLike = await PostLike.findByPk(postLikeId);
+
+//         if (postLike) {
+//             await postLike.destroy();
+//             return res.json({ deletedPostLikeId: postLikeId });
+//         }
+//         res.json('An error occurred during like destruction.');
+//     })
+// );
 
 module.exports = router;

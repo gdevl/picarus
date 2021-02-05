@@ -90,11 +90,11 @@ export const deletePost = (postData) => async (dispatch) => {
 };
 
 export const deletePostLike = (postLikeData) => async (dispatch) => {
-    const { plid } = postLikeData;
-    const response = await fetch(`${backendUrl}/api/postlikes/${plid}`, {
+    const { userId, postId } = postLikeData;
+    const response = await fetch(`${backendUrl}/api/postlikes/`, {
         method: 'delete',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plid }),
+        body: JSON.stringify({ userId, postId }),
     });
 
     if (response.ok) {
