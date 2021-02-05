@@ -54,17 +54,37 @@ router.post(
 );
 
 router.delete(
-    '/:id',
+    '/',
     asyncErrorHandler(async (req, res) => {
-        const commentId = parseInt(req.params.id);
-        const comment = await Comment.findByPk(commentId);
+        const { userId, postId } = req.body;
+        const comment = await Comment.findOne({
+            where: {
+                uid: userId,
+                pid: postId,
+            },
+        });
+        const { id, uid, pid } = comment;
 
         if (comment) {
             await comment.destroy();
-            return res.json({ deletedCommentId: commentId });
+            return res.json({ id, uid, pid });
         }
         res.json('An error occurred during comment destruction.');
     })
 );
+
+// router.delete(
+//     '/:id',
+//     asyncErrorHandler(async (req, res) => {
+//         const commentId = parseInt(req.params.id);
+//         const comment = await Comment.findByPk(commentId);
+
+//         if (comment) {
+//             await comment.destroy();
+//             return res.json({ deletedCommentId: commentId });
+//         }
+//         res.json('An error occurred during comment destruction.');
+//     })
+// );
 
 module.exports = router;

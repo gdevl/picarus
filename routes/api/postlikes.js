@@ -73,18 +73,5 @@ router.delete(
         res.json('An error occurred during like destruction.');
     })
 );
-// router.delete(
-//     '/:id',
-//     asyncErrorHandler(async (req, res) => {
-//         const postLikeId = parseInt(req.params.id);
-//         const postLike = await PostLike.findByPk(postLikeId);
-
-//         if (postLike) {
-//             await postLike.destroy();
-//             return res.json({ deletedPostLikeId: postLikeId });
-//         }
-//         res.json('An error occurred during like destruction.');
-//     })
-// );
 
 module.exports = router;

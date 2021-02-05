@@ -104,11 +104,11 @@ export const deletePostLike = (postLikeData) => async (dispatch) => {
 };
 
 export const deleteComment = (commentData) => async (dispatch) => {
-    const { cid } = commentData;
-    const response = await fetch(`${backendUrl}/api/comments/${cid}`, {
+    const { userId, postId } = commentData;
+    const response = await fetch(`${backendUrl}/api/comments/`, {
         method: 'delete',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cid }),
+        body: JSON.stringify({ userId, postId }),
     });
 
     if (response.ok) {

@@ -30,8 +30,8 @@ import Fade from '@material-ui/core/Fade';
 import {
     setCurrentPost,
     createComment,
+    deleteComment,
     createPostLike,
-    removePostLike,
     deletePostLike,
 } from '../../store/actions/posts';
 
@@ -123,6 +123,16 @@ const Post = ({ post }) => {
         };
 
         await dispatch(createComment(comment));
+    };
+
+    const handleRemoveComment = async (e) => {
+        e.preventDefault();
+        const commentData = {
+            userId: currentUserId,
+            postId: currentPostId,
+        };
+
+        await dispatch(deleteComment(commentData));
     };
 
     const handlePostLike = async (e) => {
@@ -327,7 +337,23 @@ const Post = ({ post }) => {
                                 className="post__comment"
                                 key={`c-${comment.id}`}
                             >
-                                {comment.content}
+                                <p className="post__comment-text">
+                                    {comment.content}
+                                </p>
+                                {comment.uid === currentUserId ? (
+                                    <Tooltip title="Cancel">
+                                        <IconButton
+                                            className="post__comment-delete"
+                                            aria-label="delete"
+                                            onClick={handleRemoveComment}
+                                        >
+                                            <CloseIcon
+                                                color="primary"
+                                                className="post__comment-delete-icon"
+                                            />
+                                        </IconButton>
+                                    </Tooltip>
+                                ) : null}
                             </div>
                         </div>
                     ))}
