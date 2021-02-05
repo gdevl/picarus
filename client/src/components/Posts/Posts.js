@@ -17,57 +17,9 @@ import {
 // import useFetchPostData from './useFetchPostData';
 
 const useStyles = makeStyles((theme) => ({
-    icon: {
-        marginRight: theme.spacing(2),
-    },
-    heroContent: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(8, 0, 6),
-    },
-    heroButtons: {
-        marginTop: theme.spacing(4),
-    },
     cardGrid: {
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(8),
-    },
-    card: {
-        backgroundColor: '#222',
-        height: '300px',
-        display: 'flex',
-        flexDirection: 'column',
-        width: '300px',
-    },
-    cardMedia: {
-        height: '90%',
-        margin: 'auto',
-        width: '90%',
-    },
-    cardContent: {
-        flexGrow: 1,
-    },
-    footer: {
-        backgroundColor: '#222',
-        borderTop: '1px solid #C678DD',
-        padding: theme.spacing(1),
-    },
-    footer__appBar: {
-        alignItems: 'center',
-        backgroundColor: '#222',
-        borderTop: '1px solid #C678DD',
-        padding: theme.spacing(1),
-        top: 'auto',
-        bottom: 0,
-    },
-    footer__appBar_iconbuttons: {
-        margin: '0 0.25rem',
-    },
-    grow: {
-        flexGrow: 1,
-    },
-    hidden: {
-        opacity: 0,
-        pointerEvents: 'none',
     },
 }));
 

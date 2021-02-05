@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Navigation from './Navigation';
@@ -14,15 +14,11 @@ import {
 
 const Main = () => {
     const dispatch = useDispatch();
+    const [view, setView] = useState('public');
     const currentUserId = useSelector((state) => state.authentication.user.id);
     const token = useSelector((state) => state.authentication.token);
     const posts = useSelector((state) => state.posts);
     const ids = useSelector((state) => state.posts.ids);
-
-    // Add post form toggle defs
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popper' : undefined;
 
     useEffect(() => {
         dispatch(fetchPosts());

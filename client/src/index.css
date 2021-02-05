@@ -8,6 +8,33 @@ body,
   height: 100%;
 }
 
+.viewmenu__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    /* grid-auto-rows: 200px; */
+    grid-auto-rows: auto;
+    grid-template-areas:
+
+        ". . ."
+        ". . ."
+        ". sel .";
+}
+
+.viewmenu__select {
+    background-color: #222;
+    border: 1px dotted rgba(97, 175, 239, 0.1);
+    border-radius: 4px;
+    color: rgba(198, 120, 221, 1);
+    font-family: "Josefin Sans", sans-serif;
+    grid-area: sel;
+    padding: 0.25rem 1rem 0.25rem 0.25rem;
+}
+
+.viewmenu__select:focus {
+    outline: none;
+}
+
 .landing__container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
