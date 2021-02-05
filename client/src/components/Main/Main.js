@@ -42,7 +42,6 @@ const Main = () => {
     }, [currentUserId]);
 
     useEffect(() => {
-        if (!scope) return;
         if (view === 'following') {
             setScope(follows);
         } else if (view === 'me') {
