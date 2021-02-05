@@ -26,9 +26,11 @@ const Main = () => {
     const follows = useSelector((state) => state.authentication.follows);
     const myPosts = useSelector((state) => state.authentication.myPosts);
     const ids = useSelector((state) => state.posts.ids);
+    const [scope, setScope] = useState([]);
 
     useEffect(() => {
         dispatch(fetchPosts());
+        setScope(ids);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -39,7 +41,16 @@ const Main = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentUserId]);
 
-    useEffect(() => {}, [view]);
+    useEffect(() => {
+        if (!scope) return;
+        if (view === 'following') {
+            setScope(follows);
+        } else if (view === 'me') {
+            setScope(myPosts);
+        } else {
+            setScope(ids);
+        }
+    }, [view]);
 
     if (!token) {
         return <Redirect to="/signin" />;
@@ -50,7 +61,11 @@ const Main = () => {
             <Navigation currentUserId={currentUserId} ids={ids} />
             <main className="main__container">
                 <ViewMenu view={view} setView={setView} />
-                <Posts posts={posts} ids={ids} view={view} follows={follows} />
+                <Posts
+                    posts={posts}
+                    scope={scope.length ? scope : ids}
+                    view={view}
+                />
             </main>
             <Footer />
         </>

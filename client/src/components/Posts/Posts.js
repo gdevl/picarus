@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Posts = ({ posts, ids, view, follows }) => {
+const Posts = ({ posts, scope, view }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const currentPostId = useSelector((state) => state.posts.currentPostId);
@@ -34,32 +34,32 @@ const Posts = ({ posts, ids, view, follows }) => {
 
     const handleNextPost = () => {
         if (postIndex.current === 0) {
-            postIndex.current = ids.length - 1;
+            postIndex.current = scope.length - 1;
         } else {
             postIndex.current--;
         }
-        dispatch(setCurrentPost(ids[postIndex.current]));
+        dispatch(setCurrentPost(scope[postIndex.current]));
     };
 
     const handlePreviousPost = () => {
-        if (postIndex.current === ids.length - 1) {
+        if (postIndex.current === scope.length - 1) {
             postIndex.current = 0;
         } else {
             postIndex.current++;
         }
-        dispatch(setCurrentPost(ids[postIndex.current]));
+        dispatch(setCurrentPost(scope[postIndex.current]));
     };
     // const { posts, myposts, followingposts } = useFetchPostData(userId, view);
 
     useEffect(() => {
-        postIndex.current = ids.length - 1;
+        postIndex.current = scope.length - 1;
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ids]);
+    }, [scope]);
 
     useEffect(() => {
-        dispatch(setCurrentPost(ids[postIndex.current]));
+        dispatch(setCurrentPost(scope[postIndex.current]));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ids]);
+    }, [scope]);
 
     const thePost = posts[currentPostId];
     if (!thePost) return null;
