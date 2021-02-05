@@ -119,7 +119,7 @@ router.get(
 
 // get posts from users the current user is following
 router.get(
-    '/:id/following/posts',
+    '/:id/following',
     asyncErrorHandler(async (req, res, next) => {
         const userId = parseInt(req.params.id);
         const user = await User.findByPk(userId);
@@ -161,7 +161,7 @@ router.get(
             },
         });
 
-        res.json({ posts, following: following });
+        res.json(following);
     })
 );
 
