@@ -33,7 +33,7 @@ export default function reducer(state = initialState, action) {
             nextState.ids.push(action.post.id.toString());
             return nextState;
         case REMOVE_POST:
-            delete nextState.posts[action.postId];
+            delete nextState[action.postId];
             nextState.ids = nextState.ids.filter(
                 (id) => Number(id) !== Number(action.postId)
             );
