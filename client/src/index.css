@@ -279,6 +279,24 @@ input[type="file"] {
   margin: 0;
 }
 
+.post__actions {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-areas: "l . . d . . c";
+}
+
+.post__actions-like {
+    grid-area: l;
+}
+
+.post__actions-delete {
+    grid-area: d;
+}
+
+.post__actions-comments {
+    grid-area: c;
+}
+
 .post__header {
   align-items: center;
   display: flex;

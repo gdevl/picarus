@@ -20,6 +20,7 @@ import CommentIcon from '@material-ui/icons/Comment';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import SendIcon from '@material-ui/icons/Send';
 import CloseIcon from '@material-ui/icons/Close';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -33,6 +34,7 @@ import {
     deleteComment,
     createPostLike,
     deletePostLike,
+    deletePost,
 } from '../../store/actions/posts';
 
 const useStyles = makeStyles((theme) => ({
@@ -135,6 +137,14 @@ const Post = ({ post }) => {
         await dispatch(deleteComment(commentData));
     };
 
+    const handleDeletePost = async (e) => {
+        e.preventDefault();
+        const postData = {
+            pid: currentPostId,
+        };
+        await dispatch(deletePost(postData));
+    };
+
     const handlePostLike = async (e) => {
         e.preventDefault();
         const postLike = {
@@ -185,47 +195,71 @@ const Post = ({ post }) => {
                     {post.content}
                 </Typography>
             </CardContent>
-            <CardActions disableSpacing>
+            {/* <CardActions className="post__actions" disableSpacing> */}
+            <div className="post__actions">
                 {userLikes.includes(post.id) ? (
-                    <IconButton
-                        aria-label="you like this post"
-                        onClick={handlePostUnlike}
-                    >
-                        <FavoriteIcon color="primary" />
-                        <div className="post__likes">{postLikes.length}</div>
-                    </IconButton>
+                    <Tooltip title="Unlike">
+                        <IconButton
+                            aria-label="you like this post"
+                            onClick={handlePostUnlike}
+                            className="post__actions-like"
+                        >
+                            <FavoriteIcon color="primary" />
+                            <div className="post__likes">
+                                {postLikes.length}
+                            </div>
+                        </IconButton>
+                    </Tooltip>
                 ) : (
-                    <IconButton
-                        aria-label="like this post"
-                        onClick={handlePostLike}
-                    >
-                        <FavoriteBorderIcon color="primary" />
-                        <div className="post__likes">{postLikes.length}</div>
-                    </IconButton>
+                    <Tooltip title="Like">
+                        <IconButton
+                            aria-label="like this post"
+                            onClick={handlePostLike}
+                            className="post__actions-like"
+                        >
+                            <FavoriteBorderIcon color="primary" />
+                            <div className="post__likes">
+                                {postLikes.length}
+                            </div>
+                        </IconButton>
+                    </Tooltip>
                 )}
+                {post.uid === currentUserId ? (
+                    <Tooltip title="Delete">
+                        <IconButton
+                            aria-label="delete this post"
+                            onClick={handleDeletePost}
+                            className="post__actions-delete"
+                        >
+                            <DeleteForeverIcon color="secondary" />
+                        </IconButton>
+                    </Tooltip>
+                ) : null}
                 <Tooltip title="Show/Hide">
-                    <IconButton
-                        className={clsx(
-                            classes.expand,
-                            classes.buttonHoverColor,
-                            {
-                                [classes.expandOpen]: expanded,
-                            }
-                        )}
-                        onClick={handleExpandClick}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                    >
-                        <CommentIcon
-                            color="secondary"
-                            className="main__appbar_icons_alt"
-                        />
-                        <div className="post__comment_total">
-                            {postComments.length}
-                        </div>
-                    </IconButton>
+                    <div className="post__actions-comments">
+                        <IconButton
+                            className={clsx(
+                                classes.expand,
+                                classes.buttonHoverColor,
+                                {
+                                    [classes.expandOpen]: expanded,
+                                }
+                            )}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label="show more"
+                        >
+                            <CommentIcon
+                                color="secondary"
+                                className="main__appbar_icons_alt"
+                            />
+                            <div className="post__comment_total">
+                                {postComments.length}
+                            </div>
+                        </IconButton>
+                    </div>
                 </Tooltip>
-            </CardActions>
+            </div>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <div className="post__comments_meta_row">

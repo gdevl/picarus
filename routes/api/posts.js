@@ -151,7 +151,7 @@ router.delete(
 
         if (post) {
             await post.destroy();
-            return res.json({ deletedPostId: postId });
+            return res.json(postId);
         }
         res.json('An error occurred during post destruction.');
     })
