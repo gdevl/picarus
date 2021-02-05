@@ -20,6 +20,7 @@ import CommentIcon from '@material-ui/icons/Comment';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import SendIcon from '@material-ui/icons/Send';
 import CloseIcon from '@material-ui/icons/Close';
@@ -183,7 +184,19 @@ const Post = ({ post }) => {
                 className={classes.media}
                 image={post.imageUrl}
                 title="Image Title"
-            />
+            >
+                {post.uid === currentUserId ? (
+                    <Tooltip title="Delete">
+                        <IconButton
+                            aria-label="delete this post"
+                            onClick={handleDeletePost}
+                            className="post__actions-delete"
+                        >
+                            <RemoveCircleOutlineIcon color="primary" />
+                        </IconButton>
+                    </Tooltip>
+                ) : null}
+            </CardMedia>
             <CardContent>
                 <Typography
                     className={classes.post__content}
@@ -224,17 +237,6 @@ const Post = ({ post }) => {
                         </IconButton>
                     </Tooltip>
                 )}
-                {post.uid === currentUserId ? (
-                    <Tooltip title="Delete">
-                        <IconButton
-                            aria-label="delete this post"
-                            onClick={handleDeletePost}
-                            className="post__actions-delete"
-                        >
-                            <DeleteForeverIcon color="secondary" />
-                        </IconButton>
-                    </Tooltip>
-                ) : null}
                 <Tooltip title="Show/Hide">
                     <div className="post__actions-comments">
                         <IconButton

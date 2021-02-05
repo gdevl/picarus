@@ -280,9 +280,12 @@ input[type="file"] {
 }
 
 .post__actions {
-    display: grid;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    /* display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-areas: "l . . d . . c";
+    grid-template-areas: "l . . . . . c"; */
 }
 
 .post__actions-like {
@@ -290,7 +293,11 @@ input[type="file"] {
 }
 
 .post__actions-delete {
-    grid-area: d;
+    background-color: rgba(0, 0, 0, 1) !important;
+    background-clip: content-box;
+    position: relative !important;
+    bottom: 315px;
+    left: 140px;
 }
 
 .post__actions-comments {
