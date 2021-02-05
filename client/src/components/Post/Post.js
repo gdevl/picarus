@@ -213,7 +213,7 @@ const Post = ({ post }) => {
             {/* <CardActions className="post__actions" disableSpacing> */}
             <div className="post__actions">
                 {userLikes.includes(post.id) ? (
-                    <Tooltip title="Unlike">
+                    <Tooltip title="Remove Like">
                         <IconButton
                             aria-label="you like this post"
                             onClick={handlePostUnlike}
@@ -226,7 +226,7 @@ const Post = ({ post }) => {
                         </IconButton>
                     </Tooltip>
                 ) : (
-                    <Tooltip title="Like">
+                    <Tooltip title="Like Post">
                         <IconButton
                             aria-label="like this post"
                             onClick={handlePostLike}
@@ -239,7 +239,7 @@ const Post = ({ post }) => {
                         </IconButton>
                     </Tooltip>
                 )}
-                <Tooltip title="Show/Hide">
+                <Tooltip title="Show/Hide Comments">
                     <div className="post__actions-comments">
                         <IconButton
                             className={clsx(
