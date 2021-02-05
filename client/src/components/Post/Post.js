@@ -185,7 +185,7 @@ const Post = ({ post }) => {
             <CardMedia
                 className={classes.media}
                 image={post.imageUrl}
-                title="Image Title"
+                title={post.caption}
             >
                 {post.uid === currentUserId ? (
                     <Tooltip title="Delete">
