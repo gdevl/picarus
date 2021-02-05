@@ -28,6 +28,7 @@ const Navigation = ({ currentUserId, ids }) => {
     // Add post form toggle defs
     const [image, setImage] = useState(null);
     const [postContent, setPostContent] = useState('');
+    const [captionContent, setCaptionContent] = useState('');
     const [postImageUrl, setPostImageUrl] = useState('');
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -39,6 +40,7 @@ const Navigation = ({ currentUserId, ids }) => {
         postData.append('file', image);
         postData.append('uid', currentUserId);
         postData.append('content', postContent);
+        postData.append('caption', captionContent);
 
         await dispatch(createPost(postData));
         dispatch(setCurrentPost(Number(ids[ids.length - 1])));
@@ -51,6 +53,10 @@ const Navigation = ({ currentUserId, ids }) => {
 
     const updatePostContent = (e) => {
         setPostContent(e.target.value);
+    };
+
+    const updateCaptionContent = (e) => {
+        setCaptionContent(e.target.value);
     };
 
     const updatePostImageUrl = (e) => {
@@ -87,6 +93,17 @@ const Navigation = ({ currentUserId, ids }) => {
                             autoComplete="off"
                         >
                             <textarea
+                                className="add_post_content pad-my-bottom"
+                                name="add_caption_content"
+                                id="add_caption_content"
+                                placeholder="Add a caption ..."
+                                value={captionContent}
+                                onChange={updateCaptionContent}
+                                onFocus={handleInputFocus}
+                                rows="1"
+                                cols="33"
+                            />
+                            <textarea
                                 className="add_post_content"
                                 name="add_post_content"
                                 id="add_post_content"
@@ -97,6 +114,7 @@ const Navigation = ({ currentUserId, ids }) => {
                                 rows="5"
                                 cols="33"
                             />
+
                             <div className="add_post_actions">
                                 <UploadImage
                                     image={image}

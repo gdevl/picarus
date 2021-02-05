@@ -279,6 +279,10 @@ input[type="file"] {
   margin: 0;
 }
 
+.pad-my-bottom {
+    margin-bottom: 1rem;
+}
+
 .post__actions {
     display: flex;
     flex-flow: row nowrap;

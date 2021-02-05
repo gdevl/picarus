@@ -49,8 +49,13 @@ router.post(
         const uploadedImage = await promise;
         const url = uploadedImage.Location;
 
-        const { uid, content } = req.body;
-        const post = await Post.create({ uid, content, imageUrl: url });
+        const { uid, content, caption } = req.body;
+        const post = await Post.create({
+            uid,
+            caption,
+            content,
+            imageUrl: url,
+        });
 
         const newPost = await Post.findByPk(post.id, {
             include: {
