@@ -5,6 +5,7 @@ import {
     SET_FOLLOWS,
     SET_MY_POSTS,
     ADD_MY_POST,
+    ADD_FOLLOW,
 } from '../actions/authentication';
 
 const initialState = {
@@ -52,6 +53,13 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 myPosts: [...nextPosts],
+            };
+        case ADD_FOLLOW:
+            let nextFollows = [...state.follows];
+            nextFollows.push(action.follow.uid);
+            return {
+                ...state,
+                follows: [...nextFollows],
             };
         default:
             return state;

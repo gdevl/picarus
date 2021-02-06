@@ -20,12 +20,7 @@ router.post(
         const { uid, fid } = req.body;
         const follow = await Follow.create({ uid, fid });
 
-        const newFollow = await Follow.findByPk(follow.id, {
-            include: {
-                model: User,
-                attributes: ['displayName'],
-            },
-        });
+        const newFollow = await Follow.findByPk(follow.id);
 
         if (newFollow) {
             return res.json(newFollow);

@@ -39,6 +39,8 @@ import {
     deletePost,
 } from '../../store/actions/posts';
 
+import { followUser } from '../../store/actions/authentication';
+
 const useStyles = makeStyles((theme) => ({
     post__container: {
         backgroundColor: '#222',
@@ -168,8 +170,14 @@ const Post = ({ post }) => {
         await dispatch(deletePostLike(postLike));
     };
 
-    const handleFollowUser = () => {
-        alert(`You want to follow this user`);
+    const handleFollowUser = async (e) => {
+        e.preventDefault();
+        const followData = {
+            uid: post.uid,
+            fid: currentUserId,
+        };
+
+        await dispatch(followUser(followData));
     };
 
     const handleUnfollowUser = () => {
