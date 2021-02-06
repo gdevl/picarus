@@ -68,37 +68,41 @@ const Posts = ({ posts, scope, view }) => {
         <Container className={classes.cardGrid} maxWidth="md">
             <Grid container spacing={4} justify="center" align="center">
                 <div className="main__container_detail_row">
-                    <div id="main__container_detail_row_prev_post">
-                        <Tooltip title="Previous">
-                            <IconButton
-                                color="primary"
-                                className="main__appbar_icons"
-                                aria-label="previous post"
-                                data-tooltip="previous post"
-                                component="span"
-                                onClick={handlePreviousPost}
-                            >
-                                <NavigateBeforeIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </div>
+                    {scope.length > 1 ? (
+                        <div id="main__container_detail_row_prev_post">
+                            <Tooltip title="Previous">
+                                <IconButton
+                                    color="primary"
+                                    className="main__appbar_icons"
+                                    aria-label="previous post"
+                                    data-tooltip="previous post"
+                                    component="span"
+                                    onClick={handlePreviousPost}
+                                >
+                                    <NavigateBeforeIcon />
+                                </IconButton>
+                            </Tooltip>
+                        </div>
+                    ) : null}
                     <div className="main__container_detail_row_text">
                         {view}
                     </div>
                     {/* <div className="main__container_detail_row_text">{`${currentUserDisplayName}'s Feed`}</div> */}
-                    <div id="main__container_detail_row_next_post">
-                        <Tooltip title="Next">
-                            <IconButton
-                                color="primary"
-                                className="main__appbar_icons"
-                                aria-label="upload picture"
-                                component="span"
-                                onClick={handleNextPost}
-                            >
-                                <NavigateNextIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </div>
+                    {scope.length > 1 ? (
+                        <div id="main__container_detail_row_next_post">
+                            <Tooltip title="Next">
+                                <IconButton
+                                    color="primary"
+                                    className="main__appbar_icons"
+                                    aria-label="upload picture"
+                                    component="span"
+                                    onClick={handleNextPost}
+                                >
+                                    <NavigateNextIcon />
+                                </IconButton>
+                            </Tooltip>
+                        </div>
+                    ) : null}
                 </div>
                 <Grid item xs={12}>
                     {thePost ? (
