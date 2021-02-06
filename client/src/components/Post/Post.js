@@ -21,7 +21,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import SendIcon from '@material-ui/icons/Send';
 import CloseIcon from '@material-ui/icons/Close';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -94,6 +95,7 @@ const Post = ({ post }) => {
     const dispatch = useDispatch();
     const currentUserId = useSelector((state) => state.authentication.user.id);
     const currentPostId = useSelector((state) => state.posts.currentPostId);
+    const follows = useSelector((state) => state.authentication.follows);
     const [expanded, setExpanded] = useState(false);
     const [commentText, setCommentText] = useState('');
 
@@ -166,6 +168,14 @@ const Post = ({ post }) => {
         await dispatch(deletePostLike(postLike));
     };
 
+    const handleFollowUser = () => {
+        alert(`You want to follow this user`);
+    };
+
+    const handleUnfollowUser = () => {
+        alert(`You want to stop following this user`);
+    };
+
     const updateCommentText = (e) => {
         setCommentText(e.target.value);
     };
@@ -197,7 +207,31 @@ const Post = ({ post }) => {
                             <RemoveCircleOutlineIcon color="primary" />
                         </IconButton>
                     </Tooltip>
-                ) : null}
+                ) : (
+                    <>
+                        {follows.includes(post.uid) ? (
+                            <Tooltip title="Stop Following">
+                                <IconButton
+                                    aria-label="Stop following this user"
+                                    onClick={handleUnfollowUser}
+                                    className="post__actions-unfollow"
+                                >
+                                    <CheckCircleIcon color="secondary" />
+                                </IconButton>
+                            </Tooltip>
+                        ) : (
+                            <Tooltip title="Follow This User">
+                                <IconButton
+                                    aria-label="Follow this user"
+                                    onClick={handleFollowUser}
+                                    className="post__actions-follow"
+                                >
+                                    <AddCircleIcon color="secondary" />
+                                </IconButton>
+                            </Tooltip>
+                        )}
+                    </>
+                )}
             </CardMedia>
             <CardContent>
                 <Typography

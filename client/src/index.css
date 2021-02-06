@@ -331,6 +331,16 @@ input[type="file"] {
     left: 140px;
 }
 
+.post__actions-follow,
+.post__actions-unfollow
+{
+    background-color: rgba(0, 0, 0, 1) !important;
+    background-clip: content-box;
+    position: relative !important;
+    bottom: 315px;
+    right: 140px;
+}
+
 .post__actions-comments {
     grid-area: c;
 }
