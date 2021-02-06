@@ -20,6 +20,13 @@ module.exports = {
                     caption: `Thermal Limit`,
                 }),
                 r({
+                    uid: 1,
+                    content: `I haven't determined if our phaser energy can generate a stable field. We could alter the photons with phase discriminators.`,
+                    imageUrl:
+                        'https://picarus.s3.amazonaws.com/1612577458879nature-landscape_BBGO9LC6IZ.jpg',
+                    caption: `Stable Field`,
+                }),
+                r({
                     uid: 2,
                     content:
                         "Sensors indicate human life forms 30 meters below the planet's surface. Stellar flares are increasing in magnitude and frequency. Set course for Rhomboid Dronegar 006, warp seven.",
