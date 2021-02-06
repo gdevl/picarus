@@ -4,6 +4,7 @@ import {
     ADD_USER,
     SET_FOLLOWS,
     SET_MY_POSTS,
+    ADD_MY_POST,
 } from '../actions/authentication';
 
 const initialState = {
@@ -44,6 +45,13 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 myPosts: [...action.myPosts],
+            };
+        case ADD_MY_POST:
+            let nextPosts = [...state.myPosts];
+            nextPosts.push(action.myPost.id);
+            return {
+                ...state,
+                myPosts: [...nextPosts],
             };
         default:
             return state;

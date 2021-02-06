@@ -11,6 +11,7 @@ import { fetchFollows, fetchMyPosts } from '../../store/actions/authentication';
 
 const Main = () => {
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
     const [view, setView] = useState('public');
     const currentUserId = useSelector((state) => state.authentication.user.id);
     const token = useSelector((state) => state.authentication.token);
@@ -30,7 +31,6 @@ const Main = () => {
 
     useEffect(() => {
         dispatch(fetchPosts());
-        setScope(ids);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -39,6 +39,7 @@ const Main = () => {
         dispatch(fetchFollows(currentUserId));
         dispatch(fetchMyPosts(currentUserId));
         // eslint-disable-next-line react-hooks/exhaustive-deps
+        setLoading(false);
     }, [currentUserId]);
 
     useEffect(() => {
@@ -57,16 +58,26 @@ const Main = () => {
 
     return (
         <>
-            <Navigation currentUserId={currentUserId} ids={ids} />
-            <main className="main__container">
-                <ViewMenu view={view} setView={setView} />
-                <Posts
-                    posts={posts}
-                    scope={scope.length ? scope : ids}
-                    view={view}
-                />
-            </main>
-            <Footer />
+            {!loading ? (
+                <>
+                    <Navigation currentUserId={currentUserId} ids={ids} />
+                    <main className="main__container">
+                        <ViewMenu view={view} setView={setView} />
+                        {ids.length ? (
+                            <Posts
+                                posts={posts}
+                                scope={scope.length ? scope : ids}
+                                view={view}
+                            />
+                        ) : (
+                            <p>Loading...</p>
+                        )}
+                    </main>
+                    <Footer />
+                </>
+            ) : (
+                <p>Loading</p>
+            )}
         </>
     );
 };
