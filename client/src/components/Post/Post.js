@@ -39,7 +39,7 @@ import {
     deletePost,
 } from '../../store/actions/posts';
 
-import { followUser } from '../../store/actions/authentication';
+import { followUser, unfollowUser } from '../../store/actions/authentication';
 
 const useStyles = makeStyles((theme) => ({
     post__container: {
@@ -180,8 +180,14 @@ const Post = ({ post }) => {
         await dispatch(followUser(followData));
     };
 
-    const handleUnfollowUser = () => {
-        alert(`You want to stop following this user`);
+    const handleUnfollowUser = async (e) => {
+        e.preventDefault();
+        const unfollowData = {
+            userId: post.uid,
+            followerId: currentUserId,
+        };
+
+        await dispatch(unfollowUser(unfollowData));
     };
 
     const updateCommentText = (e) => {

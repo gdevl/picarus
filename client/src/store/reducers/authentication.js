@@ -6,6 +6,7 @@ import {
     SET_MY_POSTS,
     ADD_MY_POST,
     ADD_FOLLOW,
+    REMOVE_FOLLOW,
 } from '../actions/authentication';
 
 const initialState = {
@@ -60,6 +61,15 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 follows: [...nextFollows],
+            };
+        case REMOVE_FOLLOW:
+            let prevFollows = [...state.follows];
+            let newFollows = prevFollows.filter(
+                (follow) => follow !== action.follow.uid
+            );
+            return {
+                ...state,
+                follows: [...newFollows],
             };
         default:
             return state;

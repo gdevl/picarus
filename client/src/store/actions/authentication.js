@@ -7,6 +7,7 @@ export const SET_FOLLOWS = 'picarus/authentication/SET_FOLLOWS';
 export const SET_MY_POSTS = 'picarus/authentication/SET_MY_POSTS';
 export const ADD_MY_POST = 'picarus/authentication/ADD_MY_POST';
 export const ADD_FOLLOW = 'picarus/authentication/ADD_FOLLOW';
+export const REMOVE_FOLLOW = 'picarus/authentication/REMOVE_FOLLOW';
 
 export const addUser = (user) => ({ type: ADD_USER, user });
 export const removeToken = () => ({ type: REMOVE_TOKEN });
@@ -21,6 +22,7 @@ export const setFollows = (follows) => ({ type: SET_FOLLOWS, follows });
 export const setMyPosts = (myPosts) => ({ type: SET_MY_POSTS, myPosts });
 export const addMyPost = (myPost) => ({ type: ADD_MY_POST, myPost });
 export const addFollow = (follow) => ({ type: ADD_FOLLOW, follow });
+export const removeFollow = (follow) => ({ type: REMOVE_FOLLOW, follow });
 
 export const loadToken = () => async (dispatch) => {
     const token = window.localStorage.getItem(TOKEN_KEY);
@@ -105,5 +107,18 @@ export const followUser = (followData) => async (dispatch) => {
     if (request.ok) {
         const follow = await request.json();
         dispatch(addFollow(follow));
+    }
+};
+
+export const unfollowUser = (unfollowData) => async (dispatch) => {
+    const { userId, followerId } = unfollowData;
+    const request = await fetch(`${backendUrl}/api/follows`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, followerId }),
+    });
+    if (request.ok) {
+        const follow = await request.json();
+        dispatch(removeFollow(follow));
     }
 };
