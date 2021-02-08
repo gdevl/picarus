@@ -1,5 +1,4 @@
-// give Posts the set of data to display (following posts, my posts, public posts)
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,12 +8,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import Tooltip from '@material-ui/core/Tooltip';
 import Post from '../Post/Post';
-import {
-    createPost,
-    fetchPosts,
-    setCurrentPost,
-} from '../../store/actions/posts';
-// import useFetchPostData from './useFetchPostData';
+import { setCurrentPost } from '../../store/actions/posts';
 
 const useStyles = makeStyles((theme) => ({
     cardGrid: {
@@ -27,9 +21,6 @@ const Posts = ({ posts, scope, view }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const currentPostId = useSelector((state) => state.posts.currentPostId);
-    const currentUserDisplayName = useSelector(
-        (state) => state.authentication.user.displayName
-    );
     const postIndex = useRef(null);
 
     const handleNextPost = () => {
@@ -49,7 +40,6 @@ const Posts = ({ posts, scope, view }) => {
         }
         dispatch(setCurrentPost(scope[postIndex.current]));
     };
-    // const { posts, myposts, followingposts } = useFetchPostData(userId, view);
 
     useEffect(() => {
         postIndex.current = scope.length - 1;
@@ -87,7 +77,6 @@ const Posts = ({ posts, scope, view }) => {
                     <div className="main__container_detail_row_text">
                         {view}
                     </div>
-                    {/* <div className="main__container_detail_row_text">{`${currentUserDisplayName}'s Feed`}</div> */}
                     {scope.length > 1 ? (
                         <div id="main__container_detail_row_next_post">
                             <Tooltip title="Next">
@@ -107,7 +96,9 @@ const Posts = ({ posts, scope, view }) => {
                 <Grid item xs={12}>
                     {thePost ? (
                         <Post key={`post ${thePost.id}`} post={thePost} />
-                    ) : null}
+                    ) : (
+                        <p>Loading...</p>
+                    )}
                 </Grid>
             </Grid>
         </Container>
