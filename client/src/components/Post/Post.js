@@ -1,8 +1,10 @@
 import React from 'react';
+import { Animated } from 'react-animated-css';
 import { useDispatch, useSelector } from 'react-redux';
+import { withStyles } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
+import MuiCardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -11,6 +13,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FollowActions from './FollowActions';
 import PostActions from './PostActions';
 import { deletePost } from '../../store/actions/posts';
+
+const CardMedia = withStyles({
+    root: {
+        '&[title]': {
+            textTransform: 'uppercase',
+        },
+    },
+})(MuiCardMedia);
 
 const useStyles = makeStyles((theme) => ({
     post__container: {
@@ -25,7 +35,11 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '4px',
         height: 0,
         paddingTop: '100%', // 16:9
+        '&:hover': {
+            content: 'red',
+        },
     },
+
     post__author: {
         color: '#61AFEF',
         display: 'inline !important',
@@ -56,51 +70,74 @@ const Post = ({ post }) => {
 
     return (
         <Card className={classes.post__container}>
-            <div className="post__header">
-                <p className="post__author">
-                    {post.uid === currentUserId ? `you` : post.User.displayName}
-                </p>
-                <p className="post__creation">{`(${post.createdAt})`}</p>
-            </div>
-            <CardMedia
-                className={classes.media}
-                image={post.imageUrl}
-                title={post.caption}
+            <Animated
+                animationIn="fadeIn"
+                animationOut="fadeOut"
+                isVisible={true}
             >
-                {post.uid === currentUserId ? (
-                    <Tooltip title="Delete">
-                        <IconButton
-                            aria-label="delete this post"
-                            onClick={handleDeletePost}
-                            className="post__actions-delete"
-                        >
-                            <RemoveCircleOutlineIcon color="primary" />
-                        </IconButton>
-                    </Tooltip>
-                ) : (
-                    <FollowActions
-                        currentUserId={currentUserId}
-                        post={post}
-                        follows={follows}
-                    />
-                )}
-            </CardMedia>
+                <div className="post__header">
+                    <p className="post__author">
+                        {post.uid === currentUserId
+                            ? `you`
+                            : post.User.displayName}
+                    </p>
+                    <p className="post__creation">{`(${post.createdAt})`}</p>
+                </div>
+            </Animated>
+            <Animated
+                animationIn="fadeIn"
+                animationOut="fadeOut"
+                isVisible={true}
+            >
+                <CardMedia className={classes.media} image={post.imageUrl}>
+                    {post.uid === currentUserId ? (
+                        <Tooltip title="Delete">
+                            <IconButton
+                                aria-label="delete this post"
+                                onClick={handleDeletePost}
+                                className="post__actions-delete"
+                            >
+                                <RemoveCircleOutlineIcon color="primary" />
+                            </IconButton>
+                        </Tooltip>
+                    ) : (
+                        <FollowActions
+                            currentUserId={currentUserId}
+                            post={post}
+                            follows={follows}
+                        />
+                    )}
+                    <p className="image__caption">{post.caption}</p>
+                </CardMedia>
+            </Animated>
             <CardContent>
-                <Typography
-                    className={classes.post__content}
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                    align="left"
+                <Animated
+                    animationIn="fadeIn"
+                    animationOut="fadeOut"
+                    isVisible={true}
                 >
-                    {post.content}
-                </Typography>
+                    <Typography
+                        className={classes.post__content}
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                        align="left"
+                    >
+                        {post.content}
+                    </Typography>
+                </Animated>
             </CardContent>
-            <PostActions
-                post={post}
-                currentPostId={currentPostId}
-                currentUserId={currentUserId}
-            />
+            <Animated
+                animationIn="fadeIn"
+                animationOut="fadeOut"
+                isVisible={true}
+            >
+                <PostActions
+                    post={post}
+                    currentPostId={currentPostId}
+                    currentUserId={currentUserId}
+                />
+            </Animated>
         </Card>
     );
 };
