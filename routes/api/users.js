@@ -117,6 +117,64 @@ router.get(
     })
 );
 
+// get the postIds of users I'm following
+router.get(
+    '/:id/following/posts',
+    asyncErrorHandler(async (req, res, next) => {
+        const userId = parseInt(req.params.id);
+        const user = await User.findByPk(userId);
+        const { id, displayName, email } = user;
+
+        if (!user) {
+            const err = new Error('No User Found');
+            err.status = 404;
+            err.title = 'Invalid User';
+            err.errors = ['User does not exist'];
+            return next(err);
+        }
+
+        const usersBeingFollowed = await Follow.findAll({
+            where: {
+                fid: id,
+            },
+        });
+
+        if (!usersBeingFollowed) {
+            const err = new Error('None Found');
+            err.status = 404;
+            err.title = 'Invalid Request';
+            err.errors = [`It seems like you're not following anyone yet`];
+            return next(err);
+        }
+
+        let following = [];
+
+        usersBeingFollowed.forEach((follow) => {
+            if (follow.uid !== userId) {
+                following.push(follow.uid);
+            }
+        });
+
+        const posts = await Post.findAll({
+            where: {
+                uid: {
+                    [Op.in]: following,
+                },
+            },
+        });
+
+        let followingPosts = [];
+
+        posts.forEach((post) => {
+            if (following.includes(post.uid)) {
+                followingPosts.push(post.id);
+            }
+        });
+
+        res.json(followingPosts);
+    })
+);
+
 // get ids of users the current user is following
 router.get(
     '/:id/following',
@@ -150,7 +208,7 @@ router.get(
         let following = [];
 
         usersBeingFollowed.forEach((follow) => {
-            if (follow.uid !== id) {
+            if (follow.uid !== userId) {
                 following.push(follow.uid);
             }
         });

@@ -7,7 +7,11 @@ import Posts from '../Posts/Posts';
 import ViewMenu from '../Posts/ViewMenu';
 
 import { fetchPosts } from '../../store/actions/posts';
-import { fetchFollows, fetchMyPosts } from '../../store/actions/authentication';
+import {
+    fetchFollows,
+    fetchFollowingPosts,
+    fetchMyPosts,
+} from '../../store/actions/authentication';
 
 const Main = () => {
     const dispatch = useDispatch();
@@ -25,6 +29,9 @@ const Main = () => {
     // if view === public, use ids
     // if view === me, use me
     const follows = useSelector((state) => state.authentication.follows);
+    const followingPosts = useSelector(
+        (state) => state.authentication.followingPosts
+    );
     const myPosts = useSelector((state) => state.authentication.myPosts);
     const ids = useSelector((state) => state.posts.ids);
     const [scope, setScope] = useState([]);
@@ -37,6 +44,7 @@ const Main = () => {
     useEffect(() => {
         if (!currentUserId) return;
         dispatch(fetchFollows(currentUserId));
+        dispatch(fetchFollowingPosts(currentUserId));
         dispatch(fetchMyPosts(currentUserId));
         // eslint-disable-next-line react-hooks/exhaustive-deps
         setLoading(false);
@@ -44,7 +52,7 @@ const Main = () => {
 
     useEffect(() => {
         if (view === 'following') {
-            setScope(follows);
+            setScope(followingPosts);
         } else if (view === 'me') {
             setScope(myPosts);
         } else {

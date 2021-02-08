@@ -7,6 +7,7 @@ import {
     ADD_MY_POST,
     ADD_FOLLOW,
     REMOVE_FOLLOW,
+    SET_FOLLOWING_POSTS,
 } from '../actions/authentication';
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
         email: '',
     },
     follows: [],
+    followingPosts: [],
     myPosts: [],
 };
 
@@ -70,6 +72,11 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 follows: [...newFollows],
+            };
+        case SET_FOLLOWING_POSTS:
+            return {
+                ...state,
+                followingPosts: [...action.followingPosts],
             };
         default:
             return state;

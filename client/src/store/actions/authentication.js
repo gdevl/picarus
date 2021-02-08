@@ -8,6 +8,7 @@ export const SET_MY_POSTS = 'picarus/authentication/SET_MY_POSTS';
 export const ADD_MY_POST = 'picarus/authentication/ADD_MY_POST';
 export const ADD_FOLLOW = 'picarus/authentication/ADD_FOLLOW';
 export const REMOVE_FOLLOW = 'picarus/authentication/REMOVE_FOLLOW';
+export const SET_FOLLOWING_POSTS = 'picarus/authentication/SET_FOLLOWING_POSTS';
 
 export const addUser = (user) => ({ type: ADD_USER, user });
 export const removeToken = () => ({ type: REMOVE_TOKEN });
@@ -23,6 +24,10 @@ export const setMyPosts = (myPosts) => ({ type: SET_MY_POSTS, myPosts });
 export const addMyPost = (myPost) => ({ type: ADD_MY_POST, myPost });
 export const addFollow = (follow) => ({ type: ADD_FOLLOW, follow });
 export const removeFollow = (follow) => ({ type: REMOVE_FOLLOW, follow });
+export const setFollowingPosts = (followingPosts) => ({
+    type: SET_FOLLOWING_POSTS,
+    followingPosts,
+});
 
 export const loadToken = () => async (dispatch) => {
     const token = window.localStorage.getItem(TOKEN_KEY);
@@ -107,6 +112,19 @@ export const followUser = (followData) => async (dispatch) => {
     if (request.ok) {
         const follow = await request.json();
         dispatch(addFollow(follow));
+    }
+};
+
+export const fetchFollowingPosts = (userId) => async (dispatch) => {
+    const request = await fetch(
+        `${backendUrl}/api/users/${userId}/following/posts`,
+        {
+            headers: { 'Content-Type': 'application/json' },
+        }
+    );
+    if (request.ok) {
+        const followingPosts = await request.json();
+        dispatch(setFollowingPosts(followingPosts));
     }
 };
 
