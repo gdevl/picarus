@@ -7,7 +7,7 @@ const path = require('path');
 const logger = require('morgan');
 const csurf = require('csurf');
 const routes = require('./routes');
-const environment = require('./config');
+const { environment } = require('./config');
 let isProduction = environment === 'production';
 
 const app = express();
